@@ -18,6 +18,7 @@
 | 土台のイメージ | `osrf/ros:humble-desktop@sha256:fb07245b32187d74350be25323d8ad2f8ca5c25c325759911a1eff2267a49c1e` |
 | CRANE+ V2（rt-net/crane_plus, humble） | `87486bb21abbdcba05aba4e06e377dae95d4b5ff`（2024-12-03） |
 | pymoveit2（AndrejOrsula/pymoveit2） | `33314af864f86403e33f33d0c47e0c303e81630b`（2026-10-10） |
+| Gemini（理解ノード） | `gemini-3.5-flash-lite`（2026-10-15 に確認。無料枠：1分15回・1日500回） |
 
 rosdep・apt で入れる部品（MoveIt 2 など）は、配布元が最新版のみを置いているため固定していない。
 
