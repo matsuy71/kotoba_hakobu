@@ -12,6 +12,15 @@
 - Windows 11 ＋ WSL2（Ubuntu 24.04）＋ Docker Desktop ＋ VS Code（Dev Containers）
 - 開発コンテナ：`.devcontainer/Dockerfile`（ROS 2 Humble、Gazebo、MoveIt 2、CRANE+ V2、pymoveit2）
 
+## 動作を確かめた版（2026-10-15 時点）
+| 部品 | 版 |
+|---|---|
+| 土台のイメージ | `osrf/ros:humble-desktop@sha256:fb07245b32187d74350be25323d8ad2f8ca5c25c325759911a1eff2267a49c1e` |
+| CRANE+ V2（rt-net/crane_plus, humble） | `87486bb21abbdcba05aba4e06e377dae95d4b5ff`（2024-12-03） |
+| pymoveit2（AndrejOrsula/pymoveit2） | `33314af864f86403e33f33d0c47e0c303e81630b`（2026-10-10） |
+
+rosdep・apt で入れる部品（MoveIt 2 など）は、配布元が最新版のみを置いているため固定していない。
+
 ## 動かし方（試運転）
 1. VS Code でこのフォルダを開き、「開発コンテナー: コンテナーで再度開く」を実行する
 2. 端末1：`ros2 launch crane_plus_gazebo crane_plus_with_table.launch.py`
