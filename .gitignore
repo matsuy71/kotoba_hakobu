@@ -1,0 +1,17 @@
+# ===== colcon のビルドで作られるもの（いつでも作り直せる） =====
+build/
+install/
+log/
+
+# ===== Python が自動で作る一時ファイル =====
+__pycache__/
+*.pyc
+
+# ===== 秘密情報（APIキーなど）。絶対に上げない =====
+.env
+
+# ===== Claude Code の自分専用の設定 =====
+.claude/settings.local.json
+
+# ===== Claude Code への指示書（手元だけで使う） =====
+CLAUDE.md
