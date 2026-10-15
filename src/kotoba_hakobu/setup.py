@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'try_joint_goal = kotoba_hakobu.try_joint_goal:main',
+            'try_pose_goal = kotoba_hakobu.try_pose_goal:main',            
         ],
     },
 )
