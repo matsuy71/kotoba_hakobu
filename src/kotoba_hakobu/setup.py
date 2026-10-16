@@ -31,6 +31,7 @@ setup(
             'try_grasp = kotoba_hakobu.try_grasp:main',
             'try_serve = kotoba_hakobu.try_serve:main',
             'bowl_locator = kotoba_hakobu.bowl_locator:main',
+            'serve_server = kotoba_hakobu.serve_server:main',
         ],
     },
 )
