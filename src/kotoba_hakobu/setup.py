@@ -30,6 +30,7 @@ setup(
             'try_level_move = kotoba_hakobu.try_level_move:main',
             'try_grasp = kotoba_hakobu.try_grasp:main',
             'try_serve = kotoba_hakobu.try_serve:main',
+            'bowl_locator = kotoba_hakobu.bowl_locator:main',
         ],
     },
 )
