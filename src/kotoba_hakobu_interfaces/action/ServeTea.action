@@ -1,0 +1,16 @@
+# Goal: which bowl to serve, and to which seat
+string bowl        # "red" or "black"
+string seat        # "shokyaku", "jikyaku", or "sankyaku"
+---
+# Result
+bool success
+string message
+string failed_step
+float64 placement_error_m
+float64 max_tilt_deg
+float64 elapsed_sec
+---
+# Feedback
+string step
+int32 step_index
+int32 step_count
