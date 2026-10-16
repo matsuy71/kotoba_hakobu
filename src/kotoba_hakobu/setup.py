@@ -28,7 +28,8 @@ setup(
             'try_pose_goal = kotoba_hakobu.try_pose_goal:main',
             'check_reach = kotoba_hakobu.check_reach:main',
             'try_level_move = kotoba_hakobu.try_level_move:main',
-            'try_grasp = kotoba_hakobu.try_grasp:main',            
+            'try_grasp = kotoba_hakobu.try_grasp:main',
+            'try_serve = kotoba_hakobu.try_serve:main',
         ],
     },
 )
