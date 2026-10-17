@@ -20,10 +20,11 @@ from kotoba_hakobu.try_serve import (
     Z_ABOVE, Z_GRASP, Z_CARRY, Z_PLACE, wrist_for)
 
 # ===== 設定 =====
-BOWL_JA = {"red": "赤い", "black": "黒い"}
-SEATS = {"shokyaku": ("正客", (0.1966, 0.1377)),
-         "jikyaku": ("次客", (0.24, 0.0)),
-         "sankyaku": ("三客", (0.1966, -0.1377))}
+BOWL_JA = {"red": "赤楽のお茶碗", "black": "黒楽のお茶碗"}
+SEATS = {"shokyaku": ("お正客様", (0.1966, 0.1377)),
+         "jikyaku": ("お次客様", (0.24, 0.0)),
+         "sankyaku": ("お三客様", (0.1966, -0.1377))}
+HOLDING_NOTE = "お茶碗を持ったまま止まっております。シミュレータを起動し直してください。"
 STEP_COUNT = 14
 WRIST_MIN, WRIST_MAX = 0.06, 0.16   # 手首が届く範囲（土台からの距離、m）
 GRASP_EMPTY_DEG = 34.0              # 指がここまで閉じたら、何もはさめていない
@@ -34,7 +35,7 @@ TILT_LIMIT_DEG = 15.0               # 傾きの基準（度）
 
 
 class StepFailed(Exception):
-    """段階が失敗したことを知らせる例外。どの段階か（step）と、理由（message）を持つ。"""
+    """段階が失敗したことを知らせる例外。どの段階か（step）と、亭主に伝える言葉（message）を持つ。"""
 
     def __init__(self, step, message):
         super().__init__(message)
@@ -74,7 +75,7 @@ class ServeTeaServer(Node):
         """腕を動かす。失敗したら StepFailed を投げる。measure=True なら、その間の最大の傾きを返す。"""
         ok, tilt = move(self, self.arm, position, cartesian, self.monitor if measure else None)
         if not ok:
-            raise StepFailed(step, f"「{step}」の動きに失敗しました")
+            raise StepFailed(step, f"腕の動き（{step}）がうまくいきませんでした。")
         return tilt or 0.0
 
     def execute(self, goal_handle):
@@ -87,22 +88,25 @@ class ServeTeaServer(Node):
         try:
             # ----- 動く前の確かめ（問題があれば、腕を動かさずに断る） -----
             if goal.bowl not in BOWL_JA or goal.seat not in SEATS:
-                raise StepFailed("注文の確かめ", f"茶碗「{goal.bowl}」または席「{goal.seat}」が分かりません")
+                raise StepFailed("注文の確かめ", f"お茶碗「{goal.bowl}」またはお席「{goal.seat}」が分かりません。")
+            bowl_ja = BOWL_JA[goal.bowl]
             seat_ja, (seat_x, seat_y) = SEATS[goal.seat]
 
             self.report(goal_handle, 1, "茶碗の位置を読んでいます")
             bowl = self.locator.locate(goal.bowl)
             if bowl is None:
-                raise StepFailed("茶碗の位置を読む", "茶碗の位置が読めません")
+                raise StepFailed("茶碗の位置を読む", f"{bowl_ja}が見当たりません。")
             if bowl["tilt_deg"] > TILT_LIMIT_DEG or abs(bowl["z"] - 0.02) > 0.01:
-                raise StepFailed("茶碗の位置を読む", "茶碗が机の上に立っていません")
+                self.get_logger().warning(f"茶碗の高さ {bowl['z']:.3f}m・傾き {bowl['tilt_deg']:.1f}度")
+                raise StepFailed("茶碗の位置を読む", f"{bowl_ja}が、所定の場所にありません。")
 
             self.report(goal_handle, 2, "届くか確かめています")
             gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, AIM_LEFT)
             sx, sy, psi = wrist_for(seat_x, seat_y, HELD_FORWARD, HELD_LEFT)
-            for name, wx, wy in (("茶碗をつかむ", gx, gy), (f"{seat_ja}の席", sx, sy)):
+            for name, wx, wy in ((bowl_ja, gx, gy), (f"{seat_ja}のお席", sx, sy)):
                 if not WRIST_MIN <= math.hypot(wx, wy) <= WRIST_MAX:
-                    raise StepFailed("届くか確かめる", f"{name}に手が届きません")
+                    self.get_logger().warning(f"手首までの距離 {math.hypot(wx, wy):.3f}m")
+                    raise StepFailed("届くか確かめる", f"{name}に手が届きません。")
 
             self.report(goal_handle, 3, "席があいているか確かめています")
             for other in BOWL_JA:
@@ -110,7 +114,7 @@ class ServeTeaServer(Node):
                     continue
                 o = self.locator.locate(other)
                 if o and math.hypot(o["x"] - seat_x, o["y"] - seat_y) < SEAT_FREE_RADIUS:
-                    raise StepFailed("席があいているか確かめる", f"{seat_ja}の席には、もうお茶碗があります")
+                    raise StepFailed("席があいているか確かめる", f"{seat_ja}のお席には、もうお茶碗がございます。")
 
             # ----- つかむ（失敗したら止まる。茶碗はまだ持っていない） -----
             self.report(goal_handle, 4, "指を開いています")
@@ -124,7 +128,8 @@ class ServeTeaServer(Node):
             self.report(goal_handle, 8, "つかめたか確かめています")
             angle = hand_angle(self.gripper)
             if angle is None or angle >= GRASP_EMPTY_DEG:
-                raise StepFailed("つかめたか確かめる", f"茶碗をつかめませんでした（指の角度 {angle}）")
+                self.get_logger().warning(f"指の角度 {angle}")
+                raise StepFailed("つかめたか確かめる", f"{bowl_ja}をおつかみできませんでした。")
             holding = True
 
             # ----- 運ぶ（失敗したら、茶碗を持ったまま止まる） -----
@@ -133,7 +138,9 @@ class ServeTeaServer(Node):
             self.report(goal_handle, 10, "持ち上がったか確かめています")
             lifted = self.locator.locate(goal.bowl)
             if lifted is None or lifted["z"] < LIFT_MIN_Z:
-                raise StepFailed("持ち上がったか確かめる", "茶碗が持ち上がっていません")
+                if lifted:
+                    self.get_logger().warning(f"持ち上げた茶碗の高さ {lifted['z']:.3f}m")
+                raise StepFailed("持ち上がったか確かめる", "お茶碗が持ち上がっておりません。")
             w = math.hypot(gx, gy)
             tx, ty = w * math.cos(math.radians(psi)), w * math.sin(math.radians(psi))
             self.report(goal_handle, 11, f"{seat_ja}の方へ向きを変えています")
@@ -152,21 +159,21 @@ class ServeTeaServer(Node):
             self.arm.wait_until_executed()
             placed = self.locator.locate(goal.bowl)
             if placed is None:
-                raise StepFailed("置いた位置を確かめる", "置いた茶碗の位置が読めません")
+                raise StepFailed("置いた位置を確かめる", "置いたお茶碗の位置を確かめられません。")
             error = math.hypot(placed["x"] - seat_x, placed["y"] - seat_y)
             result.placement_error_m = error
             detail = f"ずれ {error * 1000:.1f}mm・運搬中の最大の傾き {max_tilt:.1f}度"
             if error <= PLACE_TOL_M and max_tilt <= TILT_LIMIT_DEG and placed["tilt_deg"] <= TILT_LIMIT_DEG:
                 result.success = True
-                result.message = f"{BOWL_JA[goal.bowl]}お茶碗を、{seat_ja}さまにお出ししました（{detail}）"
+                result.message = f"{bowl_ja}を、{seat_ja}にお出しいたしました（{detail}）。"
             else:
                 result.failed_step = "置いた位置を確かめる"
-                result.message = f"置きましたが、基準を超えました（{detail}）"
+                result.message = f"お出ししましたが、ずれか傾きが大きくなりました（{detail}）。お確かめください。"
 
         except StepFailed as failure:
             result.success = False
             result.failed_step = failure.step
-            result.message = failure.message + ("（茶碗を持ったまま止まっています）" if holding else "")
+            result.message = failure.message + (HOLDING_NOTE if holding else "")
 
         result.max_tilt_deg = max_tilt
         result.elapsed_sec = time.time() - start
