@@ -1,0 +1,1 @@
+{"time": "2026-10-17T11:08:04.448568", "text": "赤楽をお次客様へ", "understanding": {"bowl": "red", "seat": "jikyaku", "intent": "serve", "source": "llm", "model": "gemini-3.5-flash-lite", "seconds": 1.1352195739746094}, "replies": [], "confirm": "いいえ", "outcome": "取りやめ（確認で「はい」がなかった）"}

@@ -32,6 +32,7 @@ setup(
             'try_serve = kotoba_hakobu.try_serve:main',
             'bowl_locator = kotoba_hakobu.bowl_locator:main',
             'serve_server = kotoba_hakobu.serve_server:main',
+            'teishu_console = kotoba_hakobu.teishu_console:main',
         ],
     },
 )

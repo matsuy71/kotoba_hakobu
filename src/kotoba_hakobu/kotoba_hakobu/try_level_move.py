@@ -21,6 +21,7 @@ POSITION_TOLERANCE = 0.005
 ORIENTATION_TOLERANCE = 0.001
 PLANNING_TIME = 2.0           # 1回の計画に使ってよい時間（秒）
 PLAN_TRIES = 3                # 計画に失敗したら、やり直す回数
+RETRY_WAIT = 0.5          # 計画をやり直す前に待つ時間〔秒〕。腕が止まりきるのを待つ
 CARTESIAN_FRACTION = 0.99     # 直線の動きは、道すじの99%以上を行けたときだけ使う
 Z = 0.06                      # 手首の高さ（m）
 
@@ -73,6 +74,7 @@ def move(node, arm, position, cartesian=False, monitor=None):
         if trajectory is not None:
             break
         node.get_logger().warning(f"計画に失敗（{attempt}回目）: {position}")
+        time.sleep(RETRY_WAIT)
     else:
         node.get_logger().error(f"{PLAN_TRIES}回とも計画に失敗しました: {position}")
         return False, None
