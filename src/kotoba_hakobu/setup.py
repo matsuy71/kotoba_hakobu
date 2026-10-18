@@ -33,6 +33,8 @@ setup(
             'bowl_locator = kotoba_hakobu.bowl_locator:main',
             'serve_server = kotoba_hakobu.serve_server:main',
             'teishu_console = kotoba_hakobu.teishu_console:main',
+            'measure_color = kotoba_hakobu.measure_color:main',
+            'compare_locators = kotoba_hakobu.camera_locator:main',
         ],
     },
 )
