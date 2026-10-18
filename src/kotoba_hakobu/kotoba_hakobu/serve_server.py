@@ -11,6 +11,7 @@ from pymoveit2 import MoveIt2
 
 from kotoba_hakobu_interfaces.action import ServeTea
 from kotoba_hakobu.bowl_locator import TruePoseLocator
+from kotoba_hakobu.camera_locator import CameraLocator
 from kotoba_hakobu.try_grasp import hand_angle
 from kotoba_hakobu.try_level_move import TiltMonitor, move
 from kotoba_hakobu.try_pose_goal import set_gripper
@@ -60,7 +61,13 @@ class ServeTeaServer(Node):
             m.max_velocity = 0.3
             m.max_acceleration = 0.3
         self.monitor = TiltMonitor(self)
-        self.locator = TruePoseLocator()
+        self.declare_parameter("locator", "true")
+        locator_name = self.get_parameter("locator").value
+        if locator_name not in ("true", "camera"):
+            raise ValueError(f"locator は true か camera です（渡された値：{locator_name}）")
+        self.use_camera = locator_name == "camera"
+        self.locator = CameraLocator(self) if self.use_camera else TruePoseLocator()
+        self.get_logger().info(f"茶碗の位置の読み方：{'カメラ版' if self.use_camera else '真の値版'}")
         self.declare_parameter("grasp_empty_deg", GRASP_EMPTY_DEG)
         self.declare_parameter("lift_min_z", LIFT_MIN_Z)
         grasp_empty_deg = self.get_parameter("grasp_empty_deg").value
@@ -145,10 +152,19 @@ class ServeTeaServer(Node):
             self.report(goal_handle, 9, "まっすぐ持ち上げています")
             max_tilt = max(max_tilt, self.motion("持ち上げる", (gx, gy, Z_CARRY), True, True))
             self.report(goal_handle, 10, "持ち上がったか確かめています")
-            lifted = self.locator.locate(goal.bowl)
-            if lifted is None or lifted["z"] < lift_min_z:
-                if lifted:
+            if self.use_camera:
+                # カメラ版：持ち上げた茶碗は腕に隠れて見えないので、指が茶碗をはさんだままかで判断する
+                angle = hand_angle(self.gripper)
+                lifted_ok = angle is not None and angle < grasp_empty_deg
+                if not lifted_ok:
+                    self.get_logger().warning(f"持ち上げたあとの指の角度 {angle}")
+            else:
+                # 真の値版：茶碗の本当の高さで判断する
+                lifted = self.locator.locate(goal.bowl)
+                lifted_ok = lifted is not None and lifted["z"] >= lift_min_z
+                if lifted and not lifted_ok:
                     self.get_logger().warning(f"持ち上げた茶碗の高さ {lifted['z']:.3f}m")
+            if not lifted_ok:
                 raise StepFailed("持ち上がったか確かめる", "お茶碗が持ち上がっておりません。")
             w = math.hypot(gx, gy)
             tx, ty = w * math.cos(math.radians(psi)), w * math.sin(math.radians(psi))
