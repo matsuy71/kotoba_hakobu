@@ -74,6 +74,10 @@ class ServeTeaServer(Node):
         self.declare_parameter("scene", False)
         self.use_scene = bool(self.get_parameter("scene").value)
         self.get_logger().info(f"机と茶碗を MoveIt に教える：{'する' if self.use_scene else 'しない'}")
+        self.declare_parameter("z_pass", Z_PASS)
+        self.z_pass = float(self.get_parameter("z_pass").value)
+        if self.z_pass != Z_PASS:
+            self.get_logger().warning(f"向きを変えるときの手首の高さを変えて起動しています（z_pass={self.z_pass}）")
         self.declare_parameter("grasp_empty_deg", GRASP_EMPTY_DEG)
         self.declare_parameter("lift_min_z", LIFT_MIN_Z)
         grasp_empty_deg = self.get_parameter("grasp_empty_deg").value
@@ -196,9 +200,10 @@ class ServeTeaServer(Node):
             w = math.hypot(gx, gy)
             tx, ty = w * math.cos(math.radians(psi)), w * math.sin(math.radians(psi))
             self.report(goal_handle, 11, f"{seat_ja}の方へ向きを変えています（高いまま）")
-            max_tilt = max(max_tilt, self.motion("向きを変える", (tx, ty, Z_PASS), False, True))
+            max_tilt = max(max_tilt, self.motion("向きを変える", (tx, ty, self.z_pass), False, True))
             self.report(goal_handle, 12, "運ぶ高さまで下ろしています")
-            max_tilt = max(max_tilt, self.motion("運ぶ高さへ下ろす", (tx, ty, Z_CARRY), True, True))
+            if self.z_pass > Z_CARRY:
+                max_tilt = max(max_tilt, self.motion("運ぶ高さへ下ろす", (tx, ty, Z_CARRY), True, True))
             self.report(goal_handle, 13, "まっすぐ前へ出しています")
             max_tilt = max(max_tilt, self.motion("前へ出す", (sx, sy, Z_CARRY), True, True))
             self.report(goal_handle, 14, "まっすぐ下ろしています")
