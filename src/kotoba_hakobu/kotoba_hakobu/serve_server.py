@@ -26,13 +26,14 @@ SEATS = {"shokyaku": ("お正客様", (0.1966, 0.1377)),
          "jikyaku": ("お次客様", (0.24, 0.0)),
          "sankyaku": ("お三客様", (0.1966, -0.1377))}
 HOLDING_NOTE = "お茶碗を持ったまま止まっております。シミュレータを起動し直してください。"
-STEP_COUNT = 14
+STEP_COUNT = 15
 WRIST_MIN, WRIST_MAX = 0.06, 0.16   # 手首が届く範囲（土台からの距離、m）
 GRASP_EMPTY_DEG = 34.0              # 指がここまで閉じたら、何もはさめていない
 LIFT_MIN_Z = 0.04                   # 持ち上げた茶碗の中心は、机からこれより高いはず（m）
 SEAT_FREE_RADIUS = 0.06             # 席の中心からこの距離に茶碗があれば「あいていない」（m）
 PLACE_TOL_M = 0.02                  # 置いた位置のずれの基準（m）
 TILT_LIMIT_DEG = 15.0               # 傾きの基準（度）
+Z_PASS = 0.11                       # 向きを変えるときの手首の高さ（m）。持っている茶碗の底が8cmになり、机の上の茶碗（高さ4cm）の上を通れる
 
 
 class StepFailed(Exception):
@@ -149,7 +150,7 @@ class ServeTeaServer(Node):
             holding = True
 
             # ----- 運ぶ（失敗したら、茶碗を持ったまま止まる） -----
-            self.report(goal_handle, 9, "まっすぐ持ち上げています")
+            self.report(goal_handle, 9, "まっすぐ高く持ち上げています")
             max_tilt = max(max_tilt, self.motion("持ち上げる", (gx, gy, Z_CARRY), True, True))
             self.report(goal_handle, 10, "持ち上がったか確かめています")
             if self.use_camera:
@@ -168,15 +169,17 @@ class ServeTeaServer(Node):
                 raise StepFailed("持ち上がったか確かめる", "お茶碗が持ち上がっておりません。")
             w = math.hypot(gx, gy)
             tx, ty = w * math.cos(math.radians(psi)), w * math.sin(math.radians(psi))
-            self.report(goal_handle, 11, f"{seat_ja}の方へ向きを変えています")
-            max_tilt = max(max_tilt, self.motion("向きを変える", (tx, ty, Z_CARRY), False, True))
-            self.report(goal_handle, 12, "まっすぐ前へ出しています")
+            self.report(goal_handle, 11, f"{seat_ja}の方へ向きを変えています（高いまま）")
+            max_tilt = max(max_tilt, self.motion("向きを変える", (tx, ty, Z_PASS), False, True))
+            self.report(goal_handle, 12, "運ぶ高さまで下ろしています")
+            max_tilt = max(max_tilt, self.motion("運ぶ高さへ下ろす", (tx, ty, Z_CARRY), True, True))
+            self.report(goal_handle, 13, "まっすぐ前へ出しています")
             max_tilt = max(max_tilt, self.motion("前へ出す", (sx, sy, Z_CARRY), True, True))
-            self.report(goal_handle, 13, "まっすぐ下ろしています")
+            self.report(goal_handle, 14, "まっすぐ下ろしています")
             max_tilt = max(max_tilt, self.motion("置く", (sx, sy, Z_PLACE), True, True))
 
             # ----- 置いて、確かめる -----
-            self.report(goal_handle, 14, "指を開いて離れ、置いた位置を確かめています")
+            self.report(goal_handle, 15, "指を開いて離れ、置いた位置を確かめています")
             set_gripper(self, self.gripper, GRIPPER_OPEN_DEG)
             holding = False
             self.motion("離れる", (sx, sy, Z_ABOVE), True)
