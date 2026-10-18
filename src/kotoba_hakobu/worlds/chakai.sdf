@@ -20,7 +20,7 @@
 
     <!-- ===== 茶碗（直径6cm・高さ4cm・50g・摩擦0.9） ===== -->
     <model name="chawan_red">
-      <pose>0.1631 0.0761 1.04 0 0 0</pose>
+      <pose>-0.0453 -0.1690 1.04 0 0 0</pose>
       <link name="link">
         <inertial>
           <mass>0.05</mass>
@@ -38,7 +38,7 @@
     </model>
 
     <model name="chawan_black">
-      <pose>0.1631 -0.0761 1.04 0 0 0</pose>
+      <pose>0.0740 -0.1586 1.04 0 0 0</pose>
       <link name="link">
         <inertial>
           <mass>0.05</mass>
