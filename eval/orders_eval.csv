@@ -1,0 +1,16 @@
+id,text,intent,orders
+M01,赤楽のお茶碗をお正客様へお出しください。,serve,red>shokyaku
+M02,黒楽はお次客様へお願いいたします。,serve,black>jikyaku
+M03,赤楽をお正客様に、黒楽をお次客様にお運びください。,serve,red>shokyaku|black>jikyaku
+M04,お正客様とお三客様へお茶碗をお出し願います。,serve,?>shokyaku|?>sankyaku
+M05,赤楽と黒楽のお茶碗をお運びいただけますか。,serve,red>?|black>?
+M06,黒楽のお茶碗をお三客様へお出し願います。,serve,black>sankyaku
+M07,お次客様へ一服お出ししてください。,serve,?>jikyaku
+M08,赤楽をお次客様へ、黒楽をお三客様へお願いいたします。,serve,red>jikyaku|black>sankyaku
+M09,お正客様とお次客様にそれぞれ一碗ずつお出しください。,serve,?>shokyaku|?>jikyaku
+M10,黒楽と赤楽をそれぞれ一碗ずつお出し願います。,serve,black>?|red>?
+M11,赤楽のお茶碗でお三客様に一服差し上げてください。,serve,red>sankyaku
+M12,お三客様とお次客様へお茶碗をお運び願います。,serve,?>sankyaku|?>jikyaku
+M13,お茶碗を下げて水屋へお戻しください。,other,
+M14,お釜のお湯加減を見ていただけますか。,other,
+M15,お菓子をお正客様の前へお出しください。,other,
