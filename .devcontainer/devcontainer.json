@@ -12,7 +12,8 @@
   "mounts": [
     "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
     "source=/mnt/wslg,target=/mnt/wslg,type=bind",
-    "source=kotoba-claude-config,target=/home/dev/.claude,type=volume"
+    "source=kotoba-claude-config,target=/home/dev/.claude,type=volume",
+    "source=kotoba-secrets,target=/home/dev/.secrets,type=volume"
   ],
   "containerEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",

@@ -66,7 +66,7 @@
 ### 準備
 
 1. このリポジトリを VS Code の開発コンテナ（`.devcontainer`）で開きます。
-2. Gemini の API キーを、環境変数 `GEMINI_API_KEY` に入れます（キーはファイルやリポジトリに書かないでください）。
+2. Gemini の API キーを、コンテナの `~/.secrets/gemini_key` に `export GEMINI_API_KEY=（キー）` の1行で書き、`chmod 600` で本人だけが読めるようにします。`~/.secrets` はボリューム（`kotoba-secrets`）なので、コンテナを作り直しても消えません。端末を開くと自動で読み込まれます。キーはリポジトリに書かないでください。
 3. ビルドします。
 ```
    cd /workspace
@@ -167,7 +167,7 @@ python3 -m pytest src/kotoba_hakobu/test/test_logic.py -q
 | Gemini（読み取り） | `gemini-3.5-flash-lite`（2026-10-15 に確認。無料枠：1分15回・1日500回） |
 | Python・OpenCV・NumPy・matplotlib・pytest | 3.10.12・4.5.4・1.21.5・3.5.1・6.2.5 |
 
-rosdep・apt で入れる部品（MoveIt 2 など）は、配布元が最新版のみを置いているため固定していない。Dockerfile への版の書き込みは、準備中です。
+土台のイメージ・CRANE+・pymoveit2 の版は、`.devcontainer/Dockerfile` に書き込んである（2026-10-18）。rosdep・apt で入れる部品（MoveIt 2・日本語フォントなど）は、配布元が最新版のみを置いているため固定していない。作り直した環境で、テスト（53個）が通ることと、お出しする評価の2試行が作り直す前と同じ数字になることを確かめた。
 
 ## 出典・参考にしたもの
 
