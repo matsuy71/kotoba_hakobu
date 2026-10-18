@@ -1,0 +1,1365 @@
+{
+  "time": "2026-10-18T09:30:50.699854",
+  "eval_file": "/workspace/eval/instructions_eval.csv",
+  "eval_file_sha256": "a2b7ec5d6b26fc5c0b590285c9af2669bd52c66dd3f8a9d1e733f075c46d8fb4",
+  "models": [
+    "gemini-3.5-flash-lite"
+  ],
+  "summary": {
+    "llm": {
+      "n": 35,
+      "behavior_ok": 34,
+      "fields_ok": 33,
+      "danger": 0,
+      "fallback": 0,
+      "by_category": {
+        "A": {
+          "n": 11,
+          "behavior_ok": 11
+        },
+        "B": {
+          "n": 6,
+          "behavior_ok": 6
+        },
+        "C": {
+          "n": 8,
+          "behavior_ok": 7
+        },
+        "D": {
+          "n": 6,
+          "behavior_ok": 6
+        },
+        "E": {
+          "n": 4,
+          "behavior_ok": 4
+        }
+      }
+    },
+    "keyword": {
+      "n": 35,
+      "behavior_ok": 29,
+      "fields_ok": 27,
+      "danger": 0,
+      "fallback": 0,
+      "by_category": {
+        "A": {
+          "n": 11,
+          "behavior_ok": 11
+        },
+        "B": {
+          "n": 6,
+          "behavior_ok": 6
+        },
+        "C": {
+          "n": 8,
+          "behavior_ok": 8
+        },
+        "D": {
+          "n": 6,
+          "behavior_ok": 3
+        },
+        "E": {
+          "n": 4,
+          "behavior_ok": 1
+        }
+      }
+    }
+  },
+  "records": [
+    {
+      "id": "E01",
+      "category": "A",
+      "text": "赤楽茶碗でお抹茶をお次客様へお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.921687126159668,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/jikyaku",
+        "expected_behavior": "復唱:red/jikyaku"
+      },
+      "keyword": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.6927719116210938e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/jikyaku",
+        "expected_behavior": "復唱:red/jikyaku"
+      }
+    },
+    {
+      "id": "E02",
+      "category": "B",
+      "text": "赤楽をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "red",
+        "seat": "unknown",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "red",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8328902721405029,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "席を聞き返す",
+        "expected_behavior": "席を聞き返す"
+      },
+      "keyword": {
+        "bowl": "red",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.2874603271484375e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "席を聞き返す",
+        "expected_behavior": "席を聞き返す"
+      }
+    },
+    {
+      "id": "E03",
+      "category": "E",
+      "text": "お茶碗をお下げして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8258483409881592,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.8596649169921875e-05,
+        "fields_ok": false,
+        "behavior_ok": false,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E04",
+      "category": "C",
+      "text": "お詰め様に最初の一服をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "sankyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "sankyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 1.1245019435882568,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "sankyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.8358230590820312e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E05",
+      "category": "E",
+      "text": "主菓子をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.7638413906097412,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.6689300537109375e-05,
+        "fields_ok": false,
+        "behavior_ok": false,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E06",
+      "category": "A",
+      "text": "赤楽をご次客様に",
+      "note": "",
+      "expected": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.7676887512207031,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/jikyaku",
+        "expected_behavior": "復唱:red/jikyaku"
+      },
+      "keyword": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.9788742065429688e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/jikyaku",
+        "expected_behavior": "復唱:red/jikyaku"
+      }
+    },
+    {
+      "id": "E07",
+      "category": "B",
+      "text": "お正客様にお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8150405883789062,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.3589859008789062e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E08",
+      "category": "B",
+      "text": "黒楽をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "black",
+        "seat": "unknown",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "black",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.9294984340667725,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "席を聞き返す",
+        "expected_behavior": "席を聞き返す"
+      },
+      "keyword": {
+        "bowl": "black",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.3589859008789062e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "席を聞き返す",
+        "expected_behavior": "席を聞き返す"
+      }
+    },
+    {
+      "id": "E09",
+      "category": "D",
+      "text": "お茶碗をお引きして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.744504451751709,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.8596649169921875e-05,
+        "fields_ok": false,
+        "behavior_ok": false,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E10",
+      "category": "E",
+      "text": "もう一服いかがかお聞きして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8832793235778809,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.2874603271484375e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E11",
+      "category": "A",
+      "text": "黒楽をお正客様に",
+      "note": "",
+      "expected": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "surve"
+      },
+      "llm": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.9163272380828857,
+        "fields_ok": false,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/shokyaku",
+        "expected_behavior": "復唱:black/shokyaku"
+      },
+      "keyword": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.5735626220703125e-05,
+        "fields_ok": false,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/shokyaku",
+        "expected_behavior": "復唱:black/shokyaku"
+      }
+    },
+    {
+      "id": "E12",
+      "category": "C",
+      "text": "お正客様に最初の一服をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.909947395324707,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.8596649169921875e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E13",
+      "category": "D",
+      "text": "お干菓子をお持ちして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.932842493057251,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.6689300537109375e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E14",
+      "category": "A",
+      "text": "お次客様へ赤楽茶碗で濃茶をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.7225041389465332,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/jikyaku",
+        "expected_behavior": "復唱:red/jikyaku"
+      },
+      "keyword": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.4543533325195312e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/jikyaku",
+        "expected_behavior": "復唱:red/jikyaku"
+      }
+    },
+    {
+      "id": "E15",
+      "category": "B",
+      "text": "お次客様へお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8355777263641357,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.4066696166992188e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E16",
+      "category": "A",
+      "text": "お次客様へ黒楽茶碗をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "black",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "black",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8995339870452881,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/jikyaku",
+        "expected_behavior": "復唱:black/jikyaku"
+      },
+      "keyword": {
+        "bowl": "black",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.8358230590820312e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/jikyaku",
+        "expected_behavior": "復唱:black/jikyaku"
+      }
+    },
+    {
+      "id": "E17",
+      "category": "A",
+      "text": "お三客様に赤楽茶碗でお茶をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "red",
+        "seat": "sankyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "red",
+        "seat": "sankyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.9127066135406494,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/sankyaku",
+        "expected_behavior": "復唱:red/sankyaku"
+      },
+      "keyword": {
+        "bowl": "red",
+        "seat": "sankyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.7404556274414062e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/sankyaku",
+        "expected_behavior": "復唱:red/sankyaku"
+      }
+    },
+    {
+      "id": "E18",
+      "category": "B",
+      "text": "お正客様にお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.9216885566711426,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.5020370483398438e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E19",
+      "category": "A",
+      "text": "お正客様に黒楽茶碗でお茶をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8356966972351074,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/shokyaku",
+        "expected_behavior": "復唱:black/shokyaku"
+      },
+      "keyword": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.8596649169921875e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/shokyaku",
+        "expected_behavior": "復唱:black/shokyaku"
+      }
+    },
+    {
+      "id": "E20",
+      "category": "B",
+      "text": "黒楽をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "black",
+        "seat": "unknown",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "black",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8202519416809082,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "席を聞き返す",
+        "expected_behavior": "席を聞き返す"
+      },
+      "keyword": {
+        "bowl": "black",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.3589859008789062e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "席を聞き返す",
+        "expected_behavior": "席を聞き返す"
+      }
+    },
+    {
+      "id": "E21",
+      "category": "C",
+      "text": "お次客様へ二服目をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8164114952087402,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.52587890625e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E22",
+      "category": "A",
+      "text": "赤楽茶碗でお正客様にお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "red",
+        "seat": "shokyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "red",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8136401176452637,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/shokyaku",
+        "expected_behavior": "復唱:red/shokyaku"
+      },
+      "keyword": {
+        "bowl": "red",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.5974044799804688e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/shokyaku",
+        "expected_behavior": "復唱:red/shokyaku"
+      }
+    },
+    {
+      "id": "E23",
+      "category": "D",
+      "text": "お茶碗を片付けて",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.7150156497955322,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.9788742065429688e-05,
+        "fields_ok": false,
+        "behavior_ok": false,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E24",
+      "category": "C",
+      "text": "お正客様の隣の方にお茶をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.9351184368133545,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.52587890625e-05,
+        "fields_ok": false,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E25",
+      "category": "C",
+      "text": "お次客様へ赤楽をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.9290087223052979,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/jikyaku",
+        "expected_behavior": "復唱:red/jikyaku"
+      },
+      "keyword": {
+        "bowl": "red",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.4781951904296875e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/jikyaku",
+        "expected_behavior": "復唱:red/jikyaku"
+      }
+    },
+    {
+      "id": "E26",
+      "category": "A",
+      "text": "黒楽茶碗でお正客様にお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8279988765716553,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/shokyaku",
+        "expected_behavior": "復唱:black/shokyaku"
+      },
+      "keyword": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.430511474609375e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/shokyaku",
+        "expected_behavior": "復唱:black/shokyaku"
+      }
+    },
+    {
+      "id": "E27",
+      "category": "D",
+      "text": "お茶碗を全てお引きして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.7256205081939697,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 2.0742416381835938e-05,
+        "fields_ok": false,
+        "behavior_ok": false,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E28",
+      "category": "C",
+      "text": "お詰め様に続けてお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "sankyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.7893733978271484,
+        "fields_ok": false,
+        "behavior_ok": false,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "sankyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.6689300537109375e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E29",
+      "category": "D",
+      "text": "お菓子をお勧めして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8959689140319824,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.3113021850585938e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E30",
+      "category": "C",
+      "text": "お次客様へ続けてお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.7577240467071533,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "jikyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 0.00010442733764648438,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E31",
+      "category": "A",
+      "text": "お三客様に赤楽茶碗をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "red",
+        "seat": "sankyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "red",
+        "seat": "sankyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8289065361022949,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/sankyaku",
+        "expected_behavior": "復唱:red/sankyaku"
+      },
+      "keyword": {
+        "bowl": "red",
+        "seat": "sankyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.621246337890625e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:red/sankyaku",
+        "expected_behavior": "復唱:red/sankyaku"
+      }
+    },
+    {
+      "id": "E32",
+      "category": "C",
+      "text": "お正客様にもう一服お出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.8150346279144287,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.33514404296875e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "茶碗を聞き返す"
+      }
+    },
+    {
+      "id": "E33",
+      "category": "E",
+      "text": "お菓子をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.814866304397583,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.6927719116210938e-05,
+        "fields_ok": false,
+        "behavior_ok": false,
+        "danger": false,
+        "behavior": "茶碗を聞き返す",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E34",
+      "category": "D",
+      "text": "水屋からもう一椀お持ちして",
+      "note": "",
+      "expected": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other"
+      },
+      "llm": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 1.0021765232086182,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      },
+      "keyword": {
+        "bowl": "unknown",
+        "seat": "unknown",
+        "intent": "other",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.5497207641601562e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "断る",
+        "expected_behavior": "断る"
+      }
+    },
+    {
+      "id": "E35",
+      "category": "A",
+      "text": "お正客様に黒楽茶碗でお茶をお出しして",
+      "note": "",
+      "expected": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve"
+      },
+      "llm": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "llm",
+        "model": "gemini-3.5-flash-lite",
+        "seconds": 0.7219152450561523,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/shokyaku",
+        "expected_behavior": "復唱:black/shokyaku"
+      },
+      "keyword": {
+        "bowl": "black",
+        "seat": "shokyaku",
+        "intent": "serve",
+        "source": "keyword",
+        "model": null,
+        "seconds": 1.5974044799804688e-05,
+        "fields_ok": true,
+        "behavior_ok": true,
+        "danger": false,
+        "behavior": "復唱:black/shokyaku",
+        "expected_behavior": "復唱:black/shokyaku"
+      }
+    }
+  ]
+}

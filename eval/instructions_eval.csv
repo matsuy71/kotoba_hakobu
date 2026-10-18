@@ -1,0 +1,41 @@
+   id,category,text,bowl,seat,intent,note
+   E01,A,赤楽茶碗でお抹茶をお次客様へお出しして,red,jikyaku,serve,
+   E02,B,赤楽をお出しして,red,unknown,serve,
+   E03,E,お茶碗をお下げして,unknown,unknown,other,
+   E04,C,お詰め様に最初の一服をお出しして,unknown,sankyaku,serve,
+   E05,E,主菓子をお出しして,unknown,unknown,other,
+   E06,A,赤楽をご次客様に,red,jikyaku,serve,
+   E07,B,お正客様にお出しして,unknown,shokyaku,serve,
+   E08,B,黒楽をお出しして,black,unknown,serve,
+   E09,D,お茶碗をお引きして,unknown,unknown,other,
+   E10,E,もう一服いかがかお聞きして,unknown,unknown,other
+   E11,A,黒楽をお正客様に,black,shokyaku,surve,
+   E12,C,お正客様に最初の一服をお出しして,unknown,shokyaku,serve,
+   E13,D,お干菓子をお持ちして,unknown,unknown,other
+   E14,A,お次客様へ赤楽茶碗で濃茶をお出しして,red,jikyaku,serve,
+   E15,B,お次客様へお出しして,unknown,jikyaku,serve,
+   E16,A,お次客様へ黒楽茶碗をお出しして,black,jikyaku,serve
+   E17,A,お三客様に赤楽茶碗でお茶をお出しして,red,sankyaku,serve,
+   E18,B,お正客様にお出しして,unknown,shokyaku,serve,
+   E19,A,お正客様に黒楽茶碗でお茶をお出しして,black,shokyaku,serve,
+   E20,B,黒楽をお出しして,black,unknown,serve,
+   E21,C,お次客様へ二服目をお出しして,unknown,jikyaku,serve,
+   E22,A,赤楽茶碗でお正客様にお出しして,red,shokyaku,serve,
+   E23,D,お茶碗を片付けて,unknown,unknown,other,
+   E24,C,お正客様の隣の方にお茶をお出しして,unknown,jikyaku,serve,
+   E25,C,お次客様へ赤楽をお出しして,red,jikyaku,serve,
+   E26,A,黒楽茶碗でお正客様にお出しして,black,shokyaku,serve,
+   E27,D,お茶碗を全てお引きして,unknown,unknown,other,
+   E28,C,お詰め様に続けてお出しして,unknown,sankyaku,serve,
+   E29,D,お菓子をお勧めして,unknown,unknown,other,
+   E30,C,お次客様へ続けてお出しして,unknown,jikyaku,serve,
+   E31,A,お三客様に赤楽茶碗をお出しして,red,sankyaku,serve,
+   E32,C,お正客様にもう一服お出しして,unknown,shokyaku,serve,
+   E33,E,お菓子をお出しして,unknown,unknown,other,
+   E34,D,水屋からもう一椀お持ちして,unknown,unknown,other,
+   E35,A,お正客様に黒楽茶碗でお茶をお出しして,black,shokyaku,serve,
+
+
+
+
+
