@@ -32,6 +32,8 @@ BOWL_RADIUS = 0.03
 BOWL_HEIGHT = 0.04
 BOWL_Z = 0.02               # 机に置いた茶碗の真ん中の高さ
 BOWL_IDS = {"red": "chawan_red", "black": "chawan_black"}
+PAD_SIDE = 0.005            # 待っている茶碗は、本物より半径を5mm大きく教える（よけるときの余裕）
+PAD_TOP = 0.01              # 待っている茶碗は、本物より1cm高く教える（底は机の上のまま）
 
 # 茶碗を手に持たせるとき：持たせる部品と、茶碗に触れてもよい部品（2本の指）
 HAND_LINK = "crane_plus_link4"
@@ -47,10 +49,16 @@ def add_table(arm):
                           quat_xyzw=NO_TURN, frame_id=FRAME)
 
 
-def add_bowl(arm, bowl, position):
-    """茶碗を1つ教える。position は MoveIt の座標（x, y, 真ん中の z）。"""
-    arm.add_collision_cylinder(id=BOWL_IDS[bowl], height=BOWL_HEIGHT, radius=BOWL_RADIUS,
-                               position=position, quat_xyzw=NO_TURN, frame_id=FRAME)
+def add_bowl(arm, bowl, position, padded=True):
+    """茶碗を1つ教える。position は MoveIt の座標（x, y, 本物の真ん中の z）。
+    padded=True なら、よけるときの余裕を持たせて少し大きく教える（底の高さは変えない）。"""
+    x, y, z = position
+    radius, height = BOWL_RADIUS, BOWL_HEIGHT
+    if padded:
+        radius, height = BOWL_RADIUS + PAD_SIDE, BOWL_HEIGHT + PAD_TOP
+        z += PAD_TOP / 2
+    arm.add_collision_cylinder(id=BOWL_IDS[bowl], height=height, radius=radius,
+                               position=(x, y, z), quat_xyzw=NO_TURN, frame_id=FRAME)
 
 
 def clear(arm):
@@ -79,7 +87,7 @@ def remove_bowl(arm, bowl):
 
 def hold_bowl(arm, bowl, position):
     """手の中にある茶碗を教えて、手に持たせる（腕と一緒に動く物として扱わせる）。"""
-    add_bowl(arm, bowl, position)
+    add_bowl(arm, bowl, position, padded=False)
     time.sleep(SCENE_WAIT)
     arm.attach_collision_object(BOWL_IDS[bowl], link_name=HAND_LINK, touch_links=TOUCH_LINKS)
     time.sleep(SCENE_WAIT)

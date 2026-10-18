@@ -1,0 +1,29 @@
+[INFO] [1792334179.459347119] [serve_tea_server]: 茶碗の位置の読み方：真の値版
+[INFO] [1792334179.460205089] [serve_tea_server]: 机と茶碗を MoveIt に教える：する
+[WARN] [1792334179.460707289] [serve_tea_server]: 向きを変えるときの手首の高さを変えて起動しています（z_pass=0.07）
+[INFO] [1792334179.469495164] [serve_tea_server]: お出しするアクションサーバーを起動しました（serve_tea）
+[INFO] [1792334210.915183581] [serve_tea_server]: [1/15] 茶碗の位置を読んでいます
+[INFO] [1792334212.154694756] [serve_tea_server]: MoveIt に机と茶碗（red, black）を教えました
+[INFO] [1792334212.155318434] [serve_tea_server]: [2/15] 届くか確かめています
+[INFO] [1792334212.155895712] [serve_tea_server]: [3/15] 席があいているか確かめています
+[INFO] [1792334212.334279204] [serve_tea_server]: [4/15] 指を開いています
+[INFO] [1792334212.334838402] [serve_tea_server]: グリッパーを -30.0 度にします
+[INFO] [1792334214.273422983] [serve_tea_server]: グリッパーの結果: True
+[INFO] [1792334214.577962329] [serve_tea_server]: [5/15] 茶碗の上へ動いています
+[INFO] [1792334220.182663138] [serve_tea_server]: [6/15] まっすぐ下ろしています
+[INFO] [1792334222.471201142] [serve_tea_server]: [7/15] 指を閉じています
+[INFO] [1792334222.471636188] [serve_tea_server]: グリッパーを 35.0 度にします
+[INFO] [1792334225.941987206] [serve_tea_server]: グリッパーの結果: True
+[INFO] [1792334225.942893608] [serve_tea_server]: [8/15] つかめたか確かめています
+[INFO] [1792334226.546520820] [serve_tea_server]: [9/15] まっすぐ高く持ち上げています
+[INFO] [1792334229.291087159] [serve_tea_server]: [10/15] 持ち上がったか確かめています
+[INFO] [1792334229.452315503] [serve_tea_server]: [11/15] お正客様の方へ向きを変えています（高いまま）
+[INFO] [1792334238.642198887] [serve_tea_server]: [12/15] 運ぶ高さまで下ろしています
+[INFO] [1792334238.642689586] [serve_tea_server]: [13/15] まっすぐ前へ出しています
+[WARN] [1792334238.662496709] [serve_tea_server]: Planning failed! Cartesian planner completed 0.16666666666666666 of the trajectory, less than the threshold 0.99.
+[WARN] [1792334238.663235781] [serve_tea_server]: 計画に失敗（1回目）: (0.12442024656257672, 0.08184229512669912, 0.07)
+[INFO] [1792334243.096017038] [serve_tea_server]: [14/15] まっすぐ下ろしています
+[INFO] [1792334244.846868150] [serve_tea_server]: [15/15] 指を開いて離れ、置いた位置を確かめています
+[INFO] [1792334245.452776411] [serve_tea_server]: グリッパーを -30.0 度にします
+[INFO] [1792334248.116306275] [serve_tea_server]: グリッパーの結果: True
+[INFO] [1792334255.578930463] [serve_tea_server]: 結果：失敗　お出ししましたが、ずれか傾きが大きくなりました（ずれ 0.2mm・運搬中の最大の傾き 18.5度）。お確かめください。
