@@ -10,6 +10,7 @@ from rclpy.node import Node
 from pymoveit2 import MoveIt2
 
 from kotoba_hakobu_interfaces.action import ServeTea
+from kotoba_hakobu import planning_scene as scene
 from kotoba_hakobu.bowl_locator import TruePoseLocator
 from kotoba_hakobu.camera_locator import CameraLocator
 from kotoba_hakobu.try_grasp import hand_angle
@@ -34,6 +35,7 @@ SEAT_FREE_RADIUS = 0.06             # 席の中心からこの距離に茶碗が
 PLACE_TOL_M = 0.02                  # 置いた位置のずれの基準（m）
 TILT_LIMIT_DEG = 15.0               # 傾きの基準（度）
 Z_PASS = 0.11                       # 向きを変えるときの手首の高さ（m）。持っている茶碗の底が8cmになり、机の上の茶碗（高さ4cm）の上を通れる
+HELD_BELOW = 0.010                  # つかんだ茶碗の真ん中は、手首からこれだけ下にある（m。試運転⑦で測定）
 
 
 class StepFailed(Exception):
@@ -69,6 +71,9 @@ class ServeTeaServer(Node):
         self.use_camera = locator_name == "camera"
         self.locator = CameraLocator(self) if self.use_camera else TruePoseLocator()
         self.get_logger().info(f"茶碗の位置の読み方：{'カメラ版' if self.use_camera else '真の値版'}")
+        self.declare_parameter("scene", False)
+        self.use_scene = bool(self.get_parameter("scene").value)
+        self.get_logger().info(f"机と茶碗を MoveIt に教える：{'する' if self.use_scene else 'しない'}")
         self.declare_parameter("grasp_empty_deg", GRASP_EMPTY_DEG)
         self.declare_parameter("lift_min_z", LIFT_MIN_Z)
         grasp_empty_deg = self.get_parameter("grasp_empty_deg").value
@@ -94,7 +99,7 @@ class ServeTeaServer(Node):
         return tilt or 0.0
 
     def execute(self, goal_handle):
-        """注文（ゴール）を受けて、14段階でお茶をお出しし、結果（リザルト）を返す。"""
+        """注文（ゴール）を受けて、15段階でお茶をお出しし、結果（リザルト）を返す。"""
         goal = goal_handle.request
         start = time.time()
         result = ServeTea.Result()
@@ -116,6 +121,19 @@ class ServeTeaServer(Node):
             if bowl["tilt_deg"] > TILT_LIMIT_DEG or abs(bowl["z"] - 0.02) > 0.01:
                 self.get_logger().warning(f"茶碗の高さ {bowl['z']:.3f}m・傾き {bowl['tilt_deg']:.1f}度")
                 raise StepFailed("茶碗の位置を読む", f"{bowl_ja}が、所定の場所にありません。")
+            if self.use_scene:
+                # 机と、見つかった茶碗すべてを、まっさらにしてから MoveIt に教え直す
+                known = {goal.bowl: (bowl["x"], bowl["y"])}
+                for other in BOWL_JA:
+                    if other != goal.bowl:
+                        o = self.locator.locate(other)
+                        if o:
+                            known[other] = (o["x"], o["y"])
+                scene.reset_scene(self.arm, known)
+                self.get_logger().info(f"MoveIt に机と茶碗（{', '.join(known)}）を教えました")
+            else:
+                # 教えない場合も、前に教えた物が残っていると計画が変わるので、消しておく
+                scene.clear(self.arm)
 
             self.report(goal_handle, 2, "届くか確かめています")
             gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, AIM_LEFT)
@@ -136,6 +154,8 @@ class ServeTeaServer(Node):
             # ----- つかむ（失敗したら止まる。茶碗はまだ持っていない） -----
             self.report(goal_handle, 4, "指を開いています")
             set_gripper(self, self.gripper, GRIPPER_OPEN_DEG)
+            if self.use_scene:
+                scene.remove_bowl(self.arm, goal.bowl)
             self.report(goal_handle, 5, "茶碗の上へ動いています")
             self.motion("茶碗の上へ", (gx, gy, Z_ABOVE))
             self.report(goal_handle, 6, "まっすぐ下ろしています")
@@ -148,6 +168,12 @@ class ServeTeaServer(Node):
                 self.get_logger().warning(f"指の角度 {angle}")
                 raise StepFailed("つかめたか確かめる", f"{bowl_ja}をおつかみできませんでした。")
             holding = True
+            if self.use_scene:
+                # 手の中の茶碗の場所（手首から前へ HELD_FORWARD・左へ HELD_LEFT・下へ HELD_BELOW）
+                yaw = math.atan2(gy, gx)
+                hx = gx + HELD_FORWARD * math.cos(yaw) - HELD_LEFT * math.sin(yaw)
+                hy = gy + HELD_FORWARD * math.sin(yaw) + HELD_LEFT * math.cos(yaw)
+                scene.hold_bowl(self.arm, goal.bowl, (hx, hy, Z_GRASP - HELD_BELOW))
 
             # ----- 運ぶ（失敗したら、茶碗を持ったまま止まる） -----
             self.report(goal_handle, 9, "まっすぐ高く持ち上げています")
@@ -180,6 +206,8 @@ class ServeTeaServer(Node):
 
             # ----- 置いて、確かめる -----
             self.report(goal_handle, 15, "指を開いて離れ、置いた位置を確かめています")
+            if self.use_scene:
+                scene.release_bowl(self.arm, goal.bowl)
             set_gripper(self, self.gripper, GRIPPER_OPEN_DEG)
             holding = False
             self.motion("離れる", (sx, sy, Z_ABOVE), True)
@@ -188,6 +216,8 @@ class ServeTeaServer(Node):
             placed = self.locator.locate(goal.bowl)
             if placed is None:
                 raise StepFailed("置いた位置を確かめる", "置いたお茶碗の位置を確かめられません。")
+            if self.use_scene:
+                scene.place_bowl(self.arm, goal.bowl, placed["x"], placed["y"])
             error = math.hypot(placed["x"] - seat_x, placed["y"] - seat_y)
             result.placement_error_m = error
             detail = f"ずれ {error * 1000:.1f}mm・運搬中の最大の傾き {max_tilt:.1f}度"
