@@ -10,7 +10,7 @@ from kotoba_hakobu.measure_color import to_pixel
 from kotoba_hakobu.serve_server import SEATS
 from kotoba_hakobu.teishu_console import is_yes
 from kotoba_hakobu.try_serve import AIM_FORWARD, AIM_LEFT, HELD_FORWARD, HELD_LEFT, wrist_for
-from kotoba_hakobu.understanding import is_valid, keyword_rules
+from kotoba_hakobu.understanding import is_valid, is_valid_orders, keyword_orders, keyword_rules
 
 
 # ===== 手首の位置の計算（wrist_for） =====
@@ -141,3 +141,30 @@ def test_make_trials_rules(trial):
 ])
 def test_is_yes(text, expected):
     assert is_yes(text) == expected
+
+
+# ===== 2つの注文の読み取り（keyword_orders・is_valid_orders） =====
+@pytest.mark.parametrize("text, intent, orders", [
+    ("赤楽をお次客様へお出しして", "serve", [("red", "jikyaku")]),
+    ("お次客様とお正客様にお出しして", "serve", [("unknown", "jikyaku"), ("unknown", "shokyaku")]),
+    ("赤楽と黒楽をお出しして", "serve", [("red", "unknown"), ("black", "unknown")]),
+    ("黒楽をお正客様に、赤楽をお次客様に", "serve", [("unknown", "shokyaku"), ("unknown", "jikyaku")]),
+    ("黒楽を…いえ、赤楽をお三客様に", "serve", [("unknown", "sankyaku")]),
+    ("お茶をお出しして", "serve", [("unknown", "unknown")]),
+    ("お菓子を配って", "other", []),
+])
+def test_keyword_orders(text, intent, orders):
+    """予備の規則は、決めきれないところを unknown にして、聞き返しにまかせる。"""
+    assert keyword_orders(text) == {"intent": intent,
+                                    "orders": [{"bowl": b, "seat": s} for b, s in orders]}
+
+
+def test_is_valid_orders():
+    two = {"intent": "serve", "orders": [{"bowl": "black", "seat": "shokyaku"},
+                                         {"bowl": "red", "seat": "jikyaku"}]}
+    assert is_valid_orders(two)
+    assert is_valid_orders({"intent": "other", "orders": []})
+    assert not is_valid_orders({**two, "orders": two["orders"] * 2})                  # 注文が多すぎる
+    assert not is_valid_orders({"intent": "serve", "orders": [{"bowl": "blue", "seat": "jikyaku"}]})
+    assert not is_valid_orders({"intent": "serve"})                                   # orders がない
+    assert not is_valid_orders(None)
