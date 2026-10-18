@@ -60,24 +60,43 @@ class TiltMonitor:
         return self.max_tilt
 
 
-def move(node, arm, position, cartesian=False, monitor=None):
+LEVEL_PATH_TOL_DEG = 10.0     # 途中も水平に保つとき、許す傾き（度）。基準の15度より小さくして余裕をとる
+LEVEL_PLANNING_TIME = 5.0     # 途中も水平に保つときは道を探すのに時間がかかるので、探す時間をのばす（秒）
+
+
+def move(node, arm, position, cartesian=False, monitor=None, level_path=False):
     """手先を水平・目標の方向に向けたまま position へ動かす。cartesian=True なら直線で動かす。
+    level_path=True なら、途中も手先を水平に近く保つ条件を付けて道を探す（向きを変えるときに使う）。
     計画は PLAN_TRIES 回までやり直す。戻り値は（成功したか, 最大の傾き〔度〕）。"""
     yaw = math.atan2(position[1], position[0])
     quat = quat_from_rpy(0.0, math.radians(PITCH_SIDE_DEG), yaw)
-    for attempt in range(1, PLAN_TRIES + 1):
-        trajectory = arm.plan(position=position, quat_xyzw=quat,
-                              tolerance_position=POSITION_TOLERANCE,
-                              tolerance_orientation=ORIENTATION_TOLERANCE,
-                              cartesian=cartesian,
-                              cartesian_fraction_threshold=CARTESIAN_FRACTION)
-        if trajectory is not None:
-            break
-        node.get_logger().warning(f"計画に失敗（{attempt}回目）: {position}")
-        time.sleep(RETRY_WAIT)
-    else:
-        node.get_logger().error(f"{PLAN_TRIES}回とも計画に失敗しました: {position}")
-        return False, None
+    use_level = level_path and not cartesian
+    if use_level:
+        planning_time = arm.allowed_planning_time
+        arm.allowed_planning_time = LEVEL_PLANNING_TIME
+    try:
+        for attempt in range(1, PLAN_TRIES + 1):
+            if use_level:
+                # 手先の x 軸まわり（土台のまわりに向きを変える回転）は自由にし、
+                # y・z 軸まわり（茶碗が傾く回転）は小さく保つ。条件は計画のたびに消えるので、毎回付け直す。
+                tol = math.radians(LEVEL_PATH_TOL_DEG)
+                arm.set_path_orientation_constraint(quat_xyzw=quat, tolerance=(math.pi, tol, tol),
+                                                    parameterization=1)
+            trajectory = arm.plan(position=position, quat_xyzw=quat,
+                                  tolerance_position=POSITION_TOLERANCE,
+                                  tolerance_orientation=ORIENTATION_TOLERANCE,
+                                  cartesian=cartesian,
+                                  cartesian_fraction_threshold=CARTESIAN_FRACTION)
+            if trajectory is not None:
+                break
+            node.get_logger().warning(f"計画に失敗（{attempt}回目）: {position}")
+            time.sleep(RETRY_WAIT)
+        else:
+            node.get_logger().error(f"{PLAN_TRIES}回とも計画に失敗しました: {position}")
+            return False, None
+    finally:
+        if use_level:
+            arm.allowed_planning_time = planning_time
     if monitor:
         monitor.start()
     arm.execute(trajectory)

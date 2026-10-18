@@ -78,6 +78,9 @@ class ServeTeaServer(Node):
         self.z_pass = float(self.get_parameter("z_pass").value)
         if self.z_pass != Z_PASS:
             self.get_logger().warning(f"向きを変えるときの手首の高さを変えて起動しています（z_pass={self.z_pass}）")
+        self.declare_parameter("level_path", False)
+        self.level_path = bool(self.get_parameter("level_path").value)
+        self.get_logger().info(f"向きを変える途中も水平に保つ条件：{'付ける' if self.level_path else '付けない'}")
         self.declare_parameter("grasp_empty_deg", GRASP_EMPTY_DEG)
         self.declare_parameter("lift_min_z", LIFT_MIN_Z)
         grasp_empty_deg = self.get_parameter("grasp_empty_deg").value
@@ -95,9 +98,10 @@ class ServeTeaServer(Node):
         goal_handle.publish_feedback(feedback)
         self.get_logger().info(f"[{index}/{STEP_COUNT}] {text}")
 
-    def motion(self, step, position, cartesian=False, measure=False):
-        """腕を動かす。失敗したら StepFailed を投げる。measure=True なら、その間の最大の傾きを返す。"""
-        ok, tilt = move(self, self.arm, position, cartesian, self.monitor if measure else None)
+    def motion(self, step, position, cartesian=False, measure=False, level_path=False):
+        """腕を動かす。失敗したら StepFailed を投げる。measure=True なら、その間の最大の傾きを返す。
+        level_path=True なら、途中も手先を水平に近く保つ条件を付けて道を探す。"""
+        ok, tilt = move(self, self.arm, position, cartesian, self.monitor if measure else None, level_path)
         if not ok:
             raise StepFailed(step, f"腕の動き（{step}）がうまくいきませんでした。")
         return tilt or 0.0
@@ -200,7 +204,7 @@ class ServeTeaServer(Node):
             w = math.hypot(gx, gy)
             tx, ty = w * math.cos(math.radians(psi)), w * math.sin(math.radians(psi))
             self.report(goal_handle, 11, f"{seat_ja}の方へ向きを変えています（高いまま）")
-            max_tilt = max(max_tilt, self.motion("向きを変える", (tx, ty, self.z_pass), False, True))
+            max_tilt = max(max_tilt, self.motion("向きを変える", (tx, ty, self.z_pass), False, True, self.level_path))
             self.report(goal_handle, 12, "運ぶ高さまで下ろしています")
             if self.z_pass > Z_CARRY:
                 max_tilt = max(max_tilt, self.motion("運ぶ高さへ下ろす", (tx, ty, Z_CARRY), True, True))
