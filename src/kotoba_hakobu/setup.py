@@ -36,6 +36,7 @@ setup(
             'measure_color = kotoba_hakobu.measure_color:main',
             'compare_locators = kotoba_hakobu.camera_locator:main',
             'eval_understanding = kotoba_hakobu.eval_understanding:main',
+            'eval_serve = kotoba_hakobu.eval_serve:main',
         ],
     },
 )
