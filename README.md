@@ -105,6 +105,20 @@
 - キーワード規則は、頼みではない文（D）と言い直し（E）で大きく下がった
 - 1回目の評価のあとに、問題集の3か所（文2つ・正解1つ）を直した。直していない32問では、Gemini は2回とも 31/32 で、答えは2回とも同じだった。詳しくは [eval/NOTES.md](eval/NOTES.md)
 
+### 2つ頼む指示文の評価（言葉）
+
+評価用の15文（利用者が作り、評価が終わるまで Claude には見せていない。指紋は評価の前に記録）で、読み取りの結果から操作盤の動き（復唱する・聞き返す・断る）が正しいかを採点しました。同じ問題集で2回行いました。
+
+| 読み方 | 動きが正しい | 危ない |
+|---|---|---|
+| Gemini | 15/15（2回とも） | 0 |
+| キーワード規則 | 11/15（2回とも） | 0 |
+
+- 危ない＝正解と違う茶碗や席を、聞き返さずにそのまま復唱してしまう読み
+- キーワード規則の×4つは、どれも聞き返す（安全な側）。2つずつ言われたときの茶碗と席の組み合わせと、お茶碗をお出しする頼みではないこと（お茶碗を下げる・お菓子を出す）を、言葉だけでは見分けられない
+- 15文・2回だけの結果で、茶碗2つ・席3つの場面に限る
+- 動かし方：`python3 tools/eval_orders.py eval/orders_eval.csv`（`--check` を付けると、文を表示せずに形だけ確かめる）。詳しくは [eval/NOTES.md](eval/NOTES.md)
+
 ### お出しする評価（運ぶ）
 
 茶碗の置き場所と席を、seed で決まるくじで変えながら、20回お出ししました。真の値版とカメラ版を、同じ seed で比べています。
@@ -148,6 +162,8 @@ python3 -m pytest src/kotoba_hakobu/test/test_logic.py -q
 |---|---|
 | `src/kotoba_hakobu_interfaces/action/ServeTea.action` | 注文（茶碗・席）・途中経過・結果の形 |
 | `src/kotoba_hakobu/kotoba_hakobu/teishu_console.py` | 亭主の操作盤（聞き返し・復唱・2つ続けてお出しする・報告・記録） |
+| `tools/eval_orders.py` | 2つ頼む指示文の評価（形の確かめ・採点） |
+| `eval/orders_eval.csv` | 2つ頼む指示文の評価用の問題集（15文、利用者が作成） |
 | `src/kotoba_hakobu/kotoba_hakobu/understanding.py` | 指示の読み取り（Gemini ＋ キーワード規則） |
 | `src/kotoba_hakobu/kotoba_hakobu/serve_server.py` | お出しするサーバー（14段階・安全に止まる） |
 | `src/kotoba_hakobu/kotoba_hakobu/bowl_locator.py` | 茶碗の位置を教える部品（真の値版） |
