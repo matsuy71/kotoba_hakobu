@@ -61,7 +61,7 @@ class TiltMonitor:
 
 
 LEVEL_PATH_TOL_DEG = 10.0     # 途中も水平に保つとき、許す傾き（度）。基準の15度より小さくして余裕をとる
-LEVEL_PLANNING_TIME = 5.0     # 途中も水平に保つときは道を探すのに時間がかかるので、探す時間をのばす（秒）
+LEVEL_PLANNING_TIME = 15.0     # 途中も水平に保つときは道を探すのに時間がかかるので、探す時間をのばす（秒）
 
 
 def move(node, arm, position, cartesian=False, monitor=None, level_path=False):
