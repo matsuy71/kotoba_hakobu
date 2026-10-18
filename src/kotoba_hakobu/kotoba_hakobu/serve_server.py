@@ -61,6 +61,13 @@ class ServeTeaServer(Node):
             m.max_acceleration = 0.3
         self.monitor = TiltMonitor(self)
         self.locator = TruePoseLocator()
+        self.declare_parameter("grasp_empty_deg", GRASP_EMPTY_DEG)
+        self.declare_parameter("lift_min_z", LIFT_MIN_Z)
+        grasp_empty_deg = self.get_parameter("grasp_empty_deg").value
+        lift_min_z = self.get_parameter("lift_min_z").value
+        if grasp_empty_deg != GRASP_EMPTY_DEG or lift_min_z != LIFT_MIN_Z:
+            self.get_logger().warning(
+                f"テスト用の値で起動しています（grasp_empty_deg={grasp_empty_deg}、lift_min_z={lift_min_z}）")
         self.server = ActionServer(self, ServeTea, "serve_tea", self.execute, callback_group=group)
         self.get_logger().info("お出しするアクションサーバーを起動しました（serve_tea）")
 
@@ -85,6 +92,8 @@ class ServeTeaServer(Node):
         result = ServeTea.Result()
         max_tilt = 0.0
         holding = False
+        grasp_empty_deg = self.get_parameter("grasp_empty_deg").value
+        lift_min_z = self.get_parameter("lift_min_z").value
         try:
             # ----- 動く前の確かめ（問題があれば、腕を動かさずに断る） -----
             if goal.bowl not in BOWL_JA or goal.seat not in SEATS:
@@ -127,7 +136,7 @@ class ServeTeaServer(Node):
             set_gripper(self, self.gripper, GRIPPER_CLOSE_DEG)
             self.report(goal_handle, 8, "つかめたか確かめています")
             angle = hand_angle(self.gripper)
-            if angle is None or angle >= GRASP_EMPTY_DEG:
+            if angle is None or angle >= grasp_empty_deg:
                 self.get_logger().warning(f"指の角度 {angle}")
                 raise StepFailed("つかめたか確かめる", f"{bowl_ja}をおつかみできませんでした。")
             holding = True
@@ -137,7 +146,7 @@ class ServeTeaServer(Node):
             max_tilt = max(max_tilt, self.motion("持ち上げる", (gx, gy, Z_CARRY), True, True))
             self.report(goal_handle, 10, "持ち上がったか確かめています")
             lifted = self.locator.locate(goal.bowl)
-            if lifted is None or lifted["z"] < LIFT_MIN_Z:
+            if lifted is None or lifted["z"] < lift_min_z:
                 if lifted:
                     self.get_logger().warning(f"持ち上げた茶碗の高さ {lifted['z']:.3f}m")
                 raise StepFailed("持ち上がったか確かめる", "お茶碗が持ち上がっておりません。")
