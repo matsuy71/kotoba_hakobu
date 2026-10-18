@@ -17,6 +17,7 @@ BOWL_JA = {"red": "赤楽のお茶碗", "black": "黒楽のお茶碗"}
 SEAT_JA = {"shokyaku": "お正客様", "jikyaku": "お次客様", "sankyaku": "お三客様"}
 SEAT_ORDER = ["shokyaku", "jikyaku", "sankyaku"]     # お出しする順番（いつもお正客様から）
 MAX_ASK = 2                                          # 1つの項目を聞き返す回数の上限
+CANCEL_WORDS = ["やめ", "いいえ", "結構", "けっこう", "中止", "取りやめ", "控え", "いらない", "不要"]
 LOG_DIR = "/workspace/results"
 
 
@@ -54,8 +55,12 @@ class TeishuConsole(Node):
         if bowl != "unknown" or seat != "unknown":
             reply = {"bowl": bowl, "seat": seat, "intent": "serve", "source": "reply-word",
                      "model": None, "seconds": 0.0}
+        elif any(w in reply_text for w in CANCEL_WORDS):
+            reply = {"bowl": "unknown", "seat": "unknown", "intent": "other", "source": "cancel-word", "model": None, "seconds": 0.0}
         else:
             reply = understand(f"（「{question}」への亭主の返事）{reply_text}")
+            if reply["intent"] == "other":
+                reply["intent"] = "unclear"
         record["replies"].append({"question": question, "text": reply_text, "understanding": reply})
         return reply
 
@@ -65,7 +70,7 @@ class TeishuConsole(Node):
             question = f"どちらのお茶碗を、{SEAT_JA[order['seat']]}にお出しいたしましょう？（赤楽・黒楽）"
         else:
             question = "どちらのお茶碗にいたしましょう？（赤楽・黒楽）"
-        for _ in range(MAX_ASK):
+        for i in range(MAX_ASK):
             reply = self.ask(question, record)
             if reply["bowl"] != "unknown":
                 order["bowl"] = reply["bowl"]
@@ -74,20 +79,24 @@ class TeishuConsole(Node):
                 return True
             if reply["intent"] == "other":
                 return False
-            print("ロボット：申し訳ございません。もう一度お聞かせください。")
+            if i < MAX_ASK - 1:
+                print("ロボット：申し訳ございません。もう一度お聞かせください。")
+        record["stop"] = "unheard"
         return False
 
     def ask_seat(self, order, record):
         """席を聞き返す。分からなければ False。"""
         question = f"{BOWL_JA[order['bowl']]}を、どなたにお出しいたしましょう？（お正客様・お次客様・お三客様）"
-        for _ in range(MAX_ASK):
+        for i in range(MAX_ASK):
             reply = self.ask(question, record)
             if reply["seat"] != "unknown":
                 order["seat"] = reply["seat"]
                 return True
             if reply["intent"] == "other":
                 return False
-            print("ロボット：申し訳ございません。もう一度お聞かせください。")
+            if i < MAX_ASK - 1:
+                print("ロボット：申し訳ございません。もう一度お聞かせください。")
+        record["stop"] = "unheard"
         return False
 
     # ===== サーバーへの注文 =====
@@ -124,9 +133,13 @@ class TeishuConsole(Node):
             with open(self.log_path, "a", encoding="utf-8") as f:
                 f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
-    def cancel(self, outcome):
+    def cancel(self, what, record):
+        """聞き返しで終わったときの言葉。what は「茶碗」か「席」。"""
+        if record.get("stop") == "unheard":
+            print("ロボット：申し訳ございません。お聞き取りできませんでしたので、このたびは控えさせていただきます。")
+            return f"取りやめ（{what}が聞き取れなかった）"
         print("ロボット：かしこまりました。このたびは控えさせていただきます。")
-        return outcome
+        return f"取りやめ（{what}の聞き返しで、亭主が取りやめた）"
 
     def process(self, reading, record):
         """①断る ②茶碗・席を埋める ③決まりを確かめる ④復唱する ⑤お正客様から順にお出しする。結果の言葉を返す。"""
@@ -146,10 +159,10 @@ class TeishuConsole(Node):
                 record["auto"].append({"seat": order["seat"], "bowl": order["bowl"], "reason": "残りの茶碗"})
                 continue
             if not self.ask_bowl(order, record):
-                return self.cancel("取りやめ（茶碗が分からなかった）")
+                return self.cancel("茶碗", record)
         for order in orders:
             if order["seat"] == "unknown" and not self.ask_seat(order, record):
-                return self.cancel("取りやめ（席が分からなかった）")
+                return self.cancel("席", record)
 
         # ③ 決まりに合うかを確かめる
         if len({o["bowl"] for o in orders}) < len(orders):
