@@ -14,4 +14,4 @@ __pycache__/
 .claude/settings.local.json
 
 # ===== Claude Code への指示書（手元だけで使う） =====
-CLAUDE.md
+CLAUDE.mdthird_party/
