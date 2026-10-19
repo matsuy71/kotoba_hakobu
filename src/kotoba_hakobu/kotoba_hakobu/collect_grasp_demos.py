@@ -27,7 +27,7 @@ from geometry_msgs.msg import PointStamped
 from pymoveit2 import MoveIt2
 
 from kotoba_hakobu import planning_scene as scene
-from kotoba_hakobu.bowl_locator import TruePoseLocator
+from kotoba_hakobu.bowl_locator import BOWL_NAMES, TruePoseLocator
 from kotoba_hakobu.eval_serve import PARK, SETTLE_SEC, X_MIN, set_pose
 from kotoba_hakobu.try_grasp import hand_angle
 from kotoba_hakobu.try_level_move import move
@@ -43,6 +43,8 @@ OUT_ROOT = Path("/workspace/il_data/rosbags")
 TOPICS = ["/joint_states", "/kotoba/bowl_position"]
 BAG_START_SEC = 1.5                # 記録が始まるまで待つ時間（秒）
 AFTER_CLOSE_SEC = 1.0              # 指を閉じたあと、記録を続ける時間（秒）
+PLACE_TOL = 0.005                  # 置き直したあと、ねらった場所からこれ以上ずれていたら置き直す（m。評価と同じ）
+PLACE_TRIES = 3                    # 置き直しを試す回数
 
 
 class Collector(Node):
@@ -91,14 +93,25 @@ def pick_place(rng):
             return x, y
 
 
+def place_bowl(locator, x, y):
+    """黒楽をよけておき、赤楽を (x, y) に置く。本当の場所を読んで確かめ、ずれていたら置き直す。
+    置けたら本当の場所（辞書）を返す。PLACE_TRIES 回やっても置けなければ None を返す。"""
+    for _ in range(PLACE_TRIES):
+        set_pose(BOWL_NAMES[OTHER], *PARK[OTHER])
+        set_pose(BOWL_NAMES[BOWL], x, y)
+        time.sleep(SETTLE_SEC)
+        bowl = locator.locate(BOWL)
+        if bowl and math.hypot(bowl["x"] - x, bowl["y"] - y) <= PLACE_TOL \
+                and abs(bowl["z"] - 0.02) <= 0.01 and bowl["tilt_deg"] <= 5.0:
+            return bowl
+    return None
+
+
 def run_episode(node, locator, x, y, bag_dir):
     """手本を1回とる。結果の辞書を返す。"""
-    set_pose(OTHER, *PARK[OTHER])
-    set_pose(BOWL, x, y)
-    time.sleep(SETTLE_SEC)
-    bowl = locator.locate(BOWL)
-    if bowl is None or abs(bowl["z"] - 0.02) > 0.01:
-        return {"grasped": False, "reason": "茶碗が所定の場所にない", "bowl": bowl}
+    bowl = place_bowl(locator, x, y)
+    if bowl is None:
+        return {"grasped": False, "reason": "茶碗を置き直せなかった", "bowl": None}
     node.go_home()
     set_gripper(node, node.gripper, GRIPPER_OPEN_DEG)
     gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, AIM_LEFT)
