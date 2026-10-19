@@ -7,6 +7,7 @@
   - 腕の行動は「1コマあと（1/fps 秒後）の関節の角度」。手本は MoveIt で動かしたので、命令のトピックがないため
   - 指の行動は、手本で出した命令（開く −30度・閉じる 35度）。指が閉じ始めたコマで切りかえる
   - 関節は、名前で選んで並べる（joint1, joint2, joint3, joint4, 指）
+  - 腕が止まっていて、指の行動が「開く」のコマは取りのぞく（止まっている時間が手本ごとにばらばらで、ACT が迷ったため）
 使い方（pixi の道具箱を有効にしてから、/workspace で）：
   python il/convert_grasp.py il/configs/conversion_config.yaml
 """
@@ -27,6 +28,7 @@ JOINTS = ["crane_plus_joint1", "crane_plus_joint2", "crane_plus_joint3", "crane_
 GRIPPER_OPEN = math.radians(-30.0)    # 手本で、指を開いた命令
 GRIPPER_CLOSE = math.radians(35.0)    # 手本で、指を閉じた命令
 CLOSE_START = math.radians(2.0)       # 開いた角度からこれだけ閉じたら「閉じ始めた」とみなす
+STILL = 0.001                         # 腕の関節が、次のコマまでにこれ（ラジアン。約0.06度）より動かなければ「止まっている」
 TOPIC_JOINT = "/joint_states"
 TOPIC_BOWL = "/kotoba/bowl_position"
 
@@ -64,7 +66,9 @@ def hold(times, values, targets):
 
 
 def episode_frames(ep_dir, fps):
-    """1つの手本を、1秒間に fps コマの（状態, まわり, 行動）にする。指が閉じ始めたコマの番号も返す。"""
+    """1つの手本を、1秒間に fps コマの（状態, まわり, 行動）にする。
+    腕が止まっていて、指の行動が「開く」のコマは取りのぞく。
+    指が閉じ始めたコマの番号（取りのぞく前の番号）と、取りのぞいたコマの数も返す。"""
     jt, jv, bt, bv = read_bag(ep_dir)
     if len(jt) == 0 or len(bt) == 0:
         raise ValueError(f"{ep_dir}：関節の角度か茶碗の場所が記録されていない")
@@ -77,7 +81,9 @@ def episode_frames(ep_dir, fps):
     k = int(closing[0]) if len(closing) else len(state)
     action[:, 4] = GRIPPER_OPEN                             # 指：閉じ始めるまでは「開く」
     action[k:, 4] = GRIPPER_CLOSE                           # 指：閉じ始めたコマから「閉じる」
-    return state, env, action, k
+    still = np.abs(action[:, :4] - state[:, :4]).max(axis=1) < STILL   # 腕が止まっているコマ
+    keep = ~(still & (action[:, 4] < 0))                    # 止まっていて、指が「開く」のコマ以外を残す
+    return state[keep], env[keep], action[keep], k, int((~keep).sum())
 
 
 def main():
@@ -92,8 +98,10 @@ def main():
     print(f"手本 {len(episodes)} 個：{cfg['bag_dir']}")
     ds = LeRobotDataset.create(repo_id=feat.repo_id, fps=fps, root=out, robot_type=feat.robot_type,
                                features=feat.features, use_videos=False)
+    total_drop = 0
     for i, ep in enumerate(episodes):
-        state, env, action, k = episode_frames(ep, fps)
+        state, env, action, k, n_drop = episode_frames(ep, fps)
+        total_drop += n_drop
         for t in range(len(state)):
             ds.add_frame({"observation.state": torch.from_numpy(state[t]),
                           "observation.environment_state": torch.from_numpy(env[t]),
@@ -101,8 +109,10 @@ def main():
                           "task": feat.task_name})
         ds.save_episode()
         print(f"[{i + 1}/{len(episodes)}] {ep.name}：{len(state)} コマ（{len(state) / fps:.1f}秒）"
-              f"・指が閉じ始めたのは {k} コマ目・茶碗 x={env[0][0]:.3f} y={env[0][1]:.3f}")
-    print(f"できあがり：{out}（手本 {ds.meta.total_episodes} 個・{ds.meta.total_frames} コマ）")
+              f"・止まっていて取りのぞいたコマ {n_drop}"
+              f"・指が閉じ始めたのは {k} コマ目（取りのぞく前）・茶碗 x={env[0][0]:.3f} y={env[0][1]:.3f}")
+    print(f"できあがり：{out}（手本 {ds.meta.total_episodes} 個・{ds.meta.total_frames} コマ・"
+          f"取りのぞいたコマ {total_drop}）")
 
 
 if __name__ == "__main__":

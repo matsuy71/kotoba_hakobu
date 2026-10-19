@@ -52,6 +52,7 @@ TIMEOUT_SEC = 20.0            # これを過ぎたら止める（手本は1回�
 STATE_WAIT_SEC = 2.0          # 関節の角度が届くのを待つ時間
 STATE_OLD_SEC = 0.5           # これより古い関節の角度は使わない
 MARGIN = 0.1                  # 手本で動いた範囲から、はみ出してよい角度（ラジアン。約6度）
+LOG_EVERY = 10                # この回数ごと（0.5秒ごと）に、今の角度と ACT の答えを表示する
 
 
 class ActGraspServer(Node):
@@ -128,6 +129,7 @@ class ActGraspServer(Node):
         bowl = torch.tensor([[x, y]], dtype=torch.float32)
         close_time = None
         next_tick = time.monotonic()
+        tick = 0
         while True:
             now = time.monotonic()
             if now - start > TIMEOUT_SEC:
@@ -138,9 +140,17 @@ class ActGraspServer(Node):
 
             obs = {"observation.state": torch.from_numpy(state).unsqueeze(0),
                    "observation.environment_state": bowl}
+            infer_start = time.monotonic()
             with torch.no_grad():
                 action = self.policy.select_action(obs).squeeze(0).numpy()
+            infer_ms = (time.monotonic() - infer_start) * 1000
             target = np.clip(action, self.low, self.high)
+
+            # 0.5秒ごとに、今の角度と ACT の答え（どちらも度。joint1, 2, 3, 4, 手）と、計算にかかった時間を表示する
+            if tick % LOG_EVERY == 0:
+                self.get_logger().info(f"{now - start:4.1f}秒 今 {np.round(np.degrees(state), 1)} "
+                                       f"→ 答え {np.round(np.degrees(target), 1)}（計算 {infer_ms:.0f}ms）")
+            tick += 1
 
             if close_time is None and target[4] > CLOSE_LINE:
                 close_time = now
@@ -154,7 +164,6 @@ class ActGraspServer(Node):
             if next_tick < time.monotonic():   # 計算が間に合わなかったときは、待たずに次へ
                 next_tick = time.monotonic()
             time.sleep(max(0.0, next_tick - time.monotonic()))
-
 
 def main():
     parser = argparse.ArgumentParser(description="ACT で茶碗をつかむサービス（/kotoba/act_grasp）")
