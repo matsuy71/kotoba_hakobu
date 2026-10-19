@@ -1,0 +1,1 @@
+{"bowl": {"x": 0.01500000006159678, "y": -0.16610000006229206}, "grasp_ok": true, "message": "手を閉じ終えた", "grasp_sec": 13.9, "hand_deg": 19.81150280751233, "bowl_z_after": 0.068, "lifted": true, "reason": "", "trial": 0, "method": "act", "seed": 2026, "place": {"x": 0.015047038806238363, "y": -0.16610666061843754}, "seconds": 28.7}

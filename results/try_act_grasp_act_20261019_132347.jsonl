@@ -1,0 +1,1 @@
+{"bowl": {"x": 0.015, "y": -0.1661}, "grasp_ok": false, "message": "時間切れ（30秒たっても、手を閉じ終えなかった）", "grasp_sec": 30.1, "hand_deg": -29.94202619266728, "bowl_z_after": null, "lifted": false, "reason": "時間切れ（30秒たっても、手を閉じ終えなかった）", "trial": 0, "method": "act", "seed": 2026, "place": {"x": 0.015047038806238363, "y": -0.16610666061843754}, "seconds": 41.6}

@@ -7,7 +7,7 @@ serve_server の手順5〜7（茶碗の上へ → 下りる → 手を閉じる�
   2. まわりの状態（observation.environment_state）に、茶碗の位置 (x, y) を入れる
   3. サービスで頼まれて動き、手を閉じ終えたら返事をして止まる
   4. 安全のため、答えの角度を手本で動いた範囲におさめ、時間切れでも止まる
-
+  5. 腕の行動は「次のコマまでに動く角度（差）」。目標は「今の角度+差×10コマ分」にする。コントローラは目標に約0.5秒遅れてついて来るので、1コマ分先だと遅すぎ（手本の約12分の1）、目標に差を積み上げる方式だと、止まるときに遅れの分（約5度）だけ行き過ぎて、指が茶碗のふちに乗った
 pixi の箱（pai_training）の Python で動かす：
   python il/act_grasp_server.py
 
@@ -38,21 +38,24 @@ ARM_JOINTS = ["crane_plus_joint1", "crane_plus_joint2", "crane_plus_joint3", "cr
 HAND_JOINT = "crane_plus_joint_hand"
 JOINTS = ARM_JOINTS + [HAND_JOINT]
 
-MODEL_PATH = "/workspace/il_data/checkpoints/crane_plus_grasp_act_trim"
-DATASET_ROOT = "/workspace/il_data/lerobot_dataset/crane_plus_grasp_trim"
+MODEL_PATH = "/workspace/il_data/checkpoints/crane_plus_grasp_act_delta"
+DATASET_ROOT = "/workspace/il_data/lerobot_dataset/crane_plus_grasp_delta"
 REPO_ID = "crane_plus_grasp"
 
 PERIOD = 0.05                 # 0.05秒ごと（1秒に20回）。手本と同じ
-MOVE_SEC = 0.1                # 「0.1秒かけてその角度にして」と送る（講義の infer.py と同じ）
+MOVE_SEC = PERIOD             # 「次の1コマ（0.05秒）でその角度にして」と送る。手本では、差の分を1コマで動いたため
 GRIPPER_OPEN = math.radians(-30.0)
 GRIPPER_CLOSE = math.radians(35.0)
 CLOSE_LINE = (GRIPPER_OPEN + GRIPPER_CLOSE) / 2   # 手の答えがこれを超えたら「閉じ始めた」とみなす
 HOLD_SEC = 1.5                # 閉じ始めてから、さらに続ける時間（手本は、閉じたあと1.0秒続けて記録した）
-TIMEOUT_SEC = 20.0            # これを過ぎたら止める（手本は1回が約12秒）
+TIMEOUT_SEC = 30.0            # これを過ぎたら止める（手本は、止まっているコマを除いて1回が約11秒）
 STATE_WAIT_SEC = 2.0          # 関節の角度が届くのを待つ時間
 STATE_OLD_SEC = 0.5           # これより古い関節の角度は使わない
-MARGIN = 0.1                  # 手本で動いた範囲から、はみ出してよい角度（ラジアン。約6度）
-LOG_EVERY = 10                # この回数ごと（0.5秒ごと）に、今の角度と ACT の答えを表示する
+MARGIN = 0.1                  # 手本で腕が通った角度の範囲から、はみ出してよい角度（ラジアン。約6度）
+DELTA_MARGIN = 0.01           # 手本で1コマに動いた角度（差）の範囲から、はみ出してよい角度（ラジアン。約0.6度）
+LOG_EVERY = 10                # この回数ごと（0.5秒ごと）に、今の角度と目標の角度を表示する
+REF_LEAD_MAX = 0.1            # 目標を、今の角度よりこれ（ラジアン。約5.7度）より先には置かない（安全の上限）
+LOOKAHEAD = 10                # 目標を、差の何コマ分先に置くか（10コマ＝0.5秒。コントローラの遅れと同じくらい）
 
 
 class ActGraspServer(Node):
@@ -67,11 +70,14 @@ class ActGraspServer(Node):
         if "ENV" not in self.policy.config.normalization_mapping:
             raise RuntimeError("ACT の設定に ENV（まわりの状態）の正規化がない。il/train_grasp.py の変更1を確かめる")
 
-        # 安全のため、答えの角度を、手本で動いた範囲（少しの余裕つき）におさめる
-        stats = LeRobotDatasetMetadata(REPO_ID, root=DATASET_ROOT).stats["action"]
-        self.low = np.asarray(stats["min"], dtype=np.float32).reshape(-1) - MARGIN
-        self.high = np.asarray(stats["max"], dtype=np.float32).reshape(-1) + MARGIN
-        self.low[4], self.high[4] = GRIPPER_OPEN, GRIPPER_CLOSE
+        # 安全のため、ACT の答えを、手本の範囲（少しの余裕つき）におさめる
+        stats = LeRobotDatasetMetadata(REPO_ID, root=DATASET_ROOT).stats
+        # 腕の差：手本で1コマに動いた角度の範囲
+        self.delta_low = np.asarray(stats["action"]["min"], dtype=np.float32).reshape(-1)[:4] - DELTA_MARGIN
+        self.delta_high = np.asarray(stats["action"]["max"], dtype=np.float32).reshape(-1)[:4] + DELTA_MARGIN
+        # 動いた先の角度：手本で腕が通った角度の範囲
+        self.pos_low = np.asarray(stats["observation.state"]["min"], dtype=np.float32).reshape(-1)[:4] - MARGIN
+        self.pos_high = np.asarray(stats["observation.state"]["max"], dtype=np.float32).reshape(-1)[:4] + MARGIN
 
         # 関節の角度は、別の係（スレッド）が書きこむので、鍵（lock）をかけて読み書きする
         self.lock = threading.Lock()
@@ -144,12 +150,26 @@ class ActGraspServer(Node):
             with torch.no_grad():
                 action = self.policy.select_action(obs).squeeze(0).numpy()
             infer_ms = (time.monotonic() - infer_start) * 1000
-            target = np.clip(action, self.low, self.high)
 
-            # 0.5秒ごとに、今の角度と ACT の答え（どちらも度。joint1, 2, 3, 4, 手）と、計算にかかった時間を表示する
+            # 腕：目標は「今の角度 ＋ 差×LOOKAHEAD」。コントローラは目標に約0.5秒遅れてついて来るので、
+            # 0.5秒分（10コマ）先に目標を置くと、手本に近い速さが出る。止まる場所に近づくと差が0に
+            # 近づくので、目標が今の角度に重なっていき、行き過ぎない
+            delta = np.clip(action[:4], self.delta_low, self.delta_high)
+            # 先に置く量が上限を超えるときは、関節ごとに切らず、全体を同じ割合で縮める。
+            # 関節ごとに切ると、関節どうしの速さの比率（＝通り道の形）が壊れて、
+            # 回りきる前に下り始め、茶碗の左に下りてしまった
+            lead = delta * LOOKAHEAD
+            biggest = np.abs(lead).max()
+            if biggest > REF_LEAD_MAX:
+                lead *= REF_LEAD_MAX / biggest
+            target = np.empty(5, dtype=np.float32)
+            target[:4] = np.clip(state[:4] + lead, self.pos_low, self.pos_high)
+            target[4] = np.clip(action[4], GRIPPER_OPEN, GRIPPER_CLOSE)
+
+            # 0.5秒ごとに、今の角度と目標の角度（どちらも度。joint1, 2, 3, 4, 手）と、計算にかかった時間を表示する
             if tick % LOG_EVERY == 0:
                 self.get_logger().info(f"{now - start:4.1f}秒 今 {np.round(np.degrees(state), 1)} "
-                                       f"→ 答え {np.round(np.degrees(target), 1)}（計算 {infer_ms:.0f}ms）")
+                                       f"→ 目標 {np.round(np.degrees(target), 1)}（計算 {infer_ms:.0f}ms）")
             tick += 1
 
             if close_time is None and target[4] > CLOSE_LINE:

@@ -1,0 +1,6 @@
+[INFO] [1792415518.772819128] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792415520.715230781] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792415551.786802852] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792415551.874447768] [collect_grasp_demos]: グリッパーの結果: True
+[1/1] 失敗：時間切れ（30秒たっても、手を閉じ終えなかった）（茶碗 x=0.069 y=-0.156・つかむまで 30.1秒・手 -30.000000834831862度）
+act：持ち上がった 0/1。記録：/workspace/results/try_act_grasp_act_20261019_131150.jsonl
