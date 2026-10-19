@@ -17,4 +17,5 @@ __pycache__/
 CLAUDE.md
 third_party/
 il_data/
+wandb/
 

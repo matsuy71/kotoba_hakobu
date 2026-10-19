@@ -1,0 +1,15 @@
+input_features: {'observation.state': PolicyFeature(type=<FeatureType.STATE: 'STATE'>, shape=(5,)), 'observation.environment_state': PolicyFeature(type=<FeatureType.ENV: 'ENV'>, shape=(2,))}
+output_features: {'action': PolicyFeature(type=<FeatureType.ACTION: 'ACTION'>, shape=(5,))}
+WARNING:root:No accelerated backend detected. Using default cpu, this will be slow.
+WARNING:root:Device 'None' is not available. Switching to 'cpu'.
+step: 0 loss: 80.492 time: 10.2s
+step: 10 loss: 9.723 time: 108.5s
+step: 20 loss: 7.298 time: 206.5s
+step: 30 loss: 4.897 time: 300.9s
+step: 40 loss: 3.901 time: 397.3s
+step: 50 loss: 3.538 time: 494.8s
+step: 60 loss: 3.376 time: 590.7s
+step: 70 loss: 3.517 time: 682.7s
+step: 80 loss: 3.007 time: 776.5s
+step: 90 loss: 2.815 time: 869.4s
+policy saved to /workspace/il_data/checkpoints/crane_plus_grasp_act_test100（952.3秒）
