@@ -1,5 +1,5 @@
 # 変換の設定（講義第5回 pai_training の configs/conversion_config.yaml を参考にした）
 bag_dir: "/workspace/il_data/rosbags/20261019_084826/ok"
-output_dir: /workspace/il_data/lerobot_dataset/crane_plus_grasp_trim
+output_dir: /workspace/il_data/lerobot_dataset/crane_plus_grasp_delta
 config: "il/configs/grasp_features.py"
 target_freq: 20

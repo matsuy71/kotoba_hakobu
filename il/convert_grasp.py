@@ -5,7 +5,8 @@
 講義との違い：
   - まわりの状態（observation.environment_state）に、茶碗の場所 (x, y) を入れる（/kotoba/bowl_position）
   - 腕の行動は「1コマあと（1/fps 秒後）の関節の角度」。手本は MoveIt で動かしたので、命令のトピックがないため
-  - 指の行動は、手本で出した命令（開く −30度・閉じる 35度）。指が閉じ始めたコマで切りかえる
+    角度そのものだと、ACT の答えのずれ（数度）が1コマで動く角度（1度以下）より大きく、HOME で動き出せなかったため、差にした
+  - 指の行動は、手本で出した命令（開く -30度・閉じる 35度）。指が閉じ始めたコマで切りかえる
   - 関節は、名前で選んで並べる（joint1, joint2, joint3, joint4, 指）
   - 腕が止まっていて、指の行動が「開く」のコマは取りのぞく（止まっている時間が手本ごとにばらばらで、ACT が迷ったため）
 使い方（pixi の道具箱を有効にしてから、/workspace で）：
@@ -67,6 +68,7 @@ def hold(times, values, targets):
 
 def episode_frames(ep_dir, fps):
     """1つの手本を、1秒間に fps コマの（状態, まわり, 行動）にする。
+    腕の行動は、次のコマまでに動く角度（差）。指の行動は、開く・閉じるの命令の角度。
     腕が止まっていて、指の行動が「開く」のコマは取りのぞく。
     指が閉じ始めたコマの番号（取りのぞく前の番号）と、取りのぞいたコマの数も返す。"""
     jt, jv, bt, bv = read_bag(ep_dir)
@@ -76,12 +78,13 @@ def episode_frames(ep_dir, fps):
     targets = np.arange(start, end, int(1e9 / fps))
     state = hold(jt, jv, targets).astype(np.float32)        # (コマ数, 5)
     env = hold(bt, bv, targets).astype(np.float32)          # (コマ数, 2)
-    action = np.vstack([state[1:], state[-1:]]).copy()      # 腕：1コマあとの角度（最後のコマは同じ角度）
+    action = np.vstack([state[1:], state[-1:]]).copy()      # まず、1コマあとの角度（最後のコマは同じ角度）
+    action[:, :4] -= state[:, :4]                           # 腕：1コマあとまでに動く角度（差）にする
     closing = np.nonzero(state[:, 4] > GRIPPER_OPEN + CLOSE_START)[0]
     k = int(closing[0]) if len(closing) else len(state)
     action[:, 4] = GRIPPER_OPEN                             # 指：閉じ始めるまでは「開く」
     action[k:, 4] = GRIPPER_CLOSE                           # 指：閉じ始めたコマから「閉じる」
-    still = np.abs(action[:, :4] - state[:, :4]).max(axis=1) < STILL   # 腕が止まっているコマ
+    still = np.abs(action[:, :4]).max(axis=1) < STILL       # 腕が止まっているコマ（差がほとんど0）
     keep = ~(still & (action[:, 4] < 0))                    # 止まっていて、指が「開く」のコマ以外を残す
     return state[keep], env[keep], action[keep], k, int((~keep).sum())
 

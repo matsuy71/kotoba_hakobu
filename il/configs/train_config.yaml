@@ -1,12 +1,12 @@
 # 学習の設定（講義第5回 pai_training の configs/train_config.yaml を参考にした）
-dataset_root: "/workspace/il_data/lerobot_dataset/crane_plus_grasp"
+dataset_root: "/workspace/il_data/lerobot_dataset/crane_plus_grasp_delta"
 repo_id: "crane_plus_grasp"
-output_directory: "/workspace/il_data/checkpoints/crane_plus_grasp_act"
+output_directory: "/workspace/il_data/checkpoints/crane_plus_grasp_act_delta"
 config_path: "/workspace/il/configs/grasp_features.py"
 
 device: "cpu"
 num_threads: 8           # CPU のスレッドの数。16 だと1回9.8秒、8 だと0.34秒だった（il/check_speed.py で測定）
-training_steps: 10000    # 約57分。8コマずつで、手本の全体を約5.5回くり返す
+training_steps: 10000    # 約40分。8コマずつで、手本の全体を約6回くり返す
 log_freq: 100
 num_workers: 0           # データを読む手伝い役を使わない（取り出しは1コマ0.01秒で十分速い）
 batch_size: 8
