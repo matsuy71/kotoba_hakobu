@@ -1,0 +1,195 @@
+/workspace/il/convert_grasp.py:48: DeprecationWarning: Global serialization/deserialization functions have been replaced with
+explicit typestores.
+
+If you are deserializing messages from an AnyReader instance, simply
+use its `.deserialize(data, typename)` method.
+
+Otherwise instantiate a type store and use its methods:
+
+from rosbags.typesys import Stores, get_typestore
+
+typestore = get_typestore(Stores.ROS2_FOXY)
+typestore.deserialize_cdr(data, typename)
+  msg = deserialize_cdr(raw, conn.msgtype)
+手本 60 個：/workspace/il_data/rosbags/20261019_084826/ok
+Map:   0%|          | 0/249 [00:00<?, ? examples/s]Map:  66%|██████▋   | 165/249 [00:00<00:00, 1623.37 examples/s]Map: 100%|██████████| 249/249 [00:00<00:00, 1457.03 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 114.34ba/s]
+[1/60] ep_000：249 コマ（12.4秒）・指が閉じ始めたのは 171 コマ目・茶碗 x=0.015 y=-0.166
+Map:   0%|          | 0/244 [00:00<?, ? examples/s]Map:  66%|██████▌   | 160/244 [00:00<00:00, 1567.87 examples/s]Map: 100%|██████████| 244/244 [00:00<00:00, 1460.98 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1085.20ba/s]
+[2/60] ep_001：244 コマ（12.2秒）・指が閉じ始めたのは 161 コマ目・茶碗 x=0.087 y=-0.149
+Map:   0%|          | 0/285 [00:00<?, ? examples/s]Map:  51%|█████     | 146/285 [00:00<00:00, 1436.37 examples/s]Map: 100%|██████████| 285/285 [00:00<00:00, 1442.55 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1056.23ba/s]
+[3/60] ep_002：285 コマ（14.2秒）・指が閉じ始めたのは 200 コマ目・茶碗 x=-0.041 y=-0.161
+Map:   0%|          | 0/237 [00:00<?, ? examples/s]Map:  65%|██████▍   | 154/237 [00:00<00:00, 1513.57 examples/s]Map: 100%|██████████| 237/237 [00:00<00:00, 1467.10 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 698.35ba/s]
+[4/60] ep_003：237 コマ（11.8秒）・指が閉じ始めたのは 154 コマ目・茶碗 x=0.027 y=-0.172
+Map:   0%|          | 0/258 [00:00<?, ? examples/s]Map:  68%|██████▊   | 175/258 [00:00<00:00, 1732.93 examples/s]Map: 100%|██████████| 258/258 [00:00<00:00, 1546.56 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 246.45ba/s]
+[5/60] ep_004：258 コマ（12.9秒）・指が閉じ始めたのは 171 コマ目・茶碗 x=0.026 y=-0.175
+Map:   0%|          | 0/213 [00:00<?, ? examples/s]Map:  86%|████████▋ | 184/213 [00:00<00:00, 1821.78 examples/s]Map: 100%|██████████| 213/213 [00:00<00:00, 1635.28 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 714.41ba/s]
+[6/60] ep_005：213 コマ（10.7秒）・指が閉じ始めたのは 128 コマ目・茶碗 x=0.071 y=-0.161
+Map:   0%|          | 0/263 [00:00<?, ? examples/s]Map:  64%|██████▍   | 169/263 [00:00<00:00, 1667.01 examples/s]Map: 100%|██████████| 263/263 [00:00<00:00, 1622.17 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 704.93ba/s]
+[7/60] ep_006：263 コマ（13.2秒）・指が閉じ始めたのは 179 コマ目・茶碗 x=0.034 y=-0.173
+Map:   0%|          | 0/242 [00:00<?, ? examples/s]Map:  68%|██████▊   | 165/242 [00:00<00:00, 1632.96 examples/s]Map: 100%|██████████| 242/242 [00:00<00:00, 1565.47 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1055.70ba/s]
+[8/60] ep_007：242 コマ（12.1秒）・指が閉じ始めたのは 162 コマ目・茶碗 x=0.038 y=-0.164
+Map:   0%|          | 0/243 [00:00<?, ? examples/s]Map:  68%|██████▊   | 166/243 [00:00<00:00, 1646.33 examples/s]Map: 100%|██████████| 243/243 [00:00<00:00, 1553.24 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1168.33ba/s]
+[9/60] ep_008：243 コマ（12.2秒）・指が閉じ始めたのは 158 コマ目・茶碗 x=0.076 y=-0.148
+Map:   0%|          | 0/200 [00:00<?, ? examples/s]Map:  82%|████████▏ | 164/200 [00:00<00:00, 1591.36 examples/s]Map: 100%|██████████| 200/200 [00:00<00:00, 1407.19 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1245.71ba/s]
+[10/60] ep_009：200 コマ（10.0秒）・指が閉じ始めたのは 115 コマ目・茶碗 x=0.078 y=-0.153
+Map:   0%|          | 0/229 [00:00<?, ? examples/s]Map:  72%|███████▏  | 164/229 [00:00<00:00, 1624.13 examples/s]Map: 100%|██████████| 229/229 [00:00<00:00, 1532.82 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 823.38ba/s]
+[11/60] ep_010：229 コマ（11.4秒）・指が閉じ始めたのは 148 コマ目・茶碗 x=0.053 y=-0.167
+Map:   0%|          | 0/261 [00:00<?, ? examples/s]Map:  68%|██████▊   | 177/261 [00:00<00:00, 1754.50 examples/s]Map: 100%|██████████| 261/261 [00:00<00:00, 1651.52 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 886.56ba/s]
+[12/60] ep_011：261 コマ（13.1秒）・指が閉じ始めたのは 175 コマ目・茶碗 x=-0.036 y=-0.164
+Map:   0%|          | 0/256 [00:00<?, ? examples/s]Map:  65%|██████▌   | 167/256 [00:00<00:00, 1650.25 examples/s]Map: 100%|██████████| 256/256 [00:00<00:00, 1632.15 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 378.58ba/s]
+[13/60] ep_012：256 コマ（12.8秒）・指が閉じ始めたのは 169 コマ目・茶碗 x=0.103 y=-0.147
+Map:   0%|          | 0/235 [00:00<?, ? examples/s]Map:  69%|██████▊   | 161/235 [00:00<00:00, 1585.82 examples/s]Map: 100%|██████████| 235/235 [00:00<00:00, 1581.64 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1188.86ba/s]
+[14/60] ep_013：235 コマ（11.8秒）・指が閉じ始めたのは 144 コマ目・茶碗 x=0.114 y=-0.136
+Map:   0%|          | 0/248 [00:00<?, ? examples/s]Map:  67%|██████▋   | 166/248 [00:00<00:00, 1622.72 examples/s]Map: 100%|██████████| 248/248 [00:00<00:00, 1523.35 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 846.65ba/s]
+[15/60] ep_014：248 コマ（12.4秒）・指が閉じ始めたのは 166 コマ目・茶碗 x=0.027 y=-0.168
+Map:   0%|          | 0/207 [00:00<?, ? examples/s]Map:  74%|███████▍  | 153/207 [00:00<00:00, 1502.99 examples/s]Map: 100%|██████████| 207/207 [00:00<00:00, 1461.83 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1183.83ba/s]
+[16/60] ep_015：207 コマ（10.3秒）・指が閉じ始めたのは 126 コマ目・茶碗 x=0.006 y=-0.169
+Map:   0%|          | 0/209 [00:00<?, ? examples/s]Map:  82%|████████▏ | 172/209 [00:00<00:00, 1699.21 examples/s]Map: 100%|██████████| 209/209 [00:00<00:00, 1571.29 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1228.56ba/s]
+[17/60] ep_016：209 コマ（10.4秒）・指が閉じ始めたのは 126 コマ目・茶碗 x=0.059 y=-0.168
+Map:   0%|          | 0/231 [00:00<?, ? examples/s]Map:  81%|████████  | 186/231 [00:00<00:00, 1830.47 examples/s]Map: 100%|██████████| 231/231 [00:00<00:00, 1694.22 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 815.22ba/s]
+[18/60] ep_017：231 コマ（11.6秒）・指が閉じ始めたのは 151 コマ目・茶碗 x=-0.014 y=-0.175
+Map:   0%|          | 0/244 [00:00<?, ? examples/s]Map:  60%|█████▉    | 146/244 [00:00<00:00, 1440.68 examples/s]Map: 100%|██████████| 244/244 [00:00<00:00, 1418.05 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1048.58ba/s]
+[19/60] ep_018：244 コマ（12.2秒）・指が閉じ始めたのは 156 コマ目・茶碗 x=-0.006 y=-0.171
+Map:   0%|          | 0/250 [00:00<?, ? examples/s]Map:  73%|███████▎  | 183/250 [00:00<00:00, 1807.72 examples/s]Map: 100%|██████████| 250/250 [00:00<00:00, 1647.70 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 960.23ba/s]
+[20/60] ep_019：250 コマ（12.5秒）・指が閉じ始めたのは 168 コマ目・茶碗 x=0.015 y=-0.173
+Map:   0%|          | 0/249 [00:00<?, ? examples/s]Map:  70%|██████▉   | 174/249 [00:00<00:00, 1718.93 examples/s]Map: 100%|██████████| 249/249 [00:00<00:00, 1635.75 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 412.87ba/s]
+[21/60] ep_020：249 コマ（12.4秒）・指が閉じ始めたのは 163 コマ目・茶碗 x=0.016 y=-0.166
+Map:   0%|          | 0/187 [00:00<?, ? examples/s]Map:  94%|█████████▎| 175/187 [00:00<00:00, 1716.90 examples/s]Map: 100%|██████████| 187/187 [00:00<00:00, 1623.87 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 490.85ba/s]
+[22/60] ep_021：187 コマ（9.3秒）・指が閉じ始めたのは 104 コマ目・茶碗 x=0.037 y=-0.172
+Map:   0%|          | 0/258 [00:00<?, ? examples/s]Map:  64%|██████▎   | 164/258 [00:00<00:00, 1606.81 examples/s]Map: 100%|██████████| 258/258 [00:00<00:00, 1519.79 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 520.71ba/s]
+[23/60] ep_022：258 コマ（12.9秒）・指が閉じ始めたのは 177 コマ目・茶碗 x=0.097 y=-0.143
+Map:   0%|          | 0/241 [00:00<?, ? examples/s]Map:  67%|██████▋   | 162/241 [00:00<00:00, 1598.82 examples/s]Map: 100%|██████████| 241/241 [00:00<00:00, 1525.23 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 860.55ba/s]
+[24/60] ep_023：241 コマ（12.1秒）・指が閉じ始めたのは 162 コマ目・茶碗 x=-0.002 y=-0.169
+Map:   0%|          | 0/236 [00:00<?, ? examples/s]Map:  79%|███████▉  | 187/236 [00:00<00:00, 1847.81 examples/s]Map: 100%|██████████| 236/236 [00:00<00:00, 1638.50 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 430.41ba/s]
+[25/60] ep_024：236 コマ（11.8秒）・指が閉じ始めたのは 154 コマ目・茶碗 x=0.011 y=-0.179
+Map:   0%|          | 0/218 [00:00<?, ? examples/s]Map:  81%|████████  | 176/218 [00:00<00:00, 1736.47 examples/s]Map: 100%|██████████| 218/218 [00:00<00:00, 1566.77 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 990.39ba/s]
+[26/60] ep_025：218 コマ（10.9秒）・指が閉じ始めたのは 135 コマ目・茶碗 x=-0.060 y=-0.157
+Map:   0%|          | 0/202 [00:00<?, ? examples/s]Map:  86%|████████▌ | 174/202 [00:00<00:00, 1717.01 examples/s]Map: 100%|██████████| 202/202 [00:00<00:00, 1607.28 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 862.14ba/s]
+[27/60] ep_026：202 コマ（10.1秒）・指が閉じ始めたのは 123 コマ目・茶碗 x=0.055 y=-0.156
+Map:   0%|          | 0/275 [00:00<?, ? examples/s]Map:  65%|██████▌   | 180/275 [00:00<00:00, 1776.28 examples/s]Map: 100%|██████████| 275/275 [00:00<00:00, 1608.37 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 609.55ba/s]
+[28/60] ep_027：275 コマ（13.8秒）・指が閉じ始めたのは 193 コマ目・茶碗 x=-0.069 y=-0.164
+Map:   0%|          | 0/238 [00:00<?, ? examples/s]Map:  66%|██████▌   | 157/238 [00:00<00:00, 1533.63 examples/s]Map: 100%|██████████| 238/238 [00:00<00:00, 1471.70 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 918.39ba/s]
+[29/60] ep_028：238 コマ（11.9秒）・指が閉じ始めたのは 156 コマ目・茶碗 x=0.009 y=-0.174
+Map:   0%|          | 0/254 [00:00<?, ? examples/s]Map:  59%|█████▉    | 151/254 [00:00<00:00, 1486.59 examples/s]Map: 100%|██████████| 254/254 [00:00<00:00, 1435.65 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 944.03ba/s]
+[30/60] ep_029：254 コマ（12.7秒）・指が閉じ始めたのは 175 コマ目・茶碗 x=-0.042 y=-0.167
+Map:   0%|          | 0/251 [00:00<?, ? examples/s]Map:  64%|██████▎   | 160/251 [00:00<00:00, 1585.75 examples/s]Map: 100%|██████████| 251/251 [00:00<00:00, 1457.54 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 684.67ba/s]
+[31/60] ep_030：251 コマ（12.6秒）・指が閉じ始めたのは 166 コマ目・茶碗 x=0.043 y=-0.173
+Map:   0%|          | 0/256 [00:00<?, ? examples/s]Map:  60%|██████    | 154/256 [00:00<00:00, 1518.69 examples/s]Map: 100%|██████████| 256/256 [00:00<00:00, 1422.79 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 322.02ba/s]
+[32/60] ep_031：256 コマ（12.8秒）・指が閉じ始めたのは 173 コマ目・茶碗 x=0.009 y=-0.172
+Map:   0%|          | 0/228 [00:00<?, ? examples/s]Map:  78%|███████▊  | 177/228 [00:00<00:00, 1750.58 examples/s]Map: 100%|██████████| 228/228 [00:00<00:00, 1698.32 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 814.59ba/s]
+[33/60] ep_032：228 コマ（11.4秒）・指が閉じ始めたのは 142 コマ目・茶碗 x=0.113 y=-0.139
+Map:   0%|          | 0/258 [00:00<?, ? examples/s]Map:  52%|█████▏    | 134/258 [00:00<00:00, 1318.85 examples/s]Map: 100%|██████████| 258/258 [00:00<00:00, 1222.77 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 775.57ba/s]
+[34/60] ep_033：258 コマ（12.9秒）・指が閉じ始めたのは 172 コマ目・茶碗 x=0.028 y=-0.171
+Map:   0%|          | 0/213 [00:00<?, ? examples/s]Map:  78%|███████▊  | 166/213 [00:00<00:00, 1646.09 examples/s]Map: 100%|██████████| 213/213 [00:00<00:00, 1470.70 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1032.06ba/s]
+[35/60] ep_034：213 コマ（10.7秒）・指が閉じ始めたのは 129 コマ目・茶碗 x=-0.026 y=-0.173
+Map:   0%|          | 0/230 [00:00<?, ? examples/s]Map:  74%|███████▍  | 171/230 [00:00<00:00, 1676.39 examples/s]Map: 100%|██████████| 230/230 [00:00<00:00, 1518.79 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 964.21ba/s]
+[36/60] ep_035：230 コマ（11.5秒）・指が閉じ始めたのは 151 コマ目・茶碗 x=0.016 y=-0.176
+Map:   0%|          | 0/226 [00:00<?, ? examples/s]Map:  75%|███████▍  | 169/226 [00:00<00:00, 1661.35 examples/s]Map: 100%|██████████| 226/226 [00:00<00:00, 1540.02 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 310.78ba/s]
+[37/60] ep_036：226 コマ（11.3秒）・指が閉じ始めたのは 143 コマ目・茶碗 x=0.091 y=-0.146
+Map:   0%|          | 0/212 [00:00<?, ? examples/s]Map:  85%|████████▍ | 180/212 [00:00<00:00, 1763.85 examples/s]Map: 100%|██████████| 212/212 [00:00<00:00, 1634.23 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 964.65ba/s]
+[38/60] ep_037：212 コマ（10.6秒）・指が閉じ始めたのは 132 コマ目・茶碗 x=-0.028 y=-0.169
+Map:   0%|          | 0/223 [00:00<?, ? examples/s]Map:  73%|███████▎  | 163/223 [00:00<00:00, 1612.19 examples/s]Map: 100%|██████████| 223/223 [00:00<00:00, 1497.93 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 804.43ba/s]
+[39/60] ep_038：223 コマ（11.2秒）・指が閉じ始めたのは 132 コマ目・茶碗 x=0.036 y=-0.171
+Map:   0%|          | 0/243 [00:00<?, ? examples/s]Map:  71%|███████   | 172/243 [00:00<00:00, 1675.05 examples/s]Map: 100%|██████████| 243/243 [00:00<00:00, 1604.34 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1011.16ba/s]
+[40/60] ep_039：243 コマ（12.2秒）・指が閉じ始めたのは 162 コマ目・茶碗 x=0.020 y=-0.171
+Map:   0%|          | 0/233 [00:00<?, ? examples/s]Map:  49%|████▉     | 114/233 [00:00<00:00, 1110.28 examples/s]Map: 100%|██████████| 233/233 [00:00<00:00, 1313.45 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1159.61ba/s]
+[41/60] ep_040：233 コマ（11.7秒）・指が閉じ始めたのは 152 コマ目・茶碗 x=0.098 y=-0.142
+Map:   0%|          | 0/252 [00:00<?, ? examples/s]Map:  72%|███████▏  | 182/252 [00:00<00:00, 1799.30 examples/s]Map: 100%|██████████| 252/252 [00:00<00:00, 1699.24 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1201.81ba/s]
+[42/60] ep_041：252 コマ（12.6秒）・指が閉じ始めたのは 170 コマ目・茶碗 x=0.012 y=-0.169
+Map:   0%|          | 0/243 [00:00<?, ? examples/s]Map:  72%|███████▏  | 176/243 [00:00<00:00, 1731.94 examples/s]Map: 100%|██████████| 243/243 [00:00<00:00, 1616.10 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 777.73ba/s]
+[43/60] ep_042：243 コマ（12.2秒）・指が閉じ始めたのは 156 コマ目・茶碗 x=0.081 y=-0.153
+Map:   0%|          | 0/227 [00:00<?, ? examples/s]Map:  72%|███████▏  | 164/227 [00:00<00:00, 1610.83 examples/s]Map: 100%|██████████| 227/227 [00:00<00:00, 1499.97 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 774.57ba/s]
+[44/60] ep_043：227 コマ（11.3秒）・指が閉じ始めたのは 145 コマ目・茶碗 x=0.028 y=-0.175
+Map:   0%|          | 0/222 [00:00<?, ? examples/s]Map:  85%|████████▌ | 189/222 [00:00<00:00, 1841.01 examples/s]Map: 100%|██████████| 222/222 [00:00<00:00, 1728.15 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 973.83ba/s]
+[45/60] ep_044：222 コマ（11.1秒）・指が閉じ始めたのは 140 コマ目・茶碗 x=0.084 y=-0.157
+Map:   0%|          | 0/281 [00:00<?, ? examples/s]Map:  59%|█████▉    | 166/281 [00:00<00:00, 1643.82 examples/s]Map: 100%|██████████| 281/281 [00:00<00:00, 1555.57 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 986.90ba/s]
+[46/60] ep_045：281 コマ（14.1秒）・指が閉じ始めたのは 196 コマ目・茶碗 x=0.095 y=-0.140
+Map:   0%|          | 0/228 [00:00<?, ? examples/s]Map:  71%|███████   | 162/228 [00:00<00:00, 1597.03 examples/s]Map: 100%|██████████| 228/228 [00:00<00:00, 1493.95 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 813.01ba/s]
+[47/60] ep_046：228 コマ（11.4秒）・指が閉じ始めたのは 140 コマ目・茶碗 x=0.052 y=-0.158
+Map:   0%|          | 0/233 [00:00<?, ? examples/s]Map:  73%|███████▎  | 170/233 [00:00<00:00, 1679.74 examples/s]Map: 100%|██████████| 233/233 [00:00<00:00, 1612.84 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 472.01ba/s]
+[48/60] ep_047：233 コマ（11.7秒）・指が閉じ始めたのは 153 コマ目・茶碗 x=0.019 y=-0.176
+Map:   0%|          | 0/272 [00:00<?, ? examples/s]Map:  57%|█████▋    | 155/272 [00:00<00:00, 1521.47 examples/s]Map: 100%|██████████| 272/272 [00:00<00:00, 1447.32 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 999.36ba/s]
+[49/60] ep_048：272 コマ（13.6秒）・指が閉じ始めたのは 188 コマ目・茶碗 x=0.105 y=-0.136
+Map:   0%|          | 0/248 [00:00<?, ? examples/s]Map:  62%|██████▏   | 154/248 [00:00<00:00, 1515.14 examples/s]Map: 100%|██████████| 248/248 [00:00<00:00, 1414.11 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 947.65ba/s]
+[50/60] ep_049：248 コマ（12.4秒）・指が閉じ始めたのは 168 コマ目・茶碗 x=0.087 y=-0.157
+Map:   0%|          | 0/232 [00:00<?, ? examples/s]Map:  69%|██████▊   | 159/232 [00:00<00:00, 1566.18 examples/s]Map: 100%|██████████| 232/232 [00:00<00:00, 1759.43 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 746.05ba/s]
+[51/60] ep_050：232 コマ（11.6秒）・指が閉じ始めたのは 148 コマ目・茶碗 x=0.014 y=-0.168
+Map:   0%|          | 0/247 [00:00<?, ? examples/s]Map:  49%|████▊     | 120/247 [00:00<00:00, 1177.32 examples/s]Map:  98%|█████████▊| 242/247 [00:00<00:00, 1181.01 examples/s]Map: 100%|██████████| 247/247 [00:00<00:00, 1139.49 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1133.29ba/s]
+[52/60] ep_051：247 コマ（12.3秒）・指が閉じ始めたのは 162 コマ目・茶碗 x=0.063 y=-0.154
+Map:   0%|          | 0/244 [00:00<?, ? examples/s]Map:  61%|██████▏   | 150/244 [00:00<00:00, 1480.47 examples/s]Map: 100%|██████████| 244/244 [00:00<00:00, 1427.50 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 779.03ba/s]
+[53/60] ep_052：244 コマ（12.2秒）・指が閉じ始めたのは 160 コマ目・茶碗 x=0.004 y=-0.171
+Map:   0%|          | 0/255 [00:00<?, ? examples/s]Map:  58%|█████▊    | 149/255 [00:00<00:00, 1463.22 examples/s]Map: 100%|██████████| 255/255 [00:00<00:00, 1480.82 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 880.60ba/s]
+[54/60] ep_053：255 コマ（12.8秒）・指が閉じ始めたのは 170 コマ目・茶碗 x=0.100 y=-0.142
+Map:   0%|          | 0/249 [00:00<?, ? examples/s]Map:  70%|███████   | 175/249 [00:00<00:00, 1724.27 examples/s]Map: 100%|██████████| 249/249 [00:00<00:00, 1715.08 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1116.10ba/s]
+[55/60] ep_054：249 コマ（12.4秒）・指が閉じ始めたのは 165 コマ目・茶碗 x=0.072 y=-0.150
+Map:   0%|          | 0/253 [00:00<?, ? examples/s]Map:  78%|███████▊  | 198/253 [00:00<00:00, 1941.04 examples/s]Map: 100%|██████████| 253/253 [00:00<00:00, 1780.08 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 936.02ba/s]
+[56/60] ep_055：253 コマ（12.7秒）・指が閉じ始めたのは 174 コマ目・茶碗 x=0.039 y=-0.164
+Map:   0%|          | 0/246 [00:00<?, ? examples/s]Map:  74%|███████▍  | 182/246 [00:00<00:00, 1795.67 examples/s]Map: 100%|██████████| 246/246 [00:00<00:00, 1678.80 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1102.02ba/s]
+[57/60] ep_056：246 コマ（12.3秒）・指が閉じ始めたのは 163 コマ目・茶碗 x=0.106 y=-0.141
+Map:   0%|          | 0/241 [00:00<?, ? examples/s]Map:  75%|███████▍  | 180/241 [00:00<00:00, 1779.03 examples/s]Map: 100%|██████████| 241/241 [00:00<00:00, 1667.31 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 724.40ba/s]
+[58/60] ep_057：241 コマ（12.1秒）・指が閉じ始めたのは 158 コマ目・茶碗 x=0.044 y=-0.169
+Map:   0%|          | 0/227 [00:00<?, ? examples/s]Map:  80%|███████▉  | 181/227 [00:00<00:00, 1785.62 examples/s]Map: 100%|██████████| 227/227 [00:00<00:00, 1703.75 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1173.23ba/s]
+[59/60] ep_058：227 コマ（11.3秒）・指が閉じ始めたのは 148 コマ目・茶碗 x=-0.023 y=-0.166
+Map:   0%|          | 0/304 [00:00<?, ? examples/s]Map:  61%|██████    | 186/304 [00:00<00:00, 1842.47 examples/s]Map: 100%|██████████| 304/304 [00:00<00:00, 1770.69 examples/s]
+Creating parquet from Arrow format:   0%|          | 0/1 [00:00<?, ?ba/s]Creating parquet from Arrow format: 100%|██████████| 1/1 [00:00<00:00, 1102.02ba/s]
+[60/60] ep_059：304 コマ（15.2秒）・指が閉じ始めたのは 215 コマ目・茶碗 x=0.070 y=-0.159
+できあがり：/workspace/il_data/lerobot_dataset/crane_plus_grasp（手本 60 個・14439 コマ）
