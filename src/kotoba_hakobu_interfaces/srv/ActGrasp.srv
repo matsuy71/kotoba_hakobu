@@ -1,0 +1,8 @@
+# 頼み：つかむ茶碗の位置（ロボットの座標 crane_plus_base、メートル）
+float64 x
+float64 y
+---
+# 返事
+bool success      # true：ACT が手を閉じ終えた（本当につかめたかは、serve_server の手順8で確かめる）
+string message    # 何が起きたかの説明
+float64 seconds   # かかった時間（秒）
