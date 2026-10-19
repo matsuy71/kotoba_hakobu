@@ -16,3 +16,5 @@ __pycache__/
 # ===== Claude Code への指示書（手元だけで使う） =====
 CLAUDE.md
 third_party/
+il_data/
+
