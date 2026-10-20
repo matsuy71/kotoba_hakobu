@@ -1,0 +1,234 @@
+[INFO] [1792417459.612698134] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417459.748496717] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417474.992042194] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417478.140638649] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417478.153075378] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417478.158561417] [collect_grasp_demos]: 計画に失敗（1回目）: (0.02606564705443033, -0.06580567576009655, 0.08)
+[WARN] [1792417478.673115267] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417478.687927493] [collect_grasp_demos]: 計画に失敗（2回目）: (0.02606564705443033, -0.06580567576009655, 0.08)
+[WARN] [1792417479.206786269] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417479.207274513] [collect_grasp_demos]: 計画に失敗（3回目）: (0.02606564705443033, -0.06580567576009655, 0.08)
+[ERROR] [1792417479.709511911] [collect_grasp_demos]: 3回とも計画に失敗しました: (0.02606564705443033, -0.06580567576009655, 0.08)
+[1/20] 失敗：何もはさめていない（茶碗 x=0.069 y=-0.156・つかむまで 14.2秒・手 34.99830938035239度）
+[INFO] [1792417488.459386010] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417488.564674719] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417503.359088234] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417506.556772690] [collect_grasp_demos]: グリッパーの結果: True
+[2/20] 失敗：何もはさめていない（茶碗 x=0.052 y=-0.168・つかむまで 13.8秒・手 34.997997826738846度）
+[INFO] [1792417516.056092774] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417516.146161477] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417531.793902295] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.2 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417531.794554419] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.01340910508794525, -0.07551633560757406, 0.08)
+[WARN] [1792417532.314965867] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.2 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417532.315505772] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.01340910508794525, -0.07551633560757406, 0.08)
+[WARN] [1792417532.831960624] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.2 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417532.832548602] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.01340910508794525, -0.07551633560757406, 0.08)
+[ERROR] [1792417533.338233734] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.01340910508794525, -0.07551633560757406, 0.08)
+[INFO] [1792417533.339085392] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417536.274202507] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417536.287761662] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.2 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417536.288292974] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.01340910508794525, -0.07551633560757406, 0.08)
+[WARN] [1792417536.808041690] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.2 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417536.808504441] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.01340910508794525, -0.07551633560757406, 0.08)
+[WARN] [1792417537.327674712] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.2 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417537.328194896] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.01340910508794525, -0.07551633560757406, 0.08)
+[ERROR] [1792417537.829618391] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.01340910508794525, -0.07551633560757406, 0.08)
+[3/20] 失敗：持ち上げる動きの失敗（茶碗 x=-0.024 y=-0.175・つかむまで 14.6秒・手 19.813009104727087度）
+[INFO] [1792417546.859574496] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417546.968355045] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417563.876988436] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417563.877413865] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.024939962208529877, -0.07165595402187537, 0.08)
+[WARN] [1792417564.391774924] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417564.392344159] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.024939962208529877, -0.07165595402187537, 0.08)
+[WARN] [1792417564.908350708] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417564.908732392] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.024939962208529877, -0.07165595402187537, 0.08)
+[ERROR] [1792417565.409852201] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.024939962208529877, -0.07165595402187537, 0.08)
+[INFO] [1792417565.414791103] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417568.230953305] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417568.259624918] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417568.260079824] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.024939962208529877, -0.07165595402187537, 0.08)
+[WARN] [1792417568.777518815] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417568.778008739] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.024939962208529877, -0.07165595402187537, 0.08)
+[WARN] [1792417569.292903446] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417569.293542085] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.024939962208529877, -0.07165595402187537, 0.08)
+[ERROR] [1792417569.797148216] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.024939962208529877, -0.07165595402187537, 0.08)
+[4/20] 失敗：持ち上げる動きの失敗（茶碗 x=-0.051 y=-0.168・つかむまで 15.9秒・手 19.806878893203628度）
+[INFO] [1792417578.729373250] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417578.826655420] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417594.811369042] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417598.227056516] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417598.251499227] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.14814814814814814 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417598.252108414] [collect_grasp_demos]: 計画に失敗（1回目）: (0.02464772737865236, -0.06847969881245738, 0.08)
+[WARN] [1792417598.769519751] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.14814814814814814 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417598.769899676] [collect_grasp_demos]: 計画に失敗（2回目）: (0.02464772737865236, -0.06847969881245738, 0.08)
+[WARN] [1792417599.302558627] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.14814814814814814 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417599.303109826] [collect_grasp_demos]: 計画に失敗（3回目）: (0.02464772737865236, -0.06847969881245738, 0.08)
+[ERROR] [1792417599.804539835] [collect_grasp_demos]: 3回とも計画に失敗しました: (0.02464772737865236, -0.06847969881245738, 0.08)
+[5/20] 失敗：何もはさめていない（茶碗 x=0.065 y=-0.160・つかむまで 15.0秒・手 34.993584652990535度）
+[INFO] [1792417608.662158415] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417608.760394091] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417625.309918457] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417628.759435866] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417628.777565339] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417628.778239135] [collect_grasp_demos]: 計画に失敗（1回目）: (0.023597679397934564, -0.06391417624671746, 0.08)
+[WARN] [1792417629.296776107] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417629.297214834] [collect_grasp_demos]: 計画に失敗（2回目）: (0.023597679397934564, -0.06391417624671746, 0.08)
+[WARN] [1792417629.808484585] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417629.809006652] [collect_grasp_demos]: 計画に失敗（3回目）: (0.023597679397934564, -0.06391417624671746, 0.08)
+[ERROR] [1792417630.313469734] [collect_grasp_demos]: 3回とも計画に失敗しました: (0.023597679397934564, -0.06391417624671746, 0.08)
+[6/20] 失敗：何もはさめていない（茶碗 x=0.065 y=-0.155・つかむまで 15.5秒・手 34.99659239213006度）
+[INFO] [1792417639.431994010] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417639.522981170] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417655.650273359] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417659.122338468] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417659.141370981] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417659.141901258] [collect_grasp_demos]: 計画に失敗（1回目）: (0.019902236965412642, -0.06347474217558986, 0.08)
+[WARN] [1792417659.654164748] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417659.654659849] [collect_grasp_demos]: 計画に失敗（2回目）: (0.019902236965412642, -0.06347474217558986, 0.08)
+[WARN] [1792417660.177198442] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417660.182669101] [collect_grasp_demos]: 計画に失敗（3回目）: (0.019902236965412642, -0.06347474217558986, 0.08)
+[ERROR] [1792417660.683802937] [collect_grasp_demos]: 3回とも計画に失敗しました: (0.019902236965412642, -0.06347474217558986, 0.08)
+[7/20] 失敗：何もはさめていない（茶碗 x=0.056 y=-0.157・つかむまで 15.1秒・手 34.996785949559325度）
+[INFO] [1792417669.746632465] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417669.844900543] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417685.550854435] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417689.016577971] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417689.030247097] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417689.030691790] [collect_grasp_demos]: 計画に失敗（1回目）: (0.028825395730674018, -0.07106428895093363, 0.08)
+[WARN] [1792417689.545649575] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417689.546938943] [collect_grasp_demos]: 計画に失敗（2回目）: (0.028825395730674018, -0.07106428895093363, 0.08)
+[WARN] [1792417690.072267485] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.10714285714285714 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417690.072773344] [collect_grasp_demos]: 計画に失敗（3回目）: (0.028825395730674018, -0.07106428895093363, 0.08)
+[ERROR] [1792417690.573957811] [collect_grasp_demos]: 3回とも計画に失敗しました: (0.028825395730674018, -0.07106428895093363, 0.08)
+[8/20] 失敗：何もはさめていない（茶碗 x=0.073 y=-0.161・つかむまで 14.7秒・手 34.99650310930579度）
+[INFO] [1792417699.597361870] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417699.713648346] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417716.714581217] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417716.715065053] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.02825326941681053, -0.06934958349961276, 0.08)
+[WARN] [1792417717.246363847] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417717.246852204] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.02825326941681053, -0.06934958349961276, 0.08)
+[WARN] [1792417717.759506450] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417717.759950246] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.02825326941681053, -0.06934958349961276, 0.08)
+[ERROR] [1792417718.261152670] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.02825326941681053, -0.06934958349961276, 0.08)
+[INFO] [1792417718.261622597] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417721.100820263] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417721.115874424] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417721.116250552] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.02825326941681053, -0.06934958349961276, 0.08)
+[WARN] [1792417721.629736169] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417721.630145495] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.02825326941681053, -0.06934958349961276, 0.08)
+[WARN] [1792417722.147621874] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.1 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417722.150875187] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.02825326941681053, -0.06934958349961276, 0.08)
+[ERROR] [1792417722.654086930] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.02825326941681053, -0.06934958349961276, 0.08)
+[9/20] 失敗：持ち上げる動きの失敗（茶碗 x=-0.060 y=-0.165・つかむまで 16.0秒・手 19.80473176100872度）
+[INFO] [1792417731.664886120] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417731.779128334] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417749.925898297] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417752.670608227] [collect_grasp_demos]: グリッパーの結果: True
+[10/20] 持ち上がった（茶碗 x=0.032 y=-0.168・つかむまで 14.0秒・手 19.1114940204192度）
+[INFO] [1792417760.293362384] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417760.391035778] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417777.199638747] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417780.577089449] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417780.589293700] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.06451612903225806 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417780.590353393] [collect_grasp_demos]: 計画に失敗（1回目）: (0.045106289298026, -0.0640638684407499, 0.08)
+[WARN] [1792417781.103128368] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.06451612903225806 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417781.103521075] [collect_grasp_demos]: 計画に失敗（2回目）: (0.045106289298026, -0.0640638684407499, 0.08)
+[WARN] [1792417781.614248198] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.06451612903225806 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417781.614639606] [collect_grasp_demos]: 計画に失敗（3回目）: (0.045106289298026, -0.0640638684407499, 0.08)
+[ERROR] [1792417782.115871294] [collect_grasp_demos]: 3回とも計画に失敗しました: (0.045106289298026, -0.0640638684407499, 0.08)
+[11/20] 失敗：何もはさめていない（茶碗 x=0.108 y=-0.142・つかむまで 15.8秒・手 34.995348588399956度）
+[INFO] [1792417791.328408042] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417791.436668078] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417811.053399447] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417813.906262100] [collect_grasp_demos]: グリッパーの結果: True
+[12/20] 持ち上がった（茶碗 x=-0.009 y=-0.174・つかむまで 15.0秒・手 19.81243529102727度）
+[INFO] [1792417821.563938748] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417821.668978211] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417838.636585412] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417838.637376342] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.03326930594460524, -0.07232545658655129, 0.08)
+[WARN] [1792417839.158841489] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417839.159303972] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.03326930594460524, -0.07232545658655129, 0.08)
+[WARN] [1792417839.677924341] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417839.678336924] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.03326930594460524, -0.07232545658655129, 0.08)
+[ERROR] [1792417840.180792276] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.03326930594460524, -0.07232545658655129, 0.08)
+[INFO] [1792417840.181652400] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417843.031859929] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417843.045713230] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417843.051591430] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.03326930594460524, -0.07232545658655129, 0.08)
+[WARN] [1792417843.566907565] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417843.567316753] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.03326930594460524, -0.07232545658655129, 0.08)
+[WARN] [1792417844.095601031] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417844.096183592] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.03326930594460524, -0.07232545658655129, 0.08)
+[ERROR] [1792417844.598719937] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.03326930594460524, -0.07232545658655129, 0.08)
+[13/20] 失敗：持ち上げる動きの失敗（茶碗 x=-0.069 y=-0.166・つかむまで 16.0秒・手 19.812758097069494度）
+[INFO] [1792417853.644800418] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417853.741862017] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417870.977520673] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417874.406449974] [collect_grasp_demos]: グリッパーの結果: True
+[14/20] 失敗：何もはさめていない（茶碗 x=0.039 y=-0.161・つかむまで 16.2秒・手 34.997064481983706度）
+[INFO] [1792417884.394480072] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417884.515151541] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417903.649431256] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417906.388984806] [collect_grasp_demos]: グリッパーの結果: True
+[15/20] 持ち上がった（茶碗 x=0.012 y=-0.169・つかむまで 14.4秒・手 19.812715512639805度）
+[INFO] [1792417914.011613469] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417914.099223398] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417933.651131381] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417936.506471724] [collect_grasp_demos]: グリッパーの結果: True
+[16/20] 持ち上がった（茶碗 x=-0.014 y=-0.165・つかむまで 14.6秒・手 19.793047669999222度）
+[INFO] [1792417944.334268252] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417944.435552489] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792417960.888164888] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417964.364808234] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417964.378602368] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.06666666666666667 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417964.379314153] [collect_grasp_demos]: 計画に失敗（1回目）: (0.039958036191132, -0.0677288720888651, 0.08)
+[WARN] [1792417964.900640832] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.06666666666666667 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417964.901073354] [collect_grasp_demos]: 計画に失敗（2回目）: (0.039958036191132, -0.0677288720888651, 0.08)
+[WARN] [1792417965.425858007] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.06666666666666667 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417965.426560852] [collect_grasp_demos]: 計画に失敗（3回目）: (0.039958036191132, -0.0677288720888651, 0.08)
+[ERROR] [1792417965.927873498] [collect_grasp_demos]: 3回とも計画に失敗しました: (0.039958036191132, -0.0677288720888651, 0.08)
+[17/20] 失敗：何もはさめていない（茶碗 x=0.097 y=-0.150・つかむまで 15.4秒・手 34.99630937392483度）
+[INFO] [1792417975.034573502] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417975.132268663] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417991.906752361] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417991.907508642] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.031541902358534366, -0.07191043038546731, 0.08)
+[WARN] [1792417992.422164031] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417992.422790311] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.031541902358534366, -0.07191043038546731, 0.08)
+[WARN] [1792417992.952926184] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417992.953950080] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.031541902358534366, -0.07191043038546731, 0.08)
+[ERROR] [1792417993.456150727] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.031541902358534366, -0.07191043038546731, 0.08)
+[INFO] [1792417993.456709050] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792417996.278170987] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792417996.291723251] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417996.292153089] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.031541902358534366, -0.07191043038546731, 0.08)
+[WARN] [1792417996.803593485] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417996.803961480] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.031541902358534366, -0.07191043038546731, 0.08)
+[WARN] [1792417997.334098470] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792417997.334797629] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.031541902358534366, -0.07191043038546731, 0.08)
+[ERROR] [1792417997.837460785] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.031541902358534366, -0.07191043038546731, 0.08)
+[18/20] 失敗：持ち上げる動きの失敗（茶碗 x=-0.065 y=-0.166・つかむまで 15.8秒・手 19.81118618276955度）
+[INFO] [1792418006.766608340] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792418006.880651619] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792418025.574821152] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792418028.334969873] [collect_grasp_demos]: グリッパーの結果: True
+[19/20] 持ち上がった（茶碗 x=0.033 y=-0.173・つかむまで 14.3秒・手 19.795935731371014度）
+[INFO] [1792418035.882863749] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792418035.994713569] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792418052.631296237] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792418052.632048461] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.02385105081942459, -0.07443353953756801, 0.08)
+[WARN] [1792418053.150824671] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792418053.151213149] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.02385105081942459, -0.07443353953756801, 0.08)
+[WARN] [1792418053.687097310] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792418053.688239960] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.02385105081942459, -0.07443353953756801, 0.08)
+[ERROR] [1792418054.189424048] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.02385105081942459, -0.07443353953756801, 0.08)
+[INFO] [1792418054.190227238] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792418056.979893463] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792418056.992356690] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792418056.992700892] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.02385105081942459, -0.07443353953756801, 0.08)
+[WARN] [1792418057.507514476] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792418057.507918688] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.02385105081942459, -0.07443353953756801, 0.08)
+[WARN] [1792418058.029912215] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.05 of the trajectory, less than the threshold 0.99.
+[WARN] [1792418058.030332239] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.02385105081942459, -0.07443353953756801, 0.08)
+[ERROR] [1792418058.534180752] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.02385105081942459, -0.07443353953756801, 0.08)
+[20/20] 失敗：持ち上げる動きの失敗（茶碗 x=-0.048 y=-0.172・つかむまで 15.6秒・手 19.793284953085898度）
+act：持ち上がった 5/20。記録：/workspace/results/try_act_grasp_act_20261019_134410.jsonl

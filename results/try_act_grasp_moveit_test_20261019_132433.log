@@ -1,0 +1,8 @@
+[INFO] [1792416280.979281394] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792416281.072013296] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792416288.454917785] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792416291.950008452] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792416296.621811275] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792416299.279880307] [collect_grasp_demos]: グリッパーの結果: True
+[1/1] 持ち上がった（茶碗 x=0.015 y=-0.166・つかむまで 10.9秒・手 19.811110978114613度）
+moveit：持ち上がった 1/1。記録：/workspace/results/try_act_grasp_moveit_20261019_132437.jsonl
