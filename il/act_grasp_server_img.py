@@ -134,7 +134,7 @@ class ActGraspImgServer(Node):
         return response
 
     def run(self, start):
-        while self.latest() == (None, None):
+        while self.latest()[0] is None:
             if time.monotonic() - start > STATE_WAIT_SEC:
                 return False, "関節の角度か、カメラの画像（/kotoba/camera_small）が届かない。橋渡しを確かめる"
             time.sleep(PERIOD)
