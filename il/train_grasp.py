@@ -138,7 +138,10 @@ def main():
             batch = {k: (v.to(DEVICE) if isinstance(v, torch.Tensor) else v) for k, v in batch.items()}
             # Remove the sequence_length dimension to adapt to the ACT model implementation
             batch["observation.state"] = batch["observation.state"][:, -1, :]  # (B, D)
-            batch["observation.environment_state"] = batch["observation.environment_state"][:, -1, :]  # (B, D)
+            if "observation.environment_state" in batch:
+                batch["observation.environment_state"] = batch["observation.environment_state"][:, -1, :]  # (B, D)
+            if "observation.images.top" in batch:
+                batch["observation.images.top"] = batch["observation.images.top"][:, -1]  # (B, 3, 120, 160)
             # action is left as is
             loss, _ = policy.forward(batch)
             loss.backward()
