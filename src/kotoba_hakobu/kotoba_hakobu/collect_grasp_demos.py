@@ -19,11 +19,14 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+import numpy as np
 import rclpy
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
 from rclpy.node import Node
 from geometry_msgs.msg import PointStamped
+from rclpy.qos import qos_profile_sensor_data
+from sensor_msgs.msg import Image
 from pymoveit2 import MoveIt2
 
 from kotoba_hakobu import planning_scene as scene
@@ -40,7 +43,10 @@ R_RANGE = (0.165, 0.18)            # 茶碗を置く、土台からの距離（m
 DEG_RANGE = (-120.0, -50.0)        # 茶碗を置く向き（度。評価で黒楽・赤楽を置く範囲をまとめたもの）
 GRASP_EMPTY_DEG = 34.0             # 指がここまで閉じたら、何もはさめていない（サーバーと同じ）
 OUT_ROOT = Path("/workspace/il_data/rosbags")
-TOPICS = ["/joint_states", "/kotoba/bowl_position"]
+CAM_RAW = "/chakai_camera/image"     # 天井カメラの元画像（640×480・約10Hz）
+CAM_SMALL = "/kotoba/camera_small"   # 1/4 に縮めた画像（160×120）。元のまま記録すると大きすぎて /joint_states を取りこぼしたため
+CAM_SCALE = 4                        # 縦横とも、4画素ごとに1画素を取る
+TOPICS = ["/joint_states", "/kotoba/bowl_position", CAM_SMALL]
 BAG_START_SEC = 1.5                # 記録が始まるまで待つ時間（秒）
 AFTER_CLOSE_SEC = 1.0              # 指を閉じたあと、記録を続ける時間（秒）
 PLACE_TOL = 0.005                  # 置き直したあと、ねらった場所からこれ以上ずれていたら置き直す（m。評価と同じ）
@@ -66,6 +72,10 @@ class Collector(Node):
         self.bowl_pub = self.create_publisher(PointStamped, "/kotoba/bowl_position", 10)
         self.bowl_xy = None
         self.create_timer(0.05, self.publish_bowl, callback_group=group)
+        # 天井カメラの画像を 1/4 に縮めて流し直す（記録するのは縮めた方）
+        self.cam_pub = self.create_publisher(Image, CAM_SMALL, 10)
+        self.create_subscription(Image, CAM_RAW, self.shrink_image, qos_profile_sensor_data,
+                                 callback_group=group)
 
     def publish_bowl(self):
         """記録している間だけ、つかむ茶碗の場所を流す（1秒間に20回）。"""
@@ -77,6 +87,21 @@ class Collector(Node):
         msg.point.x, msg.point.y = self.bowl_xy
         msg.point.z = 0.02
         self.bowl_pub.publish(msg)
+
+    def shrink_image(self, msg):
+        """640×480 の画像を 160×120 に縮めて流し直す（4画素ごとに1画素を取る）。"""
+        if msg.encoding != "rgb8":
+            return
+        arr = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, 3)
+        small = arr[::CAM_SCALE, ::CAM_SCALE].copy()
+        out = Image()
+        out.header = msg.header
+        out.height, out.width = small.shape[0], small.shape[1]
+        out.encoding = msg.encoding
+        out.is_bigendian = msg.is_bigendian
+        out.step = small.shape[1] * 3
+        out.data = small.tobytes()
+        self.cam_pub.publish(out)
 
     def go_home(self):
         self.arm.move_to_configuration(HOME)

@@ -1,0 +1,17 @@
+[INFO] [1792486614.971492989] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792486615.072584985] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792486625.750074210] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792486629.605327085] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792486630.875887853] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792486633.791901350] [collect_grasp_demos]: グリッパーの結果: True
+[1/2] つかめた（茶碗 x=0.015 y=-0.166・29.4秒）
+[INFO] [1792486644.344029382] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792486644.446205058] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792486647.993696364] [collect_grasp_demos]: Planning failed! Error code: FAILURE
+[WARN] [1792486647.994160512] [collect_grasp_demos]: 計画に失敗（1回目）: (0.03392850009861382, -0.06409406484921243, 0.08)
+[INFO] [1792486656.999425697] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792486660.992956736] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792486662.266807222] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792486665.295284684] [collect_grasp_demos]: グリッパーの結果: True
+[2/2] つかめた（茶碗 x=0.087 y=-0.149・31.4秒）
+つかめた手本 2/2。記録：/workspace/il_data/rosbags/20261020_085651
