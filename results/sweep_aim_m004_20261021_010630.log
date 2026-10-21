@@ -1,0 +1,37 @@
+ねらいの左寄せ aim_left=-0.004（本番の既定は 0.007）
+[INFO] [1792544801.572666363] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544803.413721962] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544810.007251047] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792544813.261903407] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544817.907514835] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544820.484056417] [collect_grasp_demos]: グリッパーの結果: True
+[1/5] 持ち上がった・茶碗に当てて動かした（茶碗 x=0.015 y=-0.166・茶碗のずれ 1.4cm・つかむまで 9.8秒・手 19.811345760066423度）
+[INFO] [1792544827.860988683] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544827.950906944] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544835.110543507] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792544838.434049128] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544843.056871579] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544845.771556286] [collect_grasp_demos]: グリッパーの結果: True
+[2/5] 持ち上がった・茶碗に当てて動かした（茶碗 x=0.087 y=-0.149・茶碗のずれ 1.4cm・つかむまで 10.5秒・手 19.8113333086259度）
+[INFO] [1792544852.990041871] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544853.093257829] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544861.700007379] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792544865.111780919] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544869.751305250] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544872.377029834] [collect_grasp_demos]: グリッパーの結果: True
+[3/5] 持ち上がった・茶碗に当てて動かした（茶碗 x=-0.041 y=-0.161・茶碗のずれ 1.4cm・つかむまで 12.0秒・手 19.811372059301757度）
+[INFO] [1792544880.053177790] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544880.141188461] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544887.075166587] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792544890.455382344] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544894.915335596] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544897.589950781] [collect_grasp_demos]: グリッパーの結果: True
+[4/5] 持ち上がった・茶碗に当てて動かした（茶碗 x=0.027 y=-0.172・茶碗のずれ 1.4cm・つかむまで 10.3秒・手 19.81151653942788度）
+[INFO] [1792544904.929263299] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544905.029765659] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544911.751031146] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792544914.950256550] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792544919.377265900] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792544922.038703764] [collect_grasp_demos]: グリッパーの結果: True
+[5/5] 持ち上がった・茶碗に当てて動かした（茶碗 x=0.026 y=-0.175・茶碗のずれ 1.4cm・つかむまで 9.9秒・手 19.81097250310793度）
+moveit：持ち上がった 5/5・茶碗に当てて動かした 5/5。記録：/workspace/results/try_act_grasp_moveit_20261021_010633.jsonl
