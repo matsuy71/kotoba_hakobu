@@ -67,8 +67,10 @@ def grasp(node, client, method, bowl, gx, gy):
     return True, "手を閉じ終えた"
 
 
-def run_trial(node, client, locator, method, x, y, aim_left):
-    """1回試す。結果の辞書を返す。"""
+def run_trial(node, client, locator, method, x, y, aim_left, retries, fallback):
+    """1回試す。結果の辞書を返す。
+    retries > 0 のとき（act のみ）：空振り・安全停止なら、開いて戻ってやり直す（やり直しの輪）。
+    fallback が真のとき（act のみ）：やり直しても挟めなければ、控えの MoveIt が引き継ぐ（案ろ）。"""
     bowl = place_bowl(locator, x, y)
     if bowl is None:
         return {"lifted": False, "bumped": False, "reason": "茶碗を置き直せなかった"}
@@ -77,11 +79,38 @@ def run_trial(node, client, locator, method, x, y, aim_left):
     gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, aim_left)
 
     start = time.time()
+    attempts = []
+    used_fallback = False
     ok, message = grasp(node, client, method, bowl, gx, gy)
-    grasp_sec = round(time.time() - start, 1)
     time.sleep(SETTLE_AFTER_SEC)
     angle = hand_angle(node.gripper)
-    # つかむ間に、茶碗を押して横へ動かしていないかを測る（お茶がこぼれる失敗。持ち上げる前に測る）
+    while method == "act" and len(attempts) < retries and (not ok or angle is None or angle >= GRASP_EMPTY_DEG):
+        attempts.append({"ok": ok, "message": message, "hand_deg": angle})
+        # 開いて、上へ離れて、はじめの姿勢へ（手本と同じ出発点に戻す）
+        set_gripper(node, node.gripper, GRIPPER_OPEN_DEG)
+        move(node, node.arm, (gx, gy, Z_ABOVE))
+        node.go_home()
+        # 茶碗が動いていても、今の場所を読み直して持ち上げ役に伝える（ACT は自分の目で見る）
+        now = locator.locate(BOWL)
+        if now:
+            gx, gy, _ = wrist_for(now["x"], now["y"], AIM_FORWARD, aim_left)
+        ok, message = grasp(node, client, method, bowl, gx, gy)
+        time.sleep(SETTLE_AFTER_SEC)
+        angle = hand_angle(node.gripper)
+    if method == "act" and fallback and (not ok or angle is None or angle >= GRASP_EMPTY_DEG):
+        attempts.append({"ok": ok, "message": message, "hand_deg": angle})
+        used_fallback = True
+        set_gripper(node, node.gripper, GRIPPER_OPEN_DEG)
+        move(node, node.arm, (gx, gy, Z_ABOVE))
+        node.go_home()
+        now = locator.locate(BOWL)
+        if now:
+            gx, gy, _ = wrist_for(now["x"], now["y"], AIM_FORWARD, aim_left)
+        ok, message = grasp(node, client, "moveit", bowl, gx, gy)
+        time.sleep(SETTLE_AFTER_SEC)
+        angle = hand_angle(node.gripper)
+    grasp_sec = round(time.time() - start, 1)
+    # つかむ間に、茶碗を押して横へ動かしていないかを測る（最初に置いた場所からの合計。持ち上げる前に測る）
     after_grasp = locator.locate(BOWL)
     moved_cm = round(math.hypot(after_grasp["x"] - bowl["x"], after_grasp["y"] - bowl["y"]) * 100, 1) \
         if after_grasp else None
@@ -89,7 +118,8 @@ def run_trial(node, client, locator, method, x, y, aim_left):
     # 移動後の座標も残す（どの向きへ押したか。閉じたときの引き込みなら奥向きにそろうはず）
     bowl_after = {"x": round(after_grasp["x"], 4), "y": round(after_grasp["y"], 4)} if after_grasp else None
     result = {"bowl": {"x": bowl["x"], "y": bowl["y"]}, "bowl_after": bowl_after, "aim_left": aim_left,
-              "grasp_ok": ok, "message": message,
+              "grasp_ok": ok, "message": message, "tries": len(attempts) + 1, "fallback": used_fallback,
+              "attempts": attempts,
               "grasp_sec": grasp_sec, "hand_deg": angle, "moved_cm": moved_cm, "bumped": bumped,
               "bowl_z_after": None, "lifted": False, "reason": ""}
     if not ok:
@@ -122,6 +152,10 @@ def main():
     ap.add_argument("--seed", type=int, default=1018)
     ap.add_argument("--aim-left", type=float, default=AIM_LEFT,
                     help="MoveIt で下りるときの、茶碗の中心の左寄せ（m）。手本の通り道の実験用。既定は本番と同じ")
+    ap.add_argument("--retries", type=int, default=0,
+                    help="act の空振り・安全停止のやり直し回数（やり直しの輪）。0なら今までどおり")
+    ap.add_argument("--fallback", action="store_true",
+                    help="act がやり直しても挟めなければ、控えの MoveIt が引き継ぐ（案ろ）")
     args = ap.parse_args()
 
     rclpy.init()
@@ -139,7 +173,8 @@ def main():
     n_lifted = 0
     n_bumped = 0
     done = 0
-    print(f"ねらいの左寄せ aim_left={args.aim_left}（本番の既定は {AIM_LEFT}）")
+    print(f"ねらいの左寄せ aim_left={args.aim_left}（本番の既定は {AIM_LEFT}）"
+          f"・やり直し {args.retries}回まで・控えのMoveIt {'あり' if args.fallback else 'なし'}")
     try:
         if args.method == "act" and not client.wait_for_service(timeout_sec=SERVICE_WAIT_SEC):
             print("ACT のサービス /kotoba/act_grasp が見つからない。pixi の箱のターミナルで il/act_grasp_server.py か il/act_grasp_server_img.py を起動してください")
@@ -148,7 +183,7 @@ def main():
         for i in range(args.trials):
             x, y = pick_place(rng)
             start = time.time()
-            res = run_trial(node, client, locator, args.method, x, y, args.aim_left)
+            res = run_trial(node, client, locator, args.method, x, y, args.aim_left, args.retries, args.fallback)
             done += 1
             n_lifted += res["lifted"]
             n_bumped += res.get("bumped", False)
@@ -156,8 +191,13 @@ def main():
                         "seconds": round(time.time() - start, 1)})
             with open(log_path, "a", encoding="utf-8") as f:
                 f.write(json.dumps(res, ensure_ascii=False) + "\n")
+            extra = ""
+            if res.get("tries", 1) > 1:
+                extra += f"・{res['tries']}回目でつかんだ"
+            if res.get("fallback"):
+                extra += "・控えのMoveItが引き継いだ"
             print(f"[{i + 1}/{args.trials}] {'持ち上がった' if res['lifted'] else '失敗：' + res['reason']}"
-                  f"{'・茶碗に当てて動かした' if res.get('bumped') else ''}"
+                  f"{'・茶碗に当てて動かした' if res.get('bumped') else ''}{extra}"
                   f"（茶碗 x={x:.3f} y={y:.3f}・茶碗のずれ {res.get('moved_cm')}cm・"
                   f"つかむまで {res.get('grasp_sec', '-')}秒・手 {res.get('hand_deg')}度）")
     finally:
