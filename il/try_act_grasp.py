@@ -67,14 +67,14 @@ def grasp(node, client, method, bowl, gx, gy):
     return True, "手を閉じ終えた"
 
 
-def run_trial(node, client, locator, method, x, y):
+def run_trial(node, client, locator, method, x, y, aim_left):
     """1回試す。結果の辞書を返す。"""
     bowl = place_bowl(locator, x, y)
     if bowl is None:
         return {"lifted": False, "bumped": False, "reason": "茶碗を置き直せなかった"}
     node.go_home()
     set_gripper(node, node.gripper, GRIPPER_OPEN_DEG)
-    gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, AIM_LEFT)
+    gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, aim_left)
 
     start = time.time()
     ok, message = grasp(node, client, method, bowl, gx, gy)
@@ -86,7 +86,10 @@ def run_trial(node, client, locator, method, x, y):
     moved_cm = round(math.hypot(after_grasp["x"] - bowl["x"], after_grasp["y"] - bowl["y"]) * 100, 1) \
         if after_grasp else None
     bumped = moved_cm is not None and moved_cm > BUMP_CM
-    result = {"bowl": {"x": bowl["x"], "y": bowl["y"]}, "grasp_ok": ok, "message": message,
+    # 移動後の座標も残す（どの向きへ押したか。閉じたときの引き込みなら奥向きにそろうはず）
+    bowl_after = {"x": round(after_grasp["x"], 4), "y": round(after_grasp["y"], 4)} if after_grasp else None
+    result = {"bowl": {"x": bowl["x"], "y": bowl["y"]}, "bowl_after": bowl_after, "aim_left": aim_left,
+              "grasp_ok": ok, "message": message,
               "grasp_sec": grasp_sec, "hand_deg": angle, "moved_cm": moved_cm, "bumped": bumped,
               "bowl_z_after": None, "lifted": False, "reason": ""}
     if not ok:
@@ -117,6 +120,8 @@ def main():
     ap.add_argument("--method", choices=["act", "moveit"], required=True)
     ap.add_argument("--trials", type=int, default=2)
     ap.add_argument("--seed", type=int, default=1018)
+    ap.add_argument("--aim-left", type=float, default=AIM_LEFT,
+                    help="MoveIt で下りるときの、茶碗の中心の左寄せ（m）。手本の通り道の実験用。既定は本番と同じ")
     args = ap.parse_args()
 
     rclpy.init()
@@ -134,15 +139,16 @@ def main():
     n_lifted = 0
     n_bumped = 0
     done = 0
+    print(f"ねらいの左寄せ aim_left={args.aim_left}（本番の既定は {AIM_LEFT}）")
     try:
         if args.method == "act" and not client.wait_for_service(timeout_sec=SERVICE_WAIT_SEC):
-            print("ACT のサービス /kotoba/act_grasp が見つからない。pixi の箱のターミナルで il/act_grasp_server.py を起動してください")
+            print("ACT のサービス /kotoba/act_grasp が見つからない。pixi の箱のターミナルで il/act_grasp_server.py か il/act_grasp_server_img.py を起動してください")
             return
         scene.clear(node.arm)  # MoveIt に教えた物が残っていれば消す
         for i in range(args.trials):
             x, y = pick_place(rng)
             start = time.time()
-            res = run_trial(node, client, locator, args.method, x, y)
+            res = run_trial(node, client, locator, args.method, x, y, args.aim_left)
             done += 1
             n_lifted += res["lifted"]
             n_bumped += res.get("bumped", False)
@@ -158,7 +164,6 @@ def main():
         print(f"{args.method}：持ち上がった {n_lifted}/{done}・茶碗に当てて動かした {n_bumped}/{done}。記録：{log_path}")
         executor.shutdown()
         rclpy.shutdown()
-
 
 if __name__ == "__main__":
     main()
