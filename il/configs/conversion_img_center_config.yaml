@@ -1,0 +1,5 @@
+# 画像つきの手本の変換の設定（ねらい0.000版・2026-10-21の手本）
+bag_dir: /workspace/il_data/rosbags/20261021_015942/ok
+output_dir: /workspace/il_data/lerobot_dataset/crane_plus_grasp_img_center
+config: /workspace/il/configs/grasp_img_center_features.py
+target_freq: 20

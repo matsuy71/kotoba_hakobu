@@ -132,21 +132,35 @@ def place_bowl(locator, x, y):
     return None
 
 
-def run_episode(node, locator, x, y, bag_dir):
-    """手本を1回とる。結果の辞書を返す。"""
+def run_episode(node, locator, x, y, bag_dir, aim_left, jitter, jrng):
+    """手本を1回とる。結果の辞書を返す。
+    jitter > 0 のときは、わざとずれた所（安全な高さ Z_ABOVE）へ行ってから、
+    正しい位置へ立て直す動きも記録に入れる（立て直しの手本）。"""
     bowl = place_bowl(locator, x, y)
     if bowl is None:
         return {"grasped": False, "reason": "茶碗を置き直せなかった", "bowl": None}
     node.go_home()
     set_gripper(node, node.gripper, GRIPPER_OPEN_DEG)
-    gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, AIM_LEFT)
+    gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, aim_left)
 
     # ----- ここから記録（お出しの5〜7の段階と同じ動き） -----
     node.bowl_xy = (bowl["x"], bowl["y"])
     bag = subprocess.Popen(["ros2", "bag", "record", "-o", str(bag_dir), *TOPICS],
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     time.sleep(BAG_START_SEC)
-    moved = move(node, node.arm, (gx, gy, Z_ABOVE))[0] and move(node, node.arm, (gx, gy, Z_GRASP), True)[0]
+    jit = 0.0
+    if jitter > 0:
+        # わざとずれた所へ（ずらすのは安全な高さの階だけ。半径は jitter の3割〜10割、向きはくじ）
+        jit = jrng.uniform(jitter * 0.3, jitter)
+        th = jrng.uniform(0, 2 * math.pi)
+        jx, jy = gx + jit * math.cos(th), gy + jit * math.sin(th)
+        moved = move(node, node.arm, (jx, jy, Z_ABOVE))[0]
+        time.sleep(0.5)  # ずれた画像をカメラに写す間
+        moved = moved and move(node, node.arm, (gx, gy, Z_ABOVE), True)[0]  # 立て直し（水平にまっすぐ）
+        time.sleep(0.5)
+    else:
+        moved = move(node, node.arm, (gx, gy, Z_ABOVE))[0]
+    moved = moved and move(node, node.arm, (gx, gy, Z_GRASP), True)[0]
     if moved:
         set_gripper(node, node.gripper, GRIPPER_CLOSE_DEG)
     time.sleep(AFTER_CLOSE_SEC)
@@ -162,13 +176,17 @@ def run_episode(node, locator, x, y, bag_dir):
     move(node, node.arm, (gx, gy, Z_ABOVE), True)
     node.go_home()
     return {"grasped": grasped, "reason": "" if grasped else ("腕の動きの失敗" if not moved else "つかめていない"),
-            "bowl": {"x": bowl["x"], "y": bowl["y"]}, "hand_deg": angle}
-
+            "bowl": {"x": bowl["x"], "y": bowl["y"]}, "hand_deg": angle,
+            "aim_left": aim_left, "jitter_m": round(jit, 4)}
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--episodes", type=int, default=2)
     ap.add_argument("--seed", type=int, default=2026)
+    ap.add_argument("--aim-left", type=float, default=AIM_LEFT,
+                    help="下ろすときの、茶碗の中心の左寄せ（m）。既定は本番と同じ")
+    ap.add_argument("--jitter", type=float, default=0.0,
+                    help="わざとずらす大きさの上限（m）。0なら今までどおり。例：0.02")
     args = ap.parse_args()
 
     rclpy.init()
@@ -183,15 +201,17 @@ def main():
     (run_dir / "failed").mkdir()
     log_path = run_dir / "episodes.jsonl"
     rng = random.Random(args.seed)
+    jrng = random.Random(args.seed + 1)  # ずらし専用のくじ（茶碗を置くくじと混ざらないように別にする）
     locator = TruePoseLocator()
     n_ok = 0
+    print(f"ねらいの左寄せ aim_left={args.aim_left}（本番の既定は {AIM_LEFT}）・ずらし jitter={args.jitter}")
     try:
         scene.clear(node.arm)  # MoveIt に教えた物が残っていれば消す
         for i in range(args.episodes):
             x, y = pick_place(rng)
             tmp = run_dir / f"tmp_{i:03d}"
             start = time.time()
-            res = run_episode(node, locator, x, y, tmp)
+            res = run_episode(node, locator, x, y, tmp, args.aim_left, args.jitter, jrng)
             dest = run_dir / ("ok" if res["grasped"] else "failed") / f"ep_{i:03d}"
             if tmp.exists():
                 tmp.rename(dest)
