@@ -33,9 +33,9 @@ ARM_JOINTS = ["crane_plus_joint1", "crane_plus_joint2", "crane_plus_joint3", "cr
 HAND_JOINT = "crane_plus_joint_hand"
 JOINTS = ARM_JOINTS + [HAND_JOINT]
 
-MODEL_PATH = "/workspace/il_data/checkpoints/crane_plus_grasp_act_img"
-DATASET_ROOT = "/workspace/il_data/lerobot_dataset/crane_plus_grasp_img"
-REPO_ID = "crane_plus_grasp_img"
+MODEL_PATH = "/workspace/il_data/checkpoints/crane_plus_grasp_act_img_center"
+DATASET_ROOT = "/workspace/il_data/lerobot_dataset/crane_plus_grasp_img_center"
+REPO_ID = "crane_plus_grasp_img_center"
 CAM_TOPIC = "/kotoba/camera_small"
 
 PERIOD = 0.05                 # 0.05秒ごと（1秒に20回）。手本と同じ
