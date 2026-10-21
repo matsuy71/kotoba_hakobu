@@ -1,0 +1,5 @@
+# 画像つきの手本の変換の設定（ねらい0.000の60回＋立て直し29回＝89回。2026-10-21）
+bag_dir: /workspace/il_data/rosbags/combined_dagger
+output_dir: /workspace/il_data/lerobot_dataset/crane_plus_grasp_img_dagger
+config: /workspace/il/configs/grasp_img_dagger_features.py
+target_freq: 20

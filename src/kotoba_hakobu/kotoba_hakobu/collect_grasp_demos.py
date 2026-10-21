@@ -156,7 +156,7 @@ def run_episode(node, locator, x, y, bag_dir, aim_left, jitter, jrng):
         jx, jy = gx + jit * math.cos(th), gy + jit * math.sin(th)
         moved = move(node, node.arm, (jx, jy, Z_ABOVE))[0]
         time.sleep(0.5)  # ずれた画像をカメラに写す間
-        moved = moved and move(node, node.arm, (gx, gy, Z_ABOVE), True)[0]  # 立て直し（水平にまっすぐ）
+        moved = moved and move(node, node.arm, (gx, gy, Z_ABOVE))[0]  # 立て直し（ふつうの計画。4関節の腕は横のまっすぐ移動が作れない）
         time.sleep(0.5)
     else:
         moved = move(node, node.arm, (gx, gy, Z_ABOVE))[0]
