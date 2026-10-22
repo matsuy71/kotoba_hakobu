@@ -36,6 +36,7 @@ from kotoba_hakobu_interfaces.srv import ActGrasp
 BOWL_Z = 0.02            # 机に置いたときの、茶碗の真ん中の高さ（m）
 LIFT_MIN = 0.02          # 茶碗の真ん中がこれ以上上がったら「持ち上がった」（m）。手首は5cm上げる
 BUMP_CM = 1.0            # つかむ間に、茶碗がこれ（cm）より横へ動いたら「当てて動かした」（お茶がこぼれる失敗）
+GRIP_MIN_DEG = 15.0      # 手がここより閉じていたら「ふち挟み」（浅いつかみ。正しい持ち方は18〜20度）
 SETTLE_AFTER_SEC = 1.0   # 手を閉じたあと、角度を読むまで待つ時間（手本を集めたときと同じ）
 SERVICE_WAIT_SEC = 5.0   # ACT のサービスが見つかるまで待つ時間
 ACT_TIMEOUT_SEC = 40.0   # ACT の返事を待つ時間（ACT のサーバーは20秒で止まる）
@@ -66,6 +67,9 @@ def grasp(node, client, method, bowl, gx, gy):
     set_gripper(node, node.gripper, GRIPPER_CLOSE_DEG)
     return True, "手を閉じ終えた"
 
+def bad_grip(ok, angle):
+    """つかみ直すべき状態か。空振り（35度近くまで閉じた）と、ふち挟み（15度未満）を失敗扱いにする。"""
+    return (not ok) or angle is None or angle >= GRASP_EMPTY_DEG or angle < GRIP_MIN_DEG
 
 def run_trial(node, client, locator, method, x, y, aim_left, retries, fallback):
     """1回試す。結果の辞書を返す。
@@ -84,7 +88,7 @@ def run_trial(node, client, locator, method, x, y, aim_left, retries, fallback):
     ok, message = grasp(node, client, method, bowl, gx, gy)
     time.sleep(SETTLE_AFTER_SEC)
     angle = hand_angle(node.gripper)
-    while method == "act" and len(attempts) < retries and (not ok or angle is None or angle >= GRASP_EMPTY_DEG):
+    while method == "act" and len(attempts) < retries and bad_grip(ok, angle):
         attempts.append({"ok": ok, "message": message, "hand_deg": angle})
         # 開いて、上へ離れて、はじめの姿勢へ（手本と同じ出発点に戻す）
         set_gripper(node, node.gripper, GRIPPER_OPEN_DEG)
@@ -97,7 +101,7 @@ def run_trial(node, client, locator, method, x, y, aim_left, retries, fallback):
         ok, message = grasp(node, client, method, bowl, gx, gy)
         time.sleep(SETTLE_AFTER_SEC)
         angle = hand_angle(node.gripper)
-    if method == "act" and fallback and (not ok or angle is None or angle >= GRASP_EMPTY_DEG):
+    if method == "act" and fallback and bad_grip(ok, angle):
         attempts.append({"ok": ok, "message": message, "hand_deg": angle})
         used_fallback = True
         set_gripper(node, node.gripper, GRIPPER_OPEN_DEG)
@@ -126,6 +130,8 @@ def run_trial(node, client, locator, method, x, y, aim_left, retries, fallback):
         result["reason"] = message
     elif angle is None or angle >= GRASP_EMPTY_DEG:
         result["reason"] = "何もはさめていない"
+    elif angle < GRIP_MIN_DEG:
+        result["reason"] = "ふちをつまんだ（浅いつかみ。危ないので持ち上げない）"
     elif not (move(node, node.arm, (gx, gy, Z_ABOVE), True)[0]
               or move(node, node.arm, (gx, gy, Z_ABOVE))[0]):
         result["reason"] = "持ち上げる動きの失敗"
