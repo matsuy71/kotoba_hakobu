@@ -57,8 +57,8 @@ LOOKAHEAD = 10                # 目標を、差の何コマ分先に置くか（
 
 
 class ActGraspImgServer(Node):
-    def __init__(self, model_path, threads):
-        super().__init__("act_grasp_server_img")
+    def __init__(self, model_path, dataset_root, repo_id, service, threads):
+        super().__init__(service.strip("/").replace("/", "_") + "_server")
         torch.set_num_threads(threads)
 
         self.policy = ACTPolicy.from_pretrained(model_path)
@@ -66,7 +66,7 @@ class ActGraspImgServer(Node):
         self.policy.to("cpu")
 
         # 安全のため、ACT の答えを、手本の範囲（少しの余裕つき）におさめる
-        stats = LeRobotDatasetMetadata(REPO_ID, root=DATASET_ROOT).stats
+        stats = LeRobotDatasetMetadata(repo_id, root=dataset_root).stats
         self.delta_low = np.asarray(stats["action"]["min"], dtype=np.float32).reshape(-1)[:4] - DELTA_MARGIN
         self.delta_high = np.asarray(stats["action"]["max"], dtype=np.float32).reshape(-1)[:4] + DELTA_MARGIN
         self.pos_low = np.asarray(stats["observation.state"]["min"], dtype=np.float32).reshape(-1)[:4] - MARGIN
@@ -84,9 +84,9 @@ class ActGraspImgServer(Node):
         self.create_subscription(JointState, "/joint_states", self.on_joint_states, 10)
         self.create_subscription(Image, CAM_TOPIC, self.on_image, qos_profile_sensor_data)
         self.create_subscription(Image, CAM_RAW, self.on_image, qos_profile_sensor_data)
-        self.create_service(ActGrasp, "/kotoba/act_grasp", self.on_request,
+        self.create_service(ActGrasp, service, self.on_request,
                             callback_group=MutuallyExclusiveCallbackGroup())
-        self.get_logger().info(f"画像つき ACT を読みこんだ（{model_path}、スレッド{torch.get_num_threads()}）。頼まれるのを待つ")
+        self.get_logger().info(f"画像つき ACT を読みこんだ（{model_path}・窓口 {service}・スレッド{torch.get_num_threads()}）。頼まれるのを待つ")
 
     def on_joint_states(self, msg):
         pos = dict(zip(msg.name, msg.position))
@@ -195,13 +195,16 @@ class ActGraspImgServer(Node):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="画像つき ACT で茶碗をつかむサービス（/kotoba/act_grasp）")
+    parser = argparse.ArgumentParser(description="画像つき ACT で茶碗をつかむサービス")
     parser.add_argument("--model-path", default=MODEL_PATH)
+    parser.add_argument("--dataset-root", default=DATASET_ROOT)
+    parser.add_argument("--repo-id", default=REPO_ID)
+    parser.add_argument("--service", default="/kotoba/act_grasp")
     parser.add_argument("--threads", type=int, default=4)
     args = parser.parse_args()
 
     rclpy.init()
-    node = ActGraspImgServer(args.model_path, args.threads)
+    node = ActGraspImgServer(args.model_path, args.dataset_root, args.repo_id, args.service, args.threads)
     executor = MultiThreadedExecutor(num_threads=2)
     executor.add_node(node)
     try:

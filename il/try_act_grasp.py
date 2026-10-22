@@ -25,6 +25,7 @@ from rclpy.executors import MultiThreadedExecutor
 
 from kotoba_hakobu import planning_scene as scene
 from kotoba_hakobu.bowl_locator import TruePoseLocator
+import kotoba_hakobu.collect_grasp_demos as cgd
 from kotoba_hakobu.collect_grasp_demos import BOWL, GRASP_EMPTY_DEG, Collector, pick_place, place_bowl
 from kotoba_hakobu.try_grasp import hand_angle
 from kotoba_hakobu.try_level_move import move
@@ -162,7 +163,12 @@ def main():
                     help="act の空振り・安全停止のやり直し回数（やり直しの輪）。0なら今までどおり")
     ap.add_argument("--fallback", action="store_true",
                     help="act がやり直しても挟めなければ、控えの MoveIt が引き継ぐ（案ろ）")
+    ap.add_argument("--bowl", choices=["red", "black"], default="red",
+                    help="試す茶碗。もう片方はよけておく")
     args = ap.parse_args()
+    global BOWL
+    BOWL = args.bowl
+    cgd.BOWL, cgd.OTHER = args.bowl, ("black" if args.bowl == "red" else "red")
 
     rclpy.init()
     node = Collector()   # 手本を集めたときと同じ、腕と手を動かすノード（名前も collect_grasp_demos のまま）
@@ -179,7 +185,7 @@ def main():
     n_lifted = 0
     n_bumped = 0
     done = 0
-    print(f"ねらいの左寄せ aim_left={args.aim_left}（本番の既定は {AIM_LEFT}）"
+    print(f"試す茶碗 {BOWL}・ねらいの左寄せ aim_left={args.aim_left}（本番の既定は {AIM_LEFT}）"
           f"・やり直し {args.retries}回まで・控えのMoveIt {'あり' if args.fallback else 'なし'}")
     try:
         if args.method == "act" and not client.wait_for_service(timeout_sec=SERVICE_WAIT_SEC):

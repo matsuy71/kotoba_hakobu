@@ -1,0 +1,25 @@
+試す茶碗 black・ねらいの左寄せ aim_left=0.0（本番の既定は 0.007）・やり直し 2回まで・控えのMoveIt あり
+[INFO] [1792649224.894327526] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649226.793136790] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792649230.823583402] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649230.918474729] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792649243.462671245] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649243.556870330] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792649245.626708851] [collect_grasp_demos]: Planning failed! Error code: FAILURE
+[WARN] [1792649245.628299658] [collect_grasp_demos]: 計画に失敗（1回目）: (0.0287970104181583, -0.06481402056651768, 0.08)
+[INFO] [1792649263.109062166] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649263.226146163] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792649289.659684205] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792649294.786549710] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792649301.525095750] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649304.943259754] [collect_grasp_demos]: グリッパーの結果: True
+[1/20] 持ち上がった・茶碗に当てて動かした・4回目でつかんだ・控えのMoveItが引き継いだ（茶碗 x=0.069 y=-0.156・茶碗のずれ 1.1cm・つかむまで 69.0秒・手 19.81142574730634度）
+[INFO] [1792649313.891137845] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649314.014144205] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792649318.054298303] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649318.211941891] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792649336.229821714] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649336.349198585] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792649354.288155785] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792649354.399480803] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792649372.800088740] [collect_grasp_demos]: グリッパーを 35.0 度にします
