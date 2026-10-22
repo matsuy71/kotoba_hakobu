@@ -49,7 +49,7 @@ def to_table(u, v):
 
 
 class CameraLocator:
-    """locate(色) で茶碗の位置を返す。真の値版（TruePoseLocator）と同じ形で返す。"""
+    """locate(色) で茶碗の位置を返す。真値版（TruePoseLocator）と同じ形で返す。"""
 
     def __init__(self, node):
         self.bridge = CvBridge()
@@ -111,7 +111,7 @@ class CameraLocator:
 
 
 def main():
-    """比べる道具：カメラ版と真の値版の位置を並べ、ずれ（mm）を表示する。"""
+    """比べる道具：カメラ版と真値版の位置を並べ、ずれ（mm）を表示する。"""
     from kotoba_hakobu.bowl_locator import TruePoseLocator
     rclpy.init()
     node = Node("compare_locators")
