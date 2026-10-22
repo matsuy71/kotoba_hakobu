@@ -86,7 +86,7 @@ def place_bowls(trial, truth):
 
 
 def server_locator():
-    """サーバーが、真の値版（true）とカメラ版（camera）のどちらで動いているかを確かめる（3回まで試す）。"""
+    """サーバーが、真値版（true）とカメラ版（camera）のどちらで動いているかを確かめる（3回まで試す）。"""
     for _ in range(3):
         try:
             out = subprocess.run(["ros2", "param", "get", "/serve_tea_server", "locator"],

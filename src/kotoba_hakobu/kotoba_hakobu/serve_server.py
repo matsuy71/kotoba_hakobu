@@ -74,7 +74,7 @@ class ServeTeaServer(Node):
             raise ValueError(f"locator は true か camera です（渡された値：{locator_name}）")
         self.use_camera = locator_name == "camera"
         self.locator = CameraLocator(self) if self.use_camera else TruePoseLocator()
-        self.get_logger().info(f"茶碗の位置の読み方：{'カメラ版' if self.use_camera else '真の値版'}")
+        self.get_logger().info(f"茶碗の位置の読み方：{'カメラ版' if self.use_camera else '真値版'}")
         self.declare_parameter("scene", False)
         self.use_scene = bool(self.get_parameter("scene").value)
         self.get_logger().info(f"机と茶碗を MoveIt に教える：{'する' if self.use_scene else 'しない'}")
@@ -277,7 +277,7 @@ class ServeTeaServer(Node):
                 if not lifted_ok:
                     self.get_logger().warning(f"持ち上げたあとの指の角度 {angle}")
             else:
-                # 真の値版：茶碗の本当の高さで判断する
+                # 真値版：茶碗の本当の高さで判断する
                 lifted = self.locator.locate(goal.bowl)
                 lifted_ok = lifted is not None and lifted["z"] >= lift_min_z
                 if lifted and not lifted_ok:

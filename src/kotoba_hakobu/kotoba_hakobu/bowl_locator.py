@@ -1,4 +1,4 @@
-"""茶碗の位置を教える部品（真の値版）：Gazebo の /world/default/pose/info を読んで、茶碗の位置と傾きを返す"""
+"""茶碗の位置を教える部品（真値版）：Gazebo の /world/default/pose/info を読んで、茶碗の位置と傾きを返す"""
 import math
 import subprocess
 import time
