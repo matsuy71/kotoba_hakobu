@@ -1,0 +1,430 @@
+手本の茶碗 black・ねらいの左寄せ aim_left=0.0（本番の既定は 0.007）・ずらし jitter=0.0
+[INFO] [1792638609.121905654] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638611.113121973] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792638614.659395458] [collect_grasp_demos]: Planning failed! Error code: FAILURE
+[WARN] [1792638614.660352709] [collect_grasp_demos]: 計画に失敗（1回目）: (0.03955708767991194, -0.06142536027136805, 0.08)
+[INFO] [1792638622.291352806] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638625.820682924] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638627.090468458] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638629.825605786] [collect_grasp_demos]: グリッパーの結果: True
+[1/60] つかめた（茶碗 x=0.094 y=-0.146・41.9秒）
+[INFO] [1792638639.508287949] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638639.616801120] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638648.780612183] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638652.240776709] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638653.462204943] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638656.210423074] [collect_grasp_demos]: グリッパーの結果: True
+[2/60] つかめた（茶碗 x=0.098 y=-0.147・26.4秒）
+[INFO] [1792638665.911962552] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638666.088793508] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638674.779390158] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638678.322915101] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638679.543620155] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638682.353128396] [collect_grasp_demos]: グリッパーの結果: True
+[3/60] つかめた（茶碗 x=0.092 y=-0.144・26.4秒）
+[INFO] [1792638692.252261495] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638692.340576114] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638701.365789251] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638704.939647303] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638706.210073544] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638708.969283468] [collect_grasp_demos]: グリッパーの結果: True
+[4/60] つかめた（茶碗 x=-0.024 y=-0.177・26.5秒）
+[INFO] [1792638718.921501316] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638719.020834434] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638728.119871072] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638731.763197050] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638732.986089250] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638735.777010977] [collect_grasp_demos]: グリッパーの結果: True
+[5/60] つかめた（茶碗 x=-0.039 y=-0.163・27.4秒）
+[INFO] [1792638746.114950998] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638746.219535519] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638755.770177857] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638759.266413463] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638760.508043637] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638763.251510407] [collect_grasp_demos]: グリッパーの結果: True
+[6/60] つかめた（茶碗 x=0.044 y=-0.160・27.1秒）
+[INFO] [1792638773.312634423] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638773.410930835] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638783.038511888] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638787.104756260] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638788.329379468] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638791.622536770] [collect_grasp_demos]: グリッパーの結果: True
+[7/60] つかめた（茶碗 x=0.089 y=-0.146・28.9秒）
+[INFO] [1792638802.373213100] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638802.472414288] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638811.871760632] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638815.730591035] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638816.951067045] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638819.984968369] [collect_grasp_demos]: グリッパーの結果: True
+[8/60] つかめた（茶碗 x=0.043 y=-0.166・28.2秒）
+[INFO] [1792638830.572654168] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638830.658237115] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638840.693202656] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638844.558506619] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638845.785245993] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638848.863150267] [collect_grasp_demos]: グリッパーの結果: True
+[9/60] つかめた（茶碗 x=0.103 y=-0.132・28.9秒）
+[INFO] [1792638859.406207308] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638859.524743498] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638870.018543701] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638873.877931708] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638875.108765384] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638878.063421430] [collect_grasp_demos]: グリッパーの結果: True
+[10/60] つかめた（茶碗 x=-0.066 y=-0.166・29.6秒）
+[INFO] [1792638889.051467347] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638889.140764778] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638898.319617306] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638902.217152455] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638903.437424302] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638906.495828016] [collect_grasp_demos]: グリッパーの結果: True
+[11/60] つかめた（茶碗 x=0.104 y=-0.129・27.9秒）
+[INFO] [1792638916.943571382] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638917.031315843] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638927.317595025] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638930.880067161] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638932.158237021] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638935.015875587] [collect_grasp_demos]: グリッパーの結果: True
+[12/60] つかめた（茶碗 x=0.052 y=-0.165・28.1秒）
+[INFO] [1792638945.034058627] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638945.147017887] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638954.473568020] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638958.126879350] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638959.344592899] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638962.236506464] [collect_grasp_demos]: グリッパーの結果: True
+[13/60] つかめた（茶碗 x=0.082 y=-0.146・27.4秒）
+[INFO] [1792638972.437837997] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638972.671014970] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638981.667304802] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792638985.261607138] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792638986.535005047] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638989.332458164] [collect_grasp_demos]: グリッパーの結果: True
+[14/60] つかめた（茶碗 x=-0.023 y=-0.172・27.0秒）
+[INFO] [1792638999.449283007] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792638999.571806336] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639008.866623680] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639012.264990327] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639013.492863167] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639016.279124481] [collect_grasp_demos]: グリッパーの結果: True
+[15/60] つかめた（茶碗 x=0.010 y=-0.172・26.6秒）
+[INFO] [1792639026.153470186] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639026.239938592] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639034.692188744] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639038.206088544] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639039.475396517] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639042.222114777] [collect_grasp_demos]: グリッパーの結果: True
+[16/60] つかめた（茶碗 x=-0.007 y=-0.173・25.9秒）
+[INFO] [1792639052.026891374] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639052.124925640] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639061.216944576] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639064.622447494] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639065.804584617] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639068.600605275] [collect_grasp_demos]: グリッパーの結果: True
+[17/60] つかめた（茶碗 x=0.082 y=-0.160・26.3秒）
+[INFO] [1792639078.180391721] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639078.271376069] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639087.039135743] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639090.573520893] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639091.801788022] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639094.628509633] [collect_grasp_demos]: グリッパーの結果: True
+[18/60] つかめた（茶碗 x=0.094 y=-0.144・26.3秒）
+[INFO] [1792639104.578040181] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639104.687523320] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639113.327726111] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639116.772829354] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639117.995051845] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639120.775135944] [collect_grasp_demos]: グリッパーの結果: True
+[19/60] つかめた（茶碗 x=0.042 y=-0.170・25.9秒）
+[INFO] [1792639130.476625468] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639130.580619992] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639138.906255740] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639142.362386107] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639143.644955980] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639146.365521041] [collect_grasp_demos]: グリッパーの結果: True
+[20/60] つかめた（茶碗 x=-0.017 y=-0.174・25.8秒）
+[INFO] [1792639156.484428170] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639156.572420219] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639165.865506896] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639169.313844249] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639170.539104416] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639173.236955671] [collect_grasp_demos]: グリッパーの結果: True
+[21/60] つかめた（茶碗 x=0.015 y=-0.175・26.6秒）
+[INFO] [1792639183.131344567] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639183.225714284] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639192.594432787] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639196.308044865] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639197.579262720] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639200.480422796] [collect_grasp_demos]: グリッパーの結果: True
+[22/60] つかめた（茶碗 x=-0.022 y=-0.165・27.8秒）
+[INFO] [1792639210.891494070] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639210.992322996] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639220.668542924] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639224.201615379] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639225.425333178] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639228.227171706] [collect_grasp_demos]: グリッパーの結果: True
+[23/60] つかめた（茶碗 x=-0.065 y=-0.158・28.1秒）
+[INFO] [1792639238.808697589] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639238.914614155] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639248.038465887] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639251.547152819] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639252.775892552] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639255.478159647] [collect_grasp_demos]: グリッパーの結果: True
+[24/60] つかめた（茶碗 x=-0.051 y=-0.163・27.0秒）
+[INFO] [1792639265.946643624] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639266.062695141] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639274.493179113] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639278.239617217] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639279.416980722] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639282.252620353] [collect_grasp_demos]: グリッパーの結果: True
+[25/60] つかめた（茶碗 x=0.087 y=-0.154・26.3秒）
+[INFO] [1792639292.152860590] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639292.275175793] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639302.180909504] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639305.821588474] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639307.105998112] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639309.962981238] [collect_grasp_demos]: グリッパーの結果: True
+[26/60] つかめた（茶碗 x=-0.059 y=-0.155・28.6秒）
+[INFO] [1792639320.750973664] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639320.858572740] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639329.689452147] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639333.161517286] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639334.433920950] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639337.217157968] [collect_grasp_demos]: グリッパーの結果: True
+[27/60] つかめた（茶碗 x=0.080 y=-0.154・26.3秒）
+[INFO] [1792639347.162425429] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639347.259341250] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639356.127555149] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639359.695306135] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639361.033400424] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639363.800582201] [collect_grasp_demos]: グリッパーの結果: True
+[28/60] つかめた（茶碗 x=-0.006 y=-0.174・26.5秒）
+[INFO] [1792639373.511727384] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639373.617902659] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639383.417028223] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639386.975185816] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639388.250295694] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639391.071351567] [collect_grasp_demos]: グリッパーの結果: True
+[29/60] つかめた（茶碗 x=-0.040 y=-0.168・27.8秒）
+[INFO] [1792639401.263653199] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639401.388113671] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792639404.937995768] [collect_grasp_demos]: Planning failed! Error code: FAILURE
+[WARN] [1792639404.939159342] [collect_grasp_demos]: 計画に失敗（1回目）: (0.025094548961419688, -0.061262565475613616, 0.08)
+[INFO] [1792639412.514528818] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639416.097062330] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639417.381139913] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639420.173469209] [collect_grasp_demos]: グリッパーの結果: True
+[30/60] つかめた（茶碗 x=0.063 y=-0.154・28.9秒）
+[INFO] [1792639430.312452637] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639430.427586557] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639438.985833328] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639442.549914176] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639443.782789569] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639446.574175116] [collect_grasp_demos]: グリッパーの結果: True
+[31/60] つかめた（茶碗 x=0.008 y=-0.170・26.3秒）
+[INFO] [1792639456.488086207] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639456.593172062] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639465.195275861] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639468.793385068] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639470.079218405] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639472.834394872] [collect_grasp_demos]: グリッパーの結果: True
+[32/60] つかめた（茶碗 x=-0.011 y=-0.170・26.3秒）
+[INFO] [1792639482.854203117] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639482.961997651] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639491.997807821] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639495.559087510] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639496.780561816] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639499.626122003] [collect_grasp_demos]: グリッパーの結果: True
+[33/60] つかめた（茶碗 x=0.080 y=-0.146・26.9秒）
+[INFO] [1792639509.707910374] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639509.811834140] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639518.997820747] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639522.573891307] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639523.849339906] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639526.667440394] [collect_grasp_demos]: グリッパーの結果: True
+[34/60] つかめた（茶碗 x=0.084 y=-0.149・26.8秒）
+[INFO] [1792639536.634887900] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639536.747047058] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639545.015155337] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639548.706895898] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639549.986388256] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639552.768158883] [collect_grasp_demos]: グリッパーの結果: True
+[35/60] つかめた（茶碗 x=0.101 y=-0.146・26.0秒）
+[INFO] [1792639562.636646445] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639562.747285420] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639572.399149202] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639575.893255222] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639577.171008370] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639579.873792159] [collect_grasp_demos]: グリッパーの結果: True
+[36/60] つかめた（茶碗 x=0.075 y=-0.151・27.3秒）
+[INFO] [1792639590.009096230] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639590.158996401] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639598.685968922] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639602.292904644] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639603.572710052] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639606.395114542] [collect_grasp_demos]: グリッパーの結果: True
+[37/60] つかめた（茶碗 x=0.101 y=-0.142・26.3秒）
+[INFO] [1792639616.309273847] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639616.414981103] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639624.833360703] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639628.385796716] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639629.611123884] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639632.380614213] [collect_grasp_demos]: グリッパーの結果: True
+[38/60] つかめた（茶碗 x=0.020 y=-0.171・26.0秒）
+[INFO] [1792639642.173995963] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639642.291172347] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639650.662196985] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639654.229039359] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639655.456787477] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639658.250260319] [collect_grasp_demos]: グリッパーの結果: True
+[39/60] つかめた（茶碗 x=0.019 y=-0.176・25.9秒）
+[INFO] [1792639668.086512262] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639668.259281177] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639677.279511734] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639680.799458548] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639682.122605969] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639685.139273443] [collect_grasp_demos]: グリッパーの結果: True
+[40/60] つかめた（茶碗 x=-0.001 y=-0.175・27.6秒）
+[INFO] [1792639695.824969395] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639695.960596114] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639704.782872388] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639708.480375018] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639709.758095575] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639712.603275589] [collect_grasp_demos]: グリッパーの結果: True
+[41/60] つかめた（茶碗 x=0.090 y=-0.155・26.7秒）
+[INFO] [1792639722.481072709] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639722.603619236] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639731.912604483] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639735.474689983] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639736.755710540] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639739.653007305] [collect_grasp_demos]: グリッパーの結果: True
+[42/60] つかめた（茶碗 x=-0.045 y=-0.170・27.7秒）
+[INFO] [1792639750.111246487] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639750.231491921] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792639753.803530108] [collect_grasp_demos]: Planning failed! Error code: FAILURE
+[WARN] [1792639753.804078833] [collect_grasp_demos]: 計画に失敗（1回目）: (0.014652680787882871, -0.07677302812133603, 0.08)
+[INFO] [1792639761.601224679] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639765.265362873] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639766.535428363] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639769.413237889] [collect_grasp_demos]: グリッパーの結果: True
+[43/60] つかめた（茶碗 x=0.033 y=-0.175・29.3秒）
+[INFO] [1792639779.458559921] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639779.694752473] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639788.848743244] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639792.567253710] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639793.846243949] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639796.730049470] [collect_grasp_demos]: グリッパーの結果: True
+[44/60] つかめた（茶碗 x=0.065 y=-0.161・27.5秒）
+[INFO] [1792639806.916088088] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639807.068556436] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639815.775561528] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639819.592422991] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639820.869870362] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639823.601527828] [collect_grasp_demos]: グリッパーの結果: True
+[45/60] つかめた（茶碗 x=0.024 y=-0.169・26.6秒）
+[INFO] [1792639833.453844187] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639833.575974927] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639843.000920007] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639846.584608541] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639847.819319260] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639850.586214015] [collect_grasp_demos]: グリッパーの結果: True
+[46/60] つかめた（茶碗 x=-0.021 y=-0.168・27.2秒）
+[INFO] [1792639860.824164850] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639860.951035394] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639869.563450556] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639873.274674901] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639874.558242711] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639877.615771976] [collect_grasp_demos]: グリッパーの結果: True
+[47/60] つかめた（茶碗 x=0.110 y=-0.133・27.0秒）
+[INFO] [1792639887.785992336] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639887.901953662] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639896.819463298] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639900.582921078] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639901.936930315] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639904.868067857] [collect_grasp_demos]: グリッパーの結果: True
+[48/60] つかめた（茶碗 x=-0.005 y=-0.167・27.3秒）
+[INFO] [1792639915.121648596] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639915.226181728] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639924.280141250] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639927.829437949] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639929.112249489] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639931.953601215] [collect_grasp_demos]: グリッパーの結果: True
+[49/60] つかめた（茶碗 x=0.072 y=-0.153・26.9秒）
+[INFO] [1792639941.971044238] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639942.116274908] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639950.657992692] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639954.376605220] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639955.600496002] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639958.421873864] [collect_grasp_demos]: グリッパーの結果: True
+[50/60] つかめた（茶碗 x=0.092 y=-0.155・26.4秒）
+[INFO] [1792639968.476488033] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639968.621171500] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639977.978131215] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792639981.699061108] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792639982.930240033] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639985.832162447] [collect_grasp_demos]: グリッパーの結果: True
+[51/60] つかめた（茶碗 x=-0.020 y=-0.178・27.7秒）
+[INFO] [1792639996.192658022] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792639996.311075784] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640005.773175938] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640009.520336017] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640010.852847198] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640013.780644217] [collect_grasp_demos]: グリッパーの結果: True
+[52/60] つかめた（茶碗 x=-0.039 y=-0.164・28.4秒）
+[INFO] [1792640024.511063323] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640024.632717726] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640033.212177839] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640036.911207760] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640038.137403711] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640041.238180913] [collect_grasp_demos]: グリッパーの結果: True
+[53/60] つかめた（茶碗 x=0.101 y=-0.141・27.2秒）
+[INFO] [1792640051.802486335] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640051.918471039] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640061.088376948] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640064.632679003] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640065.851274835] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640068.650801400] [collect_grasp_demos]: グリッパーの結果: True
+[54/60] つかめた（茶碗 x=0.080 y=-0.158・26.9秒）
+[INFO] [1792640078.568728201] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640078.724756293] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640088.184839335] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640091.667054281] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640092.898405567] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640095.726063459] [collect_grasp_demos]: グリッパーの結果: True
+[55/60] つかめた（茶碗 x=-0.019 y=-0.171・27.3秒）
+[INFO] [1792640105.712806357] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640105.845190129] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640114.873896881] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640118.594361997] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640119.835262589] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640122.726073974] [collect_grasp_demos]: グリッパーの結果: True
+[56/60] つかめた（茶碗 x=0.081 y=-0.157・26.9秒）
+[INFO] [1792640132.758410611] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640132.886857303] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640142.324308842] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640146.040578048] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640147.327827403] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640150.373970146] [collect_grasp_demos]: グリッパーの結果: True
+[57/60] つかめた（茶碗 x=0.079 y=-0.154・28.0秒）
+[INFO] [1792640160.618308684] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640160.745807748] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640169.297971916] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640172.827758357] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640174.100916087] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640176.989580577] [collect_grasp_demos]: グリッパーの結果: True
+[58/60] つかめた（茶碗 x=0.004 y=-0.174・26.2秒）
+[INFO] [1792640186.953450609] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640187.080937143] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792640190.624516083] [collect_grasp_demos]: Planning failed! Error code: FAILURE
+[WARN] [1792640190.625029009] [collect_grasp_demos]: 計画に失敗（1回目）: (0.005737808887067747, -0.06676722998607211, 0.08)
+[INFO] [1792640198.577647530] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640202.242865969] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640203.513323894] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640206.278123697] [collect_grasp_demos]: グリッパーの結果: True
+[59/60] つかめた（茶碗 x=0.014 y=-0.166・29.5秒）
+[INFO] [1792640216.359672704] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640216.461473115] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640225.549459003] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792640229.102883854] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792640230.321839231] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792640233.153342138] [collect_grasp_demos]: グリッパーの結果: True
+[60/60] つかめた（茶碗 x=-0.046 y=-0.164・27.2秒）
+つかめた手本 60/60。記録：/workspace/il_data/rosbags/20261022_030954
