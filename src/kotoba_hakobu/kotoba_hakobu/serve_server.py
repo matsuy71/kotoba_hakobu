@@ -90,7 +90,10 @@ class ServeTeaServer(Node):
         if grasp_name not in ("act", "moveit"):
             raise ValueError(f"grasp は act か moveit です（渡された値：{grasp_name}）")
         self.use_act = grasp_name == "act"
-        self.act_client = self.create_client(ActGrasp, "/kotoba/act_grasp", callback_group=group)
+        self.act_clients = {
+            "red": self.create_client(ActGrasp, "/kotoba/act_grasp_red", callback_group=group),
+            "black": self.create_client(ActGrasp, "/kotoba/act_grasp_black", callback_group=group),
+        }
         self.get_logger().info(f"つかみ方：{'ACT（学習方式。やり直しと控えの MoveIt つき）' if self.use_act else 'MoveIt'}")
         self.level_path = bool(self.get_parameter("level_path").value)
         self.get_logger().info(f"向きを変える途中も水平に保つ条件：{'付ける' if self.level_path else '付けない'}")
@@ -104,11 +107,11 @@ class ServeTeaServer(Node):
         self.server = ActionServer(self, ServeTea, "serve_tea", self.execute, callback_group=group)
         self.get_logger().info("お出しするアクションサーバーを起動しました（serve_tea）")
 
-    def call_act(self, x, y):
-        """ACT のサービスに頼み、返事を待つ。(手を閉じ終えたか, 説明) を返す。"""
+    def call_act(self, client, x, y):
+        """ACT のサービス（渡された窓口）に頼み、返事を待つ。(手を閉じ終えたか, 説明) を返す。"""
         req = ActGrasp.Request()
         req.x, req.y = float(x), float(y)
-        future = self.act_client.call_async(req)
+        future = client.call_async(req)
         start = time.time()
         while not future.done():
             if time.time() - start > 40.0:
@@ -192,9 +195,11 @@ class ServeTeaServer(Node):
                 scene.remove_bowl(self.arm, goal.bowl)
             if self.use_act and goal.bowl == "red":
                 # ----- ACT（学習方式）でつかむ：やり直し → 角度の門番 → 控えの MoveIt -----
-                # ACT の手本は赤楽だけなので、赤楽のときだけ使う（黒楽は実証済みの MoveIt が担当）
-                if not self.act_client.wait_for_service(timeout_sec=5.0):
-                    raise StepFailed("ACT の用意", "ACT のサーバーが見つかりません。画像つきサーバーを起動してください。")
+                # 赤楽のみ ACT。黒楽は黒いアームと画像の上で溶け合って精度が出ないため、実証済みの MoveIt が担当
+                # 呼び分けの窓口（act_clients）は、黒楽の目が良くなったときのために残してある
+                act_client = self.act_clients[goal.bowl]
+                if not act_client.wait_for_service(timeout_sec=5.0):
+                    raise StepFailed("ACT の用意", f"{bowl_ja}の ACT サーバーが見つかりません。起動してください。")
                 gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, ACT_AIM_LEFT)
                 grabbed = False
                 for attempt in range(1 + ACT_RETRIES):
@@ -202,7 +207,7 @@ class ServeTeaServer(Node):
                     self.report(goal_handle, 5, text)
                     self.arm.move_to_configuration(HOME)   # 手本と同じ出発点から
                     self.arm.wait_until_executed()
-                    ok, message = self.call_act(bowl["x"], bowl["y"])
+                    ok, message = self.call_act(act_client, bowl["x"], bowl["y"])
                     time.sleep(1.0)
                     self.report(goal_handle, 6, "つかめたか確かめています")
                     angle = hand_angle(self.gripper)

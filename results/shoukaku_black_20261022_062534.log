@@ -1,0 +1,50 @@
+試す茶碗 black・ねらいの左寄せ aim_left=0.0（本番の既定は 0.007）・やり直し 2回まで・控えのMoveIt あり
+[INFO] [1792650348.440600883] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650351.206019006] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650378.116641040] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650382.385968171] [collect_grasp_demos]: グリッパーの結果: True
+[1/20] 持ち上がった（茶碗 x=0.069 y=-0.156・茶碗のずれ 0.7cm・つかむまで 20.6秒・手 19.737031254789034度）
+[INFO] [1792650392.678812408] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650392.808046118] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650405.551569225] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650405.686917842] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650436.350245294] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650439.602628413] [collect_grasp_demos]: グリッパーの結果: True
+[2/20] 持ち上がった・茶碗に当てて動かした・2回目でつかんだ（茶碗 x=0.052 y=-0.168・茶碗のずれ 1.2cm・つかむまで 39.1秒・手 19.811353020585635度）
+[INFO] [1792650447.927197536] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650448.030828080] [collect_grasp_demos]: グリッパーの結果: True
+[WARN] [1792650467.380724703] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.08 of the trajectory, less than the threshold 0.99.
+[WARN] [1792650467.381688940] [collect_grasp_demos]: 計画に失敗（1回目）: (-0.010428117864425542, -0.07612526037090371, 0.08)
+[WARN] [1792650467.928897162] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.08 of the trajectory, less than the threshold 0.99.
+[WARN] [1792650467.929361537] [collect_grasp_demos]: 計画に失敗（2回目）: (-0.010428117864425542, -0.07612526037090371, 0.08)
+[WARN] [1792650468.454319623] [collect_grasp_demos]: Planning failed! Cartesian planner completed 0.08 of the trajectory, less than the threshold 0.99.
+[WARN] [1792650468.455002168] [collect_grasp_demos]: 計画に失敗（3回目）: (-0.010428117864425542, -0.07612526037090371, 0.08)
+[ERROR] [1792650468.956639195] [collect_grasp_demos]: 3回とも計画に失敗しました: (-0.010428117864425542, -0.07612526037090371, 0.08)
+[INFO] [1792650473.606799890] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650476.594134118] [collect_grasp_demos]: グリッパーの結果: True
+[3/20] 持ち上がった（茶碗 x=-0.024 y=-0.175・茶碗のずれ 0.9cm・つかむまで 19.1秒・手 18.46168818811702度）
+[INFO] [1792650485.664599311] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650485.770810433] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650498.641366986] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650498.738997474] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650512.914010548] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650513.012048164] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650530.366814983] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650530.494021368] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650545.399414801] [collect_grasp_demos]: グリッパーを 35.0 度にします
+[INFO] [1792650549.412104047] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650554.733362493] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650557.684129430] [collect_grasp_demos]: グリッパーの結果: True
+[4/20] 持ち上がった・茶碗に当てて動かした・4回目でつかんだ・控えのMoveItが引き継いだ（茶碗 x=-0.051 y=-0.168・茶碗のずれ 1.1cm・つかむまで 64.6秒・手 19.811509354725995度）
+[INFO] [1792650565.951101320] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650566.087853188] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650574.087247743] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650574.202063146] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650591.954981772] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650592.082655449] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650618.102290021] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650620.995656369] [collect_grasp_demos]: グリッパーの結果: True
+[5/20] 持ち上がった・茶碗に当てて動かした・3回目でつかんだ（茶碗 x=0.065 y=-0.160・茶碗のずれ 1.1cm・つかむまで 48.0秒・手 19.792889547730216度）
+[INFO] [1792650628.389073435] [collect_grasp_demos]: グリッパーを -30.0 度にします
+[INFO] [1792650628.489843441] [collect_grasp_demos]: グリッパーの結果: True
+[INFO] [1792650648.350136805] [collect_grasp_demos]: グリッパーを -30.0 度にします
