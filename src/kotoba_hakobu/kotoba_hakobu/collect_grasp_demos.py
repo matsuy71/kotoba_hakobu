@@ -180,6 +180,7 @@ def run_episode(node, locator, x, y, bag_dir, aim_left, jitter, jrng):
             "aim_left": aim_left, "jitter_m": round(jit, 4)}
 
 def main():
+    global BOWL, OTHER
     ap = argparse.ArgumentParser()
     ap.add_argument("--episodes", type=int, default=2)
     ap.add_argument("--seed", type=int, default=2026)
@@ -187,7 +188,10 @@ def main():
                     help="下ろすときの、茶碗の中心の左寄せ（m）。既定は本番と同じ")
     ap.add_argument("--jitter", type=float, default=0.0,
                     help="わざとずらす大きさの上限（m）。0なら今までどおり。例：0.02")
+    ap.add_argument("--bowl", choices=["red", "black"], default="red",
+                    help="手本にする茶碗。もう片方はよけておく")
     args = ap.parse_args()
+    BOWL, OTHER = args.bowl, ("black" if args.bowl == "red" else "red")
 
     rclpy.init()
     node = Collector()
@@ -204,7 +208,7 @@ def main():
     jrng = random.Random(args.seed + 1)  # ずらし専用のくじ（茶碗を置くくじと混ざらないように別にする）
     locator = TruePoseLocator()
     n_ok = 0
-    print(f"ねらいの左寄せ aim_left={args.aim_left}（本番の既定は {AIM_LEFT}）・ずらし jitter={args.jitter}")
+    print(f"手本の茶碗 {BOWL}・ねらいの左寄せ aim_left={args.aim_left}（本番の既定は {AIM_LEFT}）・ずらし jitter={args.jitter}")
     try:
         scene.clear(node.arm)  # MoveIt に教えた物が残っていれば消す
         for i in range(args.episodes):

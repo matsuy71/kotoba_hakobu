@@ -1,0 +1,5 @@
+# 画像つきの手本の変換の設定（黒楽90回。2026-10-22）
+bag_dir: /workspace/il_data/rosbags/combined_black
+output_dir: /workspace/il_data/lerobot_dataset/crane_plus_grasp_img_black
+config: /workspace/il/configs/grasp_img_black_features.py
+target_freq: 20
