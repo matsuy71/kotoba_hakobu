@@ -50,7 +50,7 @@
  聞き返し・復唱・「はい」の確認
    │ ServeTea アクション（茶碗・席）
    ▼
-[お出しするサーバー serve_server]  15段階：位置を読む→届くか→席はあいているか→つかむ（把持）→
+[提供するサーバー serve_server]  15段階：位置を読む→届くか→席はあいているか→つかむ（把持）→
    │                                持ち上げる→向きを変える→前へ出す→置く→離れて確かめる
    ├─ 位置を教える部品：TruePoseLocator（真の値版）／ CameraLocator（カメラ版：色→机の上の位置）
    ├─ 把持：赤楽 = ACT（画像入力の模倣学習。再試行・自己判定・フォールバックつき）
@@ -86,7 +86,7 @@
 | 1 シミュレータ | `ros2 launch crane_plus_gazebo crane_plus_with_table.launch.py world_name:=/workspace/src/kotoba_hakobu/worlds/chakai.sdf` |
 | 2 カメラの橋渡し | `ros2 run ros_gz_bridge parameter_bridge "/chakai_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image" "/chakai_camera/camera_info@sensor_msgs/msg/CameraInfo[ignition.msgs.CameraInfo"`（既定の構成とカメラ版で必要） |
 | 3 赤楽の ACT サーバー | pixi の環境を開いてから `python il/act_grasp_server_img.py --service /kotoba/act_grasp_red`（開き方と学習済みモデルの用意は [il/NOTES.md](il/NOTES.md) の9節。既定の構成で必要） |
-| 4 お出しするサーバー | 既定（赤楽＝ACT・黒楽＝MoveIt）：`ros2 run kotoba_hakobu serve_server`<br>カメラ版：`ros2 run kotoba_hakobu serve_server --ros-args -p locator:=camera`<br>学習方式を使わない：`ros2 run kotoba_hakobu serve_server --ros-args -p grasp:=moveit`（この場合、端末2・3は不要） |
+| 4 提供するサーバー | 既定（赤楽＝ACT・黒楽＝MoveIt）：`ros2 run kotoba_hakobu serve_server`<br>カメラ版：`ros2 run kotoba_hakobu serve_server --ros-args -p locator:=camera`<br>学習方式を使わない：`ros2 run kotoba_hakobu serve_server --ros-args -p grasp:=moveit`（この場合、端末2・3は不要） |
 | 5 亭主の操作盤 | `ros2 run kotoba_hakobu teishu_console` |
 
 - 新しい端末では、先に `source /workspace/install/setup.bash` を実行します。
@@ -108,11 +108,11 @@
 
 - はっきりした指示（A）の正解率は 100%（要件 90% 以上）
 - キーワード規則は、頼みではない文（D）と言い直し（E）で大きく下がった
-- 1回目の評価のあとに、問題集の3か所（文2つ・正解1つ）を直した。直していない32問では、Gemini は2回とも 31/32 で、答えは2回とも同じだった。詳しくは [eval/NOTES.md](eval/NOTES.md)
+- 1回目の評価のあとに、評価セットの3か所（文2つ・正解1つ）を直した。直していない32問では、Gemini は2回とも 31/32 で、答えは2回とも同じだった。詳しくは [eval/NOTES.md](eval/NOTES.md)
 
 ### 2つ頼む指示文の評価（言葉）
 
-評価用の15文（利用者が作り、評価が終わるまで Claude には見せていない。指紋は評価の前に記録）で、読み取りの結果から操作盤の動き（復唱する・聞き返す・断る）が正しいかを採点しました。同じ問題集で2回行いました。
+評価用の15文（利用者が作り、評価が終わるまで Claude には見せていない。指紋は評価の前に記録）で、読み取りの結果から操作盤の動き（復唱する・聞き返す・断る）が正しいかを採点しました。同じ評価セットで2回行いました。
 
 | 読み方 | 動きが正しい | 危ない |
 |---|---|---|
@@ -120,15 +120,15 @@
 | キーワード規則 | 11/15（2回とも） | 0 |
 
 - 危ない＝正解と違う茶碗や席を、聞き返さずにそのまま復唱してしまう読み
-- キーワード規則の×4つは、どれも聞き返す（安全な側）。2つずつ言われたときの茶碗と席の組み合わせと、お茶碗をお出しする頼みではないこと（お茶碗を下げる・お菓子を出す）を、言葉だけでは見分けられない
+- キーワード規則の×4つは、どれも聞き返す（安全な側）。2つずつ言われたときの茶碗と席の組み合わせと、お茶碗を提供する頼みではないこと（お茶碗を下げる・お菓子を出す）を、言葉だけでは見分けられない
 - 15文・2回だけの結果で、茶碗2つ・席3つの場面に限る
 - 動かし方：`python3 tools/eval_orders.py eval/orders_eval.csv`（`--check` を付けると、文を表示せずに形だけ確かめる）。詳しくは [eval/NOTES.md](eval/NOTES.md)
 
-### お出しする評価（運ぶ）
+### 提供の評価（運ぶ）
 
 茶碗の置き場所と席を、乱数シードで決まるくじで変えながら、20回提供しました。真の値版とカメラ版を、同じシードで比べています。
 
-| 位置の読み方 | 成功 | 本当のずれ（平均/最大） | カメラの誤差（平均/最大） | 傾き（最大） | 時間（平均） |
+| 位置の読み方 | 成功 | 置いた位置の誤差（平均/最大。真値との差）| カメラの誤差（平均/最大） | 傾き（最大） | 時間（平均） |
 |---|---|---|---|---|---|
 | 真の値版 | 20/20 | 0.1 / 0.2 mm | 2.8 / 4.6 mm | 0.07度 | 38.2秒 |
 | カメラ版 | 20/20 | 0.1 / 0.1 mm | 2.8 / 4.6 mm | 0.07度 | 38.5秒 |
@@ -170,7 +170,7 @@
 
 ````
 ros2 run kotoba_hakobu eval_understanding     # 読み取りの評価（eval/instructions_eval.csv を使う）
-ros2 run kotoba_hakobu eval_serve             # お出しする評価（サーバーとシミュレータが必要。--seed・--trials で変えられる）
+ros2 run kotoba_hakobu eval_serve             # 提供の評価（サーバーとシミュレータが必要。--seed・--trials で変えられる）
 python3 il/try_act_grasp.py --method act --trials 20 --seed 1018 --aim-left 0.000 --retries 2 --fallback   # 把持の評価（ACT サーバーが必要。il/NOTES.md）
 python3 tools/make_figures.py                 # 図と表を作る（results/figures/）
 ````
@@ -189,9 +189,9 @@ python3 -m pytest src/kotoba_hakobu/test/test_logic.py -q
 | `src/kotoba_hakobu_interfaces/action/ServeTea.action` | 注文（茶碗・席）・途中経過・結果の形 |
 | `src/kotoba_hakobu/kotoba_hakobu/teishu_console.py` | 亭主の操作盤（聞き返し・復唱・2つ続けて提供・報告・記録） |
 | `tools/eval_orders.py` | 2つ頼む指示文の評価（形の確かめ・採点） |
-| `eval/orders_eval.csv` | 2つ頼む指示文の評価用の問題集（15文、利用者が作成） |
+| `eval/orders_eval.csv` | 2つ頼む指示文の評価セット（15文、利用者が作成） |
 | `src/kotoba_hakobu/kotoba_hakobu/understanding.py` | 指示の読み取り（Gemini ＋ キーワード規則） |
-| `src/kotoba_hakobu/kotoba_hakobu/serve_server.py` | お出しするサーバー（15段階・把持の振り分け・安全に止まる） |
+| `src/kotoba_hakobu/kotoba_hakobu/serve_server.py` | 提供するサーバー（15段階・把持の振り分け・安全に止まる） |
 | `src/kotoba_hakobu/kotoba_hakobu/bowl_locator.py` | 茶碗の位置を教える部品（真の値版） |
 | `src/kotoba_hakobu/kotoba_hakobu/camera_locator.py` | 茶碗の位置を教える部品（カメラ版）と、真値と比べる道具 |
 | `src/kotoba_hakobu/kotoba_hakobu/collect_grasp_demos.py` | 把持のデモ収集（MoveIt の動きを記録。ずらして立て直す修正デモも） |
@@ -200,7 +200,7 @@ python3 -m pytest src/kotoba_hakobu/test/test_logic.py -q
 | `src/kotoba_hakobu/kotoba_hakobu/eval_understanding.py`・`eval_serve.py` | 評価 |
 | `src/kotoba_hakobu/kotoba_hakobu/try_*.py` | 作る途中で1つずつ確かめた試運転 |
 | `tools/` | 色や指の形を測る道具・図を作る道具 |
-| `eval/` | 評価用の問題集と覚え書き |
+| `eval/` | 評価セットと覚え書き |
 | `results/` | 評価・やりとりの記録と図 |
 
 ## 動作を確かめた版
@@ -215,7 +215,7 @@ python3 -m pytest src/kotoba_hakobu/test/test_logic.py -q
 | datasets（Colab での学習時） | `3.6.0` に固定（これ以外では学習が途中で失敗する） |
 | Python・OpenCV・NumPy・matplotlib・pytest | 3.10.12・4.5.4・1.21.5・3.5.1・6.2.5 |
 
-土台のイメージ・CRANE+・pymoveit2 の版は、`.devcontainer/Dockerfile` に書き込んである（2026-10-18）。rosdep・apt で入れる部品（MoveIt 2・日本語フォントなど）は、配布元が最新版のみを置いているため固定していない。作り直した環境で、テスト（61個）が通ることと、お出しする評価の2試行が作り直す前と同じ数字になることを確かめた。模倣学習の学習は Google Colab（GPU）で行った。
+土台のイメージ・CRANE+・pymoveit2 の版は、`.devcontainer/Dockerfile` に書き込んである（2026-10-18）。rosdep・apt で入れる部品（MoveIt 2・日本語フォントなど）は、配布元が最新版のみを置いているため固定していない。作り直した環境で、テスト（61個）が通ることと、提供する評価の2試行が作り直す前と同じ数字になることを確かめた。模倣学習の学習は Google Colab（GPU）で行った。
 
 ## 出典・参考にしたもの
 
@@ -232,7 +232,7 @@ python3 -m pytest src/kotoba_hakobu/test/test_logic.py -q
 ## AI の利用
 
 - **Claude（Anthropic。主にブラウザのチャット）**：設計の相談、コード、テスト、評価のプログラム、この README の下書きに使いました。Claude が示した変更部分は、利用者が自分で書き込みました。
-- **利用者が決めたこと**：お茶会で抹茶を提供する設定、茶碗（赤楽・黒楽）と席の呼び方・並び、傾きの要件（15度以内）、茶碗に印を付けないこと、茶碗をロボットの右側に置くこと、亭主への言葉づかい、評価用の問題集（評価が終わるまで Claude には見せない）。模倣学習の改良の分岐（ねらいの変更・修正デモ・評価指標の線引き・黒楽の扱い）も利用者が判断しました。動作は、すべてシミュレータで動かして確かめました。
+- **利用者が決めたこと**：お茶会で抹茶を提供する設定、茶碗（赤楽・黒楽）と席の呼び方・並び、傾きの要件（15度以内）、茶碗に印を付けないこと、茶碗をロボットの右側に置くこと、亭主への言葉づかい、評価セット（評価が終わるまで Claude には見せない）。模倣学習の改良の分岐（ねらいの変更・修正デモ・評価指標の線引き・黒楽の扱い）も利用者が判断しました。動作は、すべてシミュレータで動かして確かめました。
 - **AI の間違いを見つけて直した例**：ROS の部品が使う名前（`handle`）と重なって起動しなかった／倒れた茶碗を見分ける基準（「詰まり 0.80」）が実際の値に合わなかった／図の点を値の順に並べ、誤解を生む図になっていた、など。
 - **模倣学習（LeRobot・ACT）**：茶碗の把持のモデルを、本番の MoveIt の動きをデモとして学習させました。デモ収集と評価はシミュレータで、学習は Google Colab の GPU で行いました（詳細は [il/NOTES.md](il/NOTES.md)）。
 - **Gemini（Google）**：ロボットの中で、亭主の言葉を読み取るのに使っています。答えは必ず形を確かめてから使い、使えないときはキーワード規則に切りかえます。
