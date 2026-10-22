@@ -37,7 +37,8 @@ MODEL_PATH = "/workspace/il_data/checkpoints/crane_plus_grasp_act_img_dagger"
 DATASET_ROOT = "/workspace/il_data/lerobot_dataset/crane_plus_grasp_img_dagger"
 REPO_ID = "crane_plus_grasp_img_dagger"
 CAM_TOPIC = "/kotoba/camera_small"
-
+CAM_RAW = "/chakai_camera/image"   # 元画像（640×480）。縮め係がいない編成でも、自分で縮めて使う
+CAM_SCALE = 4                      # 縦横とも4画素ごとに1画素（手本を記録したときと同じ縮め方）
 PERIOD = 0.05                 # 0.05秒ごと（1秒に20回）。手本と同じ
 MOVE_SEC = PERIOD             # 「次の1コマ（0.05秒）でその角度にして」と送る
 GRIPPER_OPEN = math.radians(-30.0)
@@ -82,6 +83,7 @@ class ActGraspImgServer(Node):
         self.hand_pub = self.create_publisher(JointTrajectory, "/crane_plus_gripper_controller/joint_trajectory", 10)
         self.create_subscription(JointState, "/joint_states", self.on_joint_states, 10)
         self.create_subscription(Image, CAM_TOPIC, self.on_image, qos_profile_sensor_data)
+        self.create_subscription(Image, CAM_RAW, self.on_image, qos_profile_sensor_data)
         self.create_service(ActGrasp, "/kotoba/act_grasp", self.on_request,
                             callback_group=MutuallyExclusiveCallbackGroup())
         self.get_logger().info(f"画像つき ACT を読みこんだ（{model_path}、スレッド{torch.get_num_threads()}）。頼まれるのを待つ")
@@ -98,6 +100,11 @@ class ActGraspImgServer(Node):
         if msg.encoding != "rgb8":
             return
         arr = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, 3)
+        if msg.height != 120:
+            # 元画像（640×480）が来たときは、手本の記録と同じ縮め方で 160×120 にする
+            arr = arr[::CAM_SCALE, ::CAM_SCALE]
+            if arr.shape[0] != 120 or arr.shape[1] != 160:
+                return
         # 学習のときと同じ形にする：色×縦×横、0〜1 の小数
         tensor = torch.from_numpy(arr.copy()).permute(2, 0, 1).float() / 255.0
         with self.lock:
