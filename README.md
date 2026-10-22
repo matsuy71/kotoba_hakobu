@@ -1,6 +1,8 @@
 # kotoba_hakobu
 
-**Listen. Confirm. Carry. Report.** — A language-driven pick-and-place robot on CRANE+ V2 (ROS 2 / Gazebo / MoveIt 2)
+[![tests](https://github.com/matsuy71/kotoba_hakobu/actions/workflows/tests.yml/badge.svg)](https://github.com/matsuy71/kotoba_hakobu/actions/workflows/tests.yml)
+
+**Listen. Confirm. Carry. Report.**
 
 茶会で、亭主の言葉を聞いて、お客様にお茶碗を提供するロボットです（シミュレーション）。茶道では、このように亭主の補助役となる者を半東（はんとう）と呼びます。
 言葉で頼む → 確かめてから動く → 水平を保って運ぶ → 結果を報告する、を1つの流れにしています。
@@ -181,6 +183,7 @@ python3 tools/make_figures.py                 # 図と表を作る（results/fig
 ````
 python3 -m pytest src/kotoba_hakobu/test/test_logic.py -q
 ````
+push のたびに、GitHub Actions（CI）が ROS 2 Humble のコンテナで同じテストを自動実行します（`.github/workflows/tests.yml`。結果は Actions タブか、冒頭のバッジで見られます）。
 
 ## 主なファイル
 
