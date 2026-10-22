@@ -10,6 +10,7 @@ from rclpy.node import Node
 from pymoveit2 import MoveIt2
 
 from kotoba_hakobu_interfaces.action import ServeTea
+from kotoba_hakobu_interfaces.srv import ActGrasp
 from kotoba_hakobu import planning_scene as scene
 from kotoba_hakobu.bowl_locator import TruePoseLocator
 from kotoba_hakobu.camera_locator import CameraLocator
@@ -30,6 +31,9 @@ HOLDING_NOTE = "お茶碗を持ったまま止まっております。シミュ�
 STEP_COUNT = 15
 WRIST_MIN, WRIST_MAX = 0.06, 0.16   # 手首が届く範囲（土台からの距離、m）
 GRASP_EMPTY_DEG = 34.0              # 指がここまで閉じたら、何もはさめていない
+GRIP_MIN_DEG = 15.0                 # 手がここより閉じていたら「ふち挟み」（浅いつかみ。正しい持ち方は18〜20度）
+ACT_RETRIES = 2                     # ACT のやり直し回数（1回目＋やり直し2回＝最大3回。そのあと控えの MoveIt）
+ACT_AIM_LEFT = 0.0                  # ACT 用のねらい（真ん中。学習した手本と同じ。控えの MoveIt は本番の AIM_LEFT を使う）
 LIFT_MIN_Z = 0.04                   # 持ち上げた茶碗の中心は、机からこれより高いはず（m）
 SEAT_FREE_RADIUS = 0.06             # 席の中心からこの距離に茶碗があれば「あいていない」（m）
 PLACE_TOL_M = 0.02                  # 置いた位置のずれの基準（m）
@@ -81,6 +85,15 @@ class ServeTeaServer(Node):
         self.declare_parameter("level_path", False)
         self.level_path = bool(self.get_parameter("level_path").value)
         self.get_logger().info(f"向きを変える途中も水平に保つ条件：{'付ける' if self.level_path else '付けない'}")
+        self.declare_parameter("grasp", "act")
+        grasp_name = self.get_parameter("grasp").value
+        if grasp_name not in ("act", "moveit"):
+            raise ValueError(f"grasp は act か moveit です（渡された値：{grasp_name}）")
+        self.use_act = grasp_name == "act"
+        self.act_client = self.create_client(ActGrasp, "/kotoba/act_grasp", callback_group=group)
+        self.get_logger().info(f"つかみ方：{'ACT（学習方式。やり直しと控えの MoveIt つき）' if self.use_act else 'MoveIt'}")
+        self.level_path = bool(self.get_parameter("level_path").value)
+        self.get_logger().info(f"向きを変える途中も水平に保つ条件：{'付ける' if self.level_path else '付けない'}")
         self.declare_parameter("grasp_empty_deg", GRASP_EMPTY_DEG)
         self.declare_parameter("lift_min_z", LIFT_MIN_Z)
         grasp_empty_deg = self.get_parameter("grasp_empty_deg").value
@@ -90,6 +103,19 @@ class ServeTeaServer(Node):
                 f"テスト用の値で起動しています（grasp_empty_deg={grasp_empty_deg}、lift_min_z={lift_min_z}）")
         self.server = ActionServer(self, ServeTea, "serve_tea", self.execute, callback_group=group)
         self.get_logger().info("お出しするアクションサーバーを起動しました（serve_tea）")
+
+    def call_act(self, x, y):
+        """ACT のサービスに頼み、返事を待つ。(手を閉じ終えたか, 説明) を返す。"""
+        req = ActGrasp.Request()
+        req.x, req.y = float(x), float(y)
+        future = self.act_client.call_async(req)
+        start = time.time()
+        while not future.done():
+            if time.time() - start > 40.0:
+                return False, "ACT の返事が来ない"
+            time.sleep(0.05)
+        res = future.result()
+        return res.success, res.message
 
     def report(self, goal_handle, index, text):
         """途中経過（フィードバック）を送り、画面にも表示する。"""
@@ -164,17 +190,62 @@ class ServeTeaServer(Node):
             set_gripper(self, self.gripper, GRIPPER_OPEN_DEG)
             if self.use_scene:
                 scene.remove_bowl(self.arm, goal.bowl)
-            self.report(goal_handle, 5, "茶碗の上へ動いています")
-            self.motion("茶碗の上へ", (gx, gy, Z_ABOVE))
-            self.report(goal_handle, 6, "まっすぐ下ろしています")
-            self.motion("下ろす", (gx, gy, Z_GRASP), True)
-            self.report(goal_handle, 7, "指を閉じています")
-            set_gripper(self, self.gripper, GRIPPER_CLOSE_DEG)
-            self.report(goal_handle, 8, "つかめたか確かめています")
-            angle = hand_angle(self.gripper)
-            if angle is None or angle >= grasp_empty_deg:
-                self.get_logger().warning(f"指の角度 {angle}")
-                raise StepFailed("つかめたか確かめる", f"{bowl_ja}をおつかみできませんでした。")
+            if self.use_act and goal.bowl == "red":
+                # ----- ACT（学習方式）でつかむ：やり直し → 角度の門番 → 控えの MoveIt -----
+                # ACT の手本は赤楽だけなので、赤楽のときだけ使う（黒楽は実証済みの MoveIt が担当）
+                if not self.act_client.wait_for_service(timeout_sec=5.0):
+                    raise StepFailed("ACT の用意", "ACT のサーバーが見つかりません。画像つきサーバーを起動してください。")
+                gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, ACT_AIM_LEFT)
+                grabbed = False
+                for attempt in range(1 + ACT_RETRIES):
+                    text = "ACT が茶碗を見て、つかみに行っています" + (f"（やり直し{attempt}回目）" if attempt else "")
+                    self.report(goal_handle, 5, text)
+                    self.arm.move_to_configuration(HOME)   # 手本と同じ出発点から
+                    self.arm.wait_until_executed()
+                    ok, message = self.call_act(bowl["x"], bowl["y"])
+                    time.sleep(1.0)
+                    self.report(goal_handle, 6, "つかめたか確かめています")
+                    angle = hand_angle(self.gripper)
+                    if ok and angle is not None and GRIP_MIN_DEG <= angle < grasp_empty_deg:
+                        grabbed = True
+                        break
+                    self.get_logger().warning(f"仕切り直します（{message}・指の角度 {angle}）")
+                    set_gripper(self, self.gripper, GRIPPER_OPEN_DEG)
+                    move(self, self.arm, (gx, gy, Z_ABOVE))
+                    now = self.locator.locate(goal.bowl)
+                    if now:
+                        bowl = now
+                        gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, ACT_AIM_LEFT)
+                if not grabbed:
+                    # 控えの MoveIt が引き継ぐ（実証済みのねらい AIM_LEFT で）
+                    self.report(goal_handle, 7, "控えの MoveIt が引き継ぎます")
+                    now = self.locator.locate(goal.bowl)
+                    if now:
+                        bowl = now
+                    gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, AIM_LEFT)
+                    set_gripper(self, self.gripper, GRIPPER_OPEN_DEG)
+                    self.arm.move_to_configuration(HOME)
+                    self.arm.wait_until_executed()
+                    self.motion("茶碗の上へ", (gx, gy, Z_ABOVE))
+                    self.motion("下ろす", (gx, gy, Z_GRASP), True)
+                    set_gripper(self, self.gripper, GRIPPER_CLOSE_DEG)
+                self.report(goal_handle, 8, "つかめたか確かめています")
+                angle = hand_angle(self.gripper)
+                if angle is None or not (GRIP_MIN_DEG <= angle < grasp_empty_deg):
+                    self.get_logger().warning(f"指の角度 {angle}")
+                    raise StepFailed("つかめたか確かめる", f"{bowl_ja}をおつかみできませんでした。")
+            else:
+                self.report(goal_handle, 5, "茶碗の上へ動いています")
+                self.motion("茶碗の上へ", (gx, gy, Z_ABOVE))
+                self.report(goal_handle, 6, "まっすぐ下ろしています")
+                self.motion("下ろす", (gx, gy, Z_GRASP), True)
+                self.report(goal_handle, 7, "指を閉じています")
+                set_gripper(self, self.gripper, GRIPPER_CLOSE_DEG)
+                self.report(goal_handle, 8, "つかめたか確かめています")
+                angle = hand_angle(self.gripper)
+                if angle is None or angle >= grasp_empty_deg:
+                    self.get_logger().warning(f"指の角度 {angle}")
+                    raise StepFailed("つかめたか確かめる", f"{bowl_ja}をおつかみできませんでした。")
             holding = True
             if self.use_scene:
                 # 手の中の茶碗の場所（手首から前へ HELD_FORWARD・左へ HELD_LEFT・下へ HELD_BELOW）
@@ -185,7 +256,14 @@ class ServeTeaServer(Node):
 
             # ----- 運ぶ（失敗したら、茶碗を持ったまま止まる） -----
             self.report(goal_handle, 9, "まっすぐ高く持ち上げています")
-            max_tilt = max(max_tilt, self.motion("持ち上げる", (gx, gy, Z_CARRY), True, True))
+            if self.use_act:
+                # ACT のつかみ位置は数mm散るので、まっすぐが通らないときはふつうの計画で持ち上げる
+                ok9, tilt9 = move(self, self.arm, (gx, gy, Z_CARRY), True, self.monitor)
+                if not ok9:
+                    tilt9 = self.motion("持ち上げる（ふつうの計画）", (gx, gy, Z_CARRY), False, True)
+                max_tilt = max(max_tilt, tilt9 or 0.0)
+            else:
+                max_tilt = max(max_tilt, self.motion("持ち上げる", (gx, gy, Z_CARRY), True, True))
             self.report(goal_handle, 10, "持ち上がったか確かめています")
             if self.use_camera:
                 # カメラ版：持ち上げた茶碗は腕に隠れて見えないので、指が茶碗をはさんだままかで判断する
