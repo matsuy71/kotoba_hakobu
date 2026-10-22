@@ -1,0 +1,32 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    container: ros:humble
+    steps:
+      - name: リポジトリを取ってくる
+        uses: actions/checkout@v4
+
+      - name: pymoveit2 を用意（動作を確かめた版に固定）
+        run: |
+          git clone https://github.com/AndrejOrsula/pymoveit2.git src/pymoveit2
+          cd src/pymoveit2
+          git checkout 33314af864f86403e33f33d0c47e0c303e81630b
+
+      - name: 依存する部品を入れる
+        run: |
+          apt-get update
+          apt-get install -y python3-pytest python3-opencv ros-humble-cv-bridge
+          rosdep update
+          rosdep install --from-paths src --ignore-src -y
+
+      - name: ビルドしてテストを実行
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build --packages-select kotoba_hakobu_interfaces pymoveit2 kotoba_hakobu
+          source install/setup.bash
+          python3 -m pytest src/kotoba_hakobu/test/test_logic.py -q
