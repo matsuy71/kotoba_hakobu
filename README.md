@@ -81,20 +81,16 @@
    source install/setup.bash
 ````
 
-### 起動（端末を5つ。学習方式を使わない場合は3つ）
+### 起動（端末を6つ。学習方式を使わない場合は3つ）
 
 | 端末 | コマンド |
 |---|---|
-| 1 シミュレータ | `ros2 launch crane_plus_gazebo crane_plus_with_table.launch.py world_name:=/workspace/src/kotoba_hakobu/worlds/chakai.sdf` |
+| 1 シミュレータ | `ros2 launch crane_plus_gazebo crane_plus_with_table.launch.py world_name:=/workspace/src/kotoba_hakobu/worlds/chakai.sdf`（起動後、RViz のウィンドウは閉じる。表示だけの係で、CPU を使う） |
 | 2 カメラの橋渡し | `ros2 run ros_gz_bridge parameter_bridge "/chakai_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image" "/chakai_camera/camera_info@sensor_msgs/msg/CameraInfo[ignition.msgs.CameraInfo"`（既定の構成とカメラ版で必要） |
-| 3 赤楽の ACT サーバー | pixi の環境を開いてから `python il/act_grasp_server_img.py --service /kotoba/act_grasp_red`（開き方と学習済みモデルの用意は [il/NOTES.md](il/NOTES.md) の9節。既定の構成で必要） |
-| 4 提供するサーバー | 既定（赤楽＝ACT・黒楽＝MoveIt）：`ros2 run kotoba_hakobu serve_server`<br>カメラ版：`ros2 run kotoba_hakobu serve_server --ros-args -p locator:=camera`<br>学習方式を使わない：`ros2 run kotoba_hakobu serve_server --ros-args -p grasp:=moveit`（この場合、端末2・3は不要） |
-| 5 亭主の操作盤 | `ros2 run kotoba_hakobu teishu_console` |
-
-- 新しい端末では、先に `source /workspace/install/setup.bash` を実行します。
-- シミュレータの起動に `use_camera:=true` は付けません（天井のカメラは、茶会の世界のファイルに入っています）。
-- 茶碗を最初の位置に戻すときは、シミュレータを起動し直します。
-
+| 3 縮め係 | `python3 -m kotoba_hakobu.camera_small_node`（元画像 640×480 を 160×120 に縮めて /kotoba/camera_small に配信する。ACT サーバーはこの小さい画像を使う。既定の構成で必要） |
+| 4 赤楽の ACT サーバー | pixi の環境を開いてから `python il/act_grasp_server_img.py --service /kotoba/act_grasp_red`（開き方と学習済みモデルの用意は [il/NOTES.md](il/NOTES.md) の9節。既定の構成で必要） |
+| 5 提供するサーバー | 既定（赤楽＝ACT・黒楽＝MoveIt）：`ros2 run kotoba_hakobu serve_server`<br>カメラ版：`ros2 run kotoba_hakobu serve_server --ros-args -p locator:=camera`<br>学習方式を使わない：`ros2 run kotoba_hakobu serve_server --ros-args -p grasp:=moveit`（この場合、端末2〜4は不要） |
+| 6 亭主の操作盤 | `ros2 run kotoba_hakobu teishu_console` |
 ## 評価の結果
 
 ### 読み取りの評価（言葉）
@@ -128,12 +124,13 @@
 
 ### 提供の評価（運ぶ）
 
-茶碗の置き場所と席を、乱数シードで決まるくじで変えながら、20回提供しました。真値版とカメラ版を、同じシードで比べています。
+茶碗の置き場所と席を、乱数シードで決まるくじで変えながら、20回提供しました。真値版とカメラ版（10/18、把持は MoveIt）と、本番構成（10/23、赤楽の把持は ACT）を、同じ乱数シードで比べています。
 
 | 位置の読み方 | 成功 | 置いた位置の誤差（平均/最大。真値との差）| カメラの誤差（平均/最大） | 傾き（最大） | 時間（平均） |
 |---|---|---|---|---|---|
 | 真値版 | 20/20 | 0.1 / 0.2 mm | 2.8 / 4.6 mm | 0.07度 | 38.2秒 |
 | カメラ版 | 20/20 | 0.1 / 0.1 mm | 2.8 / 4.6 mm | 0.07度 | 38.5秒 |
+| 本番構成（真値版・赤楽＝ACT） | 20/20 | 0.1 / 0.1 mm | 2.8 / 4.6 mm | 1.43度 | 43.9秒 |
 
 ![カメラの誤差](results/figures/fig2_camera_error.png)
 
@@ -155,7 +152,11 @@
 | ＋再試行・把持の自己判定・フォールバック | **20/20 完了** | 0 |
 
 - 最終形は本番にも採用し、**赤楽の把持は ACT が担当**しています（失敗は自分で
-  検知してつかみ直し、3回で決まらなければ MoveIt が引き継ぐ）
+  検知してつかみ直し、3回で決まらなければ MoveIt が引き継ぐ）。本番構成での提供の
+  評価（上の表の3行目）では赤楽10回のうち ACT が一発で把持 7・再試行で把持 2・
+  フォールバックの MoveIt が把持 1（机の端の角の置き場所）で、提供は 20/20 完了
+- 本番の長時間運転で初めて見つかった統合の欠陥（画像の通り道、評価道具の購読が
+  ACT の配信をとぎれさせていたこと）とその切り分けは [eval/NOTES.md](eval/NOTES.md)
 - **黒楽は学習方式を使いません**：黒い茶碗は黒いアームと画像上で溶け合い、位置が
   読み取れないことを立証しました（実機ではアームを明るい色に塗る解決策がある）
 - デモの設計（ねらいの実測）・評価指標の設計・診断の記録・立証の詳細は
@@ -197,6 +198,7 @@ push のたびに、GitHub Actions（CI）が ROS 2 Humble のコンテナで同
 | `src/kotoba_hakobu/kotoba_hakobu/serve_server.py` | 提供するサーバー（15段階・把持の振り分け・安全に止まる） |
 | `src/kotoba_hakobu/kotoba_hakobu/bowl_locator.py` | 茶碗の位置を教える部品（真値版） |
 | `src/kotoba_hakobu/kotoba_hakobu/camera_locator.py` | 茶碗の位置を教える部品（カメラ版）と、真値と比べる道具 |
+| `src/kotoba_hakobu/kotoba_hakobu/camera_small_node.py` | 縮め係（元画像を 160×120 に縮めて配信。ACT サーバーの入口） |
 | `src/kotoba_hakobu/kotoba_hakobu/collect_grasp_demos.py` | 把持のデモ収集（MoveIt の動きを記録。ずらして立て直す修正デモも） |
 | `il/` | 模倣学習（ACT）一式：変換・学習・推論サーバー・評価・設定・記録（[il/NOTES.md](il/NOTES.md)） |
 | `src/kotoba_hakobu/worlds/chakai.sdf` | 茶会の世界（茶碗2つ・席3つ・天井のカメラ） |
