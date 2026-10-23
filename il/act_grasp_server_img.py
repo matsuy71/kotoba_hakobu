@@ -57,7 +57,7 @@ LOOKAHEAD = 10                # 目標を、差の何コマ分先に置くか（
 
 
 class ActGraspImgServer(Node):
-    def __init__(self, model_path, dataset_root, repo_id, service, threads):
+    def __init__(self, model_path, dataset_root, repo_id, service, threads, self_shrink=False):
         super().__init__(service.strip("/").replace("/", "_") + "_server")
         torch.set_num_threads(threads)
 
@@ -82,8 +82,12 @@ class ActGraspImgServer(Node):
         self.arm_pub = self.create_publisher(JointTrajectory, "/crane_plus_arm_controller/joint_trajectory", 10)
         self.hand_pub = self.create_publisher(JointTrajectory, "/crane_plus_gripper_controller/joint_trajectory", 10)
         self.create_subscription(JointState, "/joint_states", self.on_joint_states, 10)
+       # 既定では小さい画像（縮め係 camera_small_node が配信）だけを聞く。本番採用の試験と同じ通り道。
+        # 元画像を自分で縮める動作（--self-shrink）は、重い画像の受け取りが推論の邪魔をするため既定では使わない
         self.create_subscription(Image, CAM_TOPIC, self.on_image, qos_profile_sensor_data)
-        self.create_subscription(Image, CAM_RAW, self.on_image, qos_profile_sensor_data)
+        if self_shrink:
+            self.create_subscription(Image, CAM_RAW, self.on_image, qos_profile_sensor_data)
+        self.get_logger().info("画像の入口：" + ("元画像を自分で縮める" if self_shrink else f"{CAM_TOPIC}（縮め係が必要）"))
         self.create_service(ActGrasp, service, self.on_request,
                             callback_group=MutuallyExclusiveCallbackGroup())
         self.get_logger().info(f"画像つき ACT を読みこんだ（{model_path}・窓口 {service}・スレッド{torch.get_num_threads()}）。頼まれるのを待つ")
@@ -201,10 +205,13 @@ def main():
     parser.add_argument("--repo-id", default=REPO_ID)
     parser.add_argument("--service", default="/kotoba/act_grasp")
     parser.add_argument("--threads", type=int, default=4)
+    parser.add_argument("--self-shrink", action="store_true",
+                        help="縮め係がいない編成で、元画像を自分で縮める（既定では使わない）")
     args = parser.parse_args()
 
     rclpy.init()
-    node = ActGraspImgServer(args.model_path, args.dataset_root, args.repo_id, args.service, args.threads)
+    node = ActGraspImgServer(args.model_path, args.dataset_root, args.repo_id, args.service, args.threads,
+                             self_shrink=args.self_shrink)
     executor = MultiThreadedExecutor(num_threads=2)
     executor.add_node(node)
     try:

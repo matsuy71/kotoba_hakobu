@@ -8,6 +8,7 @@ import numpy as np
 import rclpy
 from cv_bridge import CvBridge
 from rclpy.executors import SingleThreadedExecutor
+from rclpy.qos import qos_profile_sensor_data
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 
@@ -55,7 +56,9 @@ class CameraLocator:
         self.bridge = CvBridge()
         self.lock = threading.Lock()
         self.image, self.received = None, 0.0
-        node.create_subscription(Image, IMAGE_TOPIC, self.on_image, 1)
+        # 画像は「取りこぼし可（best effort）」で受け取る。確実配送にすると、大きな画像の再送が
+        # 通り道を詰まらせ、同じカメラを見ている ACT サーバーまで配信がとぎれる（2026-10-23 に判明）
+        node.create_subscription(Image, IMAGE_TOPIC, self.on_image, qos_profile_sensor_data)
 
     def on_image(self, msg):
         image = self.bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
