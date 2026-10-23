@@ -24,7 +24,9 @@ import rclpy
 from rclpy.executors import MultiThreadedExecutor
 
 from kotoba_hakobu import planning_scene as scene
-from kotoba_hakobu.bowl_locator import TruePoseLocator
+from kotoba_hakobu.bowl_locator import BOWL_NAMES, TruePoseLocator
+from kotoba_hakobu.eval_serve import SETTLE_SEC, set_pose
+from kotoba_hakobu.serve_server import SEATS
 import kotoba_hakobu.collect_grasp_demos as cgd
 from kotoba_hakobu.collect_grasp_demos import BOWL, GRASP_EMPTY_DEG, Collector, pick_place, place_bowl
 from kotoba_hakobu.try_grasp import hand_angle
@@ -72,13 +74,19 @@ def bad_grip(ok, angle):
     """つかみ直すべき状態か。空振り（35度近くまで閉じた）と、ふち挟み（15度未満）を失敗扱いにする。"""
     return (not ok) or angle is None or angle >= GRASP_EMPTY_DEG or angle < GRIP_MIN_DEG
 
-def run_trial(node, client, locator, method, x, y, aim_left, retries, fallback):
+def run_trial(node, client, locator, method, x, y, aim_left, retries, fallback, other_at="park"):
     """1回試す。結果の辞書を返す。
     retries > 0 のとき（act のみ）：空振り・安全停止なら、開いて戻ってやり直す（やり直しの輪）。
-    fallback が真のとき（act のみ）：やり直しても挟めなければ、控えの MoveIt が引き継ぐ（案ろ）。"""
+    fallback が真のとき（act のみ）：やり直しても挟めなければ、控えの MoveIt が引き継ぐ（案ろ）。
+    other_at：もう片方の茶碗の置き場所。park＝退避（手本・本試験と同じ）、席の名前＝本番の景色の再現。"""
     bowl = place_bowl(locator, x, y)
     if bowl is None:
         return {"lifted": False, "bumped": False, "reason": "茶碗を置き直せなかった"}
+    if other_at != "park":
+        # 本番では、先に提供した茶碗が席に置かれた状態で次の茶碗をつかみに行く。その景色を再現する
+        sx, sy = SEATS[other_at][1]
+        set_pose(BOWL_NAMES[cgd.OTHER], sx, sy)
+        time.sleep(SETTLE_SEC)
     node.go_home()
     set_gripper(node, node.gripper, GRIPPER_OPEN_DEG)
     gx, gy, _ = wrist_for(bowl["x"], bowl["y"], AIM_FORWARD, aim_left)
@@ -165,6 +173,10 @@ def main():
                     help="act がやり直しても挟めなければ、控えの MoveIt が引き継ぐ（案ろ）")
     ap.add_argument("--bowl", choices=["red", "black"], default="red",
                     help="試す茶碗。もう片方はよけておく")
+    ap.add_argument("--other-at", choices=["park", "shokyaku", "jikyaku", "sankyaku"], default="park",
+                    help="もう片方の茶碗の置き場所。park=退避（手本・本試験と同じ）、席の名前=本番の景色の再現")
+    ap.add_argument("--service", default="/kotoba/act_grasp",
+                    help="ACT のサービス名（本番の赤楽サーバーは /kotoba/act_grasp_red）")
     args = ap.parse_args()
     global BOWL
     BOWL = args.bowl
@@ -172,7 +184,7 @@ def main():
 
     rclpy.init()
     node = Collector()   # 手本を集めたときと同じ、腕と手を動かすノード（名前も collect_grasp_demos のまま）
-    client = node.create_client(ActGrasp, "/kotoba/act_grasp")
+    client = node.create_client(ActGrasp, args.service)
     executor = MultiThreadedExecutor(4)
     executor.add_node(node)
     threading.Thread(target=executor.spin, daemon=True).start()
@@ -195,7 +207,8 @@ def main():
         for i in range(args.trials):
             x, y = pick_place(rng)
             start = time.time()
-            res = run_trial(node, client, locator, args.method, x, y, args.aim_left, args.retries, args.fallback)
+            res = run_trial(node, client, locator, args.method, x, y, args.aim_left, args.retries, args.fallback, args.other_at)
+            res["other_at"] = args.other_at
             done += 1
             n_lifted += res["lifted"]
             n_bumped += res.get("bumped", False)
